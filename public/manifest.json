@@ -1,0 +1,21 @@
+{
+  "name": "Kinetics — Spring-physics motion for web interfaces",
+  "short_name": "Kinetics",
+  "description": "A library of spring-driven micro-interactions for web apps.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E0E10",
+  "theme_color": "#0E0E10",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

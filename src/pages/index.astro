@@ -11,6 +11,7 @@ import body from "../content/body.html?raw";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow" />
     <title>Kinetics — Spring-physics motion for web interfaces</title>
     <meta
       name="description"
@@ -20,6 +21,7 @@ import body from "../content/body.html?raw";
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0E0E10" />
 
     <!-- Open Graph -->
@@ -33,8 +35,11 @@ import body from "../content/body.html?raw";
       property="og:description"
       content="A library of spring-driven micro-interactions for web apps. Copy the CSS or React, tune the physics, ship the motion."
     />
-    <meta property="og:url" content="https://kinetics.dev/" />
-    <meta property="og:image" content="https://kinetics.dev/og-image.png" />
+    <meta property="og:url" content="https://kinetics.colorion.co/" />
+    <meta
+      property="og:image"
+      content="https://kinetics.colorion.co/og-image.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -52,21 +57,66 @@ import body from "../content/body.html?raw";
       name="twitter:description"
       content="A library of spring-driven micro-interactions for web apps. Copy the CSS or React, tune the physics, ship the motion."
     />
-    <meta name="twitter:image" content="https://kinetics.dev/og-image.png" />
+    <meta
+      name="twitter:image"
+      content="https://kinetics.colorion.co/og-image.png"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Critical CSS (render-blocking) -->
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/hero.css" />
-    <link rel="stylesheet" href="/css/gallery.css" />
-    <link rel="stylesheet" href="/css/effects-a.css" />
-    <link rel="stylesheet" href="/css/effects-b.css" />
-    <link rel="stylesheet" href="/css/effects-c.css" />
-    <link rel="stylesheet" href="/css/closing.css" />
+
+    <!-- Non-critical CSS (deferred) -->
+    <link
+      rel="preload"
+      href="/css/gallery.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/gallery.css" /></noscript>
+    <link
+      rel="preload"
+      href="/css/effects-a.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/effects-a.css" /></noscript>
+    <link
+      rel="preload"
+      href="/css/effects-b.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/effects-b.css" /></noscript>
+    <link
+      rel="preload"
+      href="/css/effects-c.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/effects-c.css" /></noscript>
+    <link
+      rel="preload"
+      href="/css/closing.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/closing.css" /></noscript>
 
     <!-- Privacy-friendly analytics by Plausible -->
     <script
@@ -85,6 +135,28 @@ import body from "../content/body.html?raw";
             plausible.o = i || {};
           }));
       plausible.init();
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Kinetics",
+        "description": "A library of spring-driven micro-interactions for web apps. Copy the CSS or React, tune the physics, ship the motion.",
+        "url": "https://kinetics.colorion.co/",
+        "image": "https://kinetics.colorion.co/og-image.png",
+        "author": {
+          "@type": "Person",
+          "name": "Csaba Kissi",
+          "url": "https://x.com/csaba_kissi"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://kinetics.colorion.co/#library",
+          "query-input": "required name=search_term_string"
+        }
+      }
     </script>
   </head>
   <body>

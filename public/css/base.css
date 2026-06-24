@@ -5,42 +5,48 @@
 
 :root {
   /* Surfaces */
-  --graphite:      #0E0E10;   /* page background */
-  --graphite-2:    #141417;   /* raised surface */
-  --card:          #1A1A1D;   /* card surface */
-  --card-2:        #232326;   /* inset / track */
-  --line:          #2A2A2E;   /* hairline borders */
+  --graphite: #0e0e10; /* page background */
+  --graphite-2: #141417; /* raised surface */
+  --card: #1a1a1d; /* card surface */
+  --card-2: #232326; /* inset / track */
+  --line: #2a2a2e; /* hairline borders */
 
   /* Ink */
-  --bone:          #EDE9E0;   /* primary text */
-  --bone-dim:      #A8A6A0;   /* secondary text */
-  --bone-faint:    #6E6C68;   /* tertiary text */
+  --bone: #ede9e0; /* primary text */
+  --bone-dim: #a8a6a0; /* secondary text */
+  --bone-faint: #6e6c68; /* tertiary text */
 
   /* Signal */
-  --amber:         #FF8A00;   /* primary accent */
-  --amber-deep:    #B36200;   /* accent shadow */
-  --wire:          #5B8DEF;   /* secondary / code accent */
-  --danger:        #FF5C5C;   /* error */
-  --ok:            #4CD08A;   /* success */
+  --amber: #ff8a00; /* primary accent */
+  --amber-deep: #b36200; /* accent shadow */
+  --wire: #5b8def; /* secondary / code accent */
+  --danger: #ff5c5c; /* error */
+  --ok: #4cd08a; /* success */
 
   /* Type */
-  --font-display: 'Archivo', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
   /* Metrics */
-  --wrap:   1180px;
+  --wrap: 1180px;
   --radius: 14px;
   --radius-sm: 9px;
 
   /* Motion */
-  --spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
-  --glide:   cubic-bezier(0.16, 1, 0.3, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --glide: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--graphite);
@@ -53,15 +59,36 @@ body {
   overflow-x: hidden;
 }
 
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-input { font-family: inherit; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+input {
+  font-family: inherit;
+}
 
-::selection { background: var(--amber); color: var(--graphite); }
+::selection {
+  background: var(--amber);
+  color: var(--graphite);
+}
 
-.mono { font-family: var(--font-mono); font-feature-settings: 'ss01'; }
-.dim  { color: var(--bone-dim); }
-.hidden { display: none !important; }
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "ss01";
+}
+.dim {
+  color: var(--bone-dim);
+}
+.hidden {
+  display: none !important;
+}
 
 /* ---- Layout ---- */
 .wrap {
@@ -71,7 +98,9 @@ input { font-family: inherit; }
   padding-inline: 28px;
 }
 
-.section { padding-block: clamp(56px, 8vw, 104px); }
+.section {
+  padding-block: clamp(56px, 8vw, 104px);
+}
 
 .section-head {
   display: flex;
@@ -89,7 +118,11 @@ input { font-family: inherit; }
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
-.section-head .count { color: var(--bone-faint); font-size: 13px; letter-spacing: 0.05em; }
+.section-head .count {
+  color: var(--bone-faint);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
 
 /* ---- Typography helpers ---- */
 .eyebrow {
@@ -107,7 +140,9 @@ input { font-family: inherit; }
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
-.h-display .accent { color: var(--amber); }
+.h-display .accent {
+  color: var(--amber);
+}
 
 /* ---- Header ---- */
 .site-header {
@@ -144,17 +179,31 @@ input { font-family: inherit; }
   animation: pulse-dot 2.4s var(--glide) infinite;
 }
 @keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 24%, transparent); }
-  50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--amber) 8%, transparent); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 24%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--amber) 8%, transparent);
+  }
 }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 18px;
   font-size: 14px;
 }
-.nav-links a { color: var(--bone-dim); transition: color 0.2s ease; }
-.nav-links a:hover { color: var(--bone); }
+.nav-links a {
+  color: var(--bone-dim);
+  transition: color 0.2s ease;
+  padding: 12px 6px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-links a:hover {
+  color: var(--bone);
+}
 
 /* ---- Header dropdown (Colorion network) ---- */
 .nav-dropdown {
@@ -167,15 +216,23 @@ input { font-family: inherit; }
   color: var(--bone-dim);
   font-size: 14px;
   font-family: var(--font-body);
+  padding: 12px 6px;
+  min-height: 48px;
   transition: color 0.2s ease;
 }
-.nav-dropdown-trigger:hover { color: var(--bone); }
+.nav-dropdown-trigger:hover {
+  color: var(--bone);
+}
 .nav-dropdown-trigger .caret {
   font-size: 15px;
   transition: transform 0.3s var(--spring);
 }
-.nav-dropdown.open .nav-dropdown-trigger .caret { transform: rotate(180deg); }
-.nav-dropdown.open .nav-dropdown-trigger { color: var(--bone); }
+.nav-dropdown.open .nav-dropdown-trigger .caret {
+  transform: rotate(180deg);
+}
+.nav-dropdown.open .nav-dropdown-trigger {
+  color: var(--bone);
+}
 
 .nav-dropdown-menu {
   position: absolute;
@@ -194,7 +251,10 @@ input { font-family: inherit; }
   visibility: hidden;
   transform: translateY(-6px) scale(0.98);
   transform-origin: top right;
-  transition: opacity 0.22s var(--glide), transform 0.3s var(--spring), visibility 0.22s;
+  transition:
+    opacity 0.22s var(--glide),
+    transform 0.3s var(--spring),
+    visibility 0.22s;
   z-index: 60;
 }
 .nav-dropdown.open .nav-dropdown-menu {
@@ -207,7 +267,9 @@ input { font-family: inherit; }
   border-radius: 7px;
   font-size: 13px;
   color: var(--bone-dim);
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 .nav-dropdown-menu a:hover {
   background: var(--card-2);
@@ -220,9 +282,14 @@ input { font-family: inherit; }
   padding: 8px 14px;
   border: 1px solid var(--line);
   border-radius: 100px;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
-.btn-ghost:hover { color: var(--bone); border-color: var(--bone-faint); }
+.btn-ghost:hover {
+  color: var(--bone);
+  border-color: var(--bone-faint);
+}
 
 /* ---- Buttons ---- */
 .btn-primary,
@@ -235,30 +302,47 @@ input { font-family: inherit; }
   font-size: 15px;
   padding: 13px 22px;
   border-radius: 100px;
-  transition: transform 0.3s var(--spring), background 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.3s var(--spring),
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 .btn-primary {
   background: var(--amber);
   color: var(--graphite);
-  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--amber) 70%, transparent);
+  box-shadow: 0 10px 30px -12px
+    color-mix(in srgb, var(--amber) 70%, transparent);
 }
-.btn-primary:hover { transform: translateY(-2px); }
-.btn-primary:active { transform: translateY(0) scale(0.98); }
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
 .btn-secondary {
   background: var(--card);
   color: var(--bone);
   border: 1px solid var(--line);
   font-size: 14px;
 }
-.btn-secondary:hover { border-color: var(--bone-faint); transform: translateY(-2px); }
-.btn-secondary:active { transform: translateY(0) scale(0.98); }
+.btn-secondary:hover {
+  border-color: var(--bone-faint);
+  transform: translateY(-2px);
+}
+.btn-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
 
 @media (max-width: 720px) {
-  .nav-links { display: none; }
+  .nav-links {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;

@@ -1,13 +1,81 @@
-# build output
-dist/
-# generated types
-.astro/
-# dependencies
+# ---------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------
 node_modules/
-# logs
+.pnp/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ---------------------------------------------------------
+# Build output / generated
+# ---------------------------------------------------------
+dist/
+build/
+.output/
+.vercel/
+.netlify/
+.astro/
+
+# ---------------------------------------------------------
+# Caches
+# ---------------------------------------------------------
+.cache/
+.temp/
+.tmp/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ---------------------------------------------------------
+# Logs
+# ---------------------------------------------------------
+logs/
+*.log
 npm-debug.log*
-# environment variables
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------------------------------------------------------
+# Environment / secrets
+# ---------------------------------------------------------
 .env
-.env.production
-# macOS
+.env.*
+!.env.example
+*.pem
+
+# ---------------------------------------------------------
+# Editor / IDE
+# ---------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---------------------------------------------------------
+# AI assistant / tooling (kept out of the published repo)
+# ---------------------------------------------------------
+.claude/
+CLAUDE.md
+.cursor/
+.aider*
+
+# ---------------------------------------------------------
+# OS files
+# ---------------------------------------------------------
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini

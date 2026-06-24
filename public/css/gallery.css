@@ -8,8 +8,16 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
-@media (max-width: 940px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
+@media (max-width: 940px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ---- Card shell ---- */
 .card {
@@ -19,12 +27,15 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s var(--glide), box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s var(--glide),
+    box-shadow 0.3s ease;
 }
 .card:hover {
   border-color: color-mix(in srgb, var(--bone-faint) 70%, transparent);
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px -24px rgba(0,0,0,0.8);
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
 }
 
 .card-stage {
@@ -34,8 +45,11 @@
   justify-content: center;
   min-height: 190px;
   padding: 26px;
-  background:
-    radial-gradient(120% 90% at 50% 0%, var(--graphite-2), var(--card));
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    var(--graphite-2),
+    var(--card)
+  );
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -52,7 +66,9 @@
   border: 1px solid var(--line);
 }
 
-.card-foot { padding: 16px 18px; }
+.card-foot {
+  padding: 16px 18px;
+}
 .card-foot .row {
   display: flex;
   align-items: flex-start;
@@ -76,18 +92,31 @@
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--bone-dim);
-  padding: 6px 11px;
+  padding: 13px 16px;
+  min-height: 48px;
   border: 1px solid var(--line);
   border-radius: 100px;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
-.view-code:hover { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 50%, transparent); }
-.view-code.active { color: var(--graphite); background: var(--amber); border-color: var(--amber); }
+.view-code:hover {
+  color: var(--amber);
+  border-color: color-mix(in srgb, var(--amber) 50%, transparent);
+}
+.view-code.active {
+  color: var(--graphite);
+  background: var(--amber);
+  border-color: var(--amber);
+}
 
 /* ---- Code panel ---- */
 /* The inline .code-panel is now just a hidden template; its tabs + body are
    cloned into the shared modal when "View code" is clicked. */
-.code-panel { display: none; }
+.code-panel {
+  display: none;
+}
 
 .code-tabs {
   display: flex;
@@ -101,10 +130,17 @@
   color: var(--bone-faint);
   padding: 6px 12px;
   border-radius: 7px 7px 0 0;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
-.code-tab:hover { color: var(--bone-dim); }
-.code-tab.active { color: var(--amber); background: var(--card); }
+.code-tab:hover {
+  color: var(--bone-dim);
+}
+.code-tab.active {
+  color: var(--amber);
+  background: var(--card);
+}
 
 .code-body {
   position: relative;
@@ -125,10 +161,18 @@
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--graphite-2);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
-.copy-btn:hover { color: var(--bone); border-color: var(--bone-faint); }
-.copy-btn.copied { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 50%, transparent); }
+.copy-btn:hover {
+  color: var(--bone);
+  border-color: var(--bone-faint);
+}
+.copy-btn.copied {
+  color: var(--ok);
+  border-color: color-mix(in srgb, var(--ok) 50%, transparent);
+}
 
 .code-body pre {
   margin: 0;
@@ -141,17 +185,29 @@
   color: #c9d3e0;
   tab-size: 2;
 }
-.code-body pre[data-lang="css"] code   { color: #c9d3e0; }
-.code-body pre[data-lang="react"] code { color: #d7c9e0; }
+.code-body pre[data-lang="css"] code {
+  color: #c9d3e0;
+}
+.code-body pre[data-lang="react"] code {
+  color: #d7c9e0;
+}
 /* Prompt tab holds prose — wrap it and tint it warm */
 .code-body pre[data-lang="prompt"] {
   white-space: pre-wrap;
   word-break: break-word;
   line-height: 1.72;
 }
-.code-body pre[data-lang="prompt"] code { color: #ddd6c6; }
-.code-body pre::-webkit-scrollbar { height: 8px; width: 8px; }
-.code-body pre::-webkit-scrollbar-thumb { background: var(--card-2); border-radius: 100px; }
+.code-body pre[data-lang="prompt"] code {
+  color: #ddd6c6;
+}
+.code-body pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.code-body pre::-webkit-scrollbar-thumb {
+  background: var(--card-2);
+  border-radius: 100px;
+}
 
 /* ---- Code modal ---- */
 .code-modal {
@@ -163,7 +219,9 @@
   justify-content: center;
   padding: 24px;
 }
-.code-modal[hidden] { display: none; }
+.code-modal[hidden] {
+  display: none;
+}
 .code-modal-backdrop {
   position: absolute;
   inset: 0;
@@ -173,7 +231,9 @@
   opacity: 0;
   transition: opacity 0.25s ease;
 }
-.code-modal.open .code-modal-backdrop { opacity: 1; }
+.code-modal.open .code-modal-backdrop {
+  opacity: 1;
+}
 .code-modal-dialog {
   position: relative;
   width: 100%;
@@ -188,9 +248,14 @@
   overflow: hidden;
   transform: translateY(14px) scale(0.97);
   opacity: 0;
-  transition: transform 0.32s var(--spring), opacity 0.25s ease;
+  transition:
+    transform 0.32s var(--spring),
+    opacity 0.25s ease;
 }
-.code-modal.open .code-modal-dialog { transform: translateY(0) scale(1); opacity: 1; }
+.code-modal.open .code-modal-dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
 .code-modal-head {
   display: flex;
   align-items: center;
@@ -224,15 +289,30 @@
   border-radius: 8px;
   color: var(--bone-dim);
   font-size: 15px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
-.code-modal-close:hover { color: var(--bone); border-color: var(--bone-faint); }
-.code-modal-content { overflow: auto; }
+.code-modal-close:hover {
+  color: var(--bone);
+  border-color: var(--bone-faint);
+}
+.code-modal-content {
+  overflow: auto;
+}
 /* Inside the modal the cloned panel must be visible again */
-.code-modal-content .code-panel { display: block; }
-.code-modal-content .code-tabs { padding: 12px 14px 0; }
-.code-modal-content .code-body pre { max-height: none; }
+.code-modal-content .code-panel {
+  display: block;
+}
+.code-modal-content .code-tabs {
+  padding: 12px 14px 0;
+}
+.code-modal-content .code-body pre {
+  max-height: none;
+}
 
 @media (max-width: 560px) {
-  .code-modal { padding: 14px; }
+  .code-modal {
+    padding: 14px;
+  }
 }

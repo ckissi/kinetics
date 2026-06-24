@@ -378,8 +378,9 @@
                   position: absolute;
                   top: 16px;
                   left: 16px;
-                  padding: 8px 16px;
-                  font-size: 12px;
+                  padding: 14px 20px;
+                  font-size: 13px;
+                  min-height: 48px;
                 "
               >
                 Trigger
@@ -1587,6 +1588,7 @@
                 class="demo-pwd-input"
                 type="text"
                 placeholder="Type a password"
+                aria-label="Password"
               />
               <div class="demo-pwd-meter">
                 <span></span><span></span><span></span><span></span>
@@ -2059,7 +2061,7 @@ function useScramble(text) {
         <div class="card">
           <div class="card-stage">
             <div class="card-param mono">draw(400ms)</div>
-            <a href="#" class="demo-underline-link">Hover this link</a>
+            <a href="https://github.com/ckissi/kinetics" class="demo-underline-link" target="_blank" rel="noopener">Hover this link</a>
           </div>
           <div class="card-foot">
             <div class="row">
@@ -3207,11 +3209,11 @@ function useScramble(text) {
           <div class="card-stage">
             <div class="card-param mono">shake(cubic, 450ms)</div>
             <div class="demo-shake-zone">
-              <input class="demo-shake-input" placeholder="you@example.com" />
+              <input class="demo-shake-input" placeholder="you@example.com" aria-label="Email address" />
               <div class="demo-shake-err">Please enter a valid email.</div>
               <button
                 class="demo-shake-trigger demo-ripple-btn"
-                style="padding: 6px 14px; font-size: 11px; margin-top: 4px"
+                style="padding: 14px 20px; font-size: 13px; margin-top: 4px; min-height: 48px"
               >
                 Submit invalid
               </button>
@@ -4569,10 +4571,11 @@ function useScramble(text) {
         </div>
         <div class="physics-demo-card">
           <div class="physics-row">
-            <label>stiffness</label>
+            <label for="stiff-slider">stiffness</label>
             <input
               type="range"
               id="stiff-slider"
+              aria-labelledby="stiff-val"
               min="80"
               max="500"
               value="320"
@@ -4580,8 +4583,8 @@ function useScramble(text) {
             <span class="mono" id="stiff-val">320</span>
           </div>
           <div class="physics-row">
-            <label>damping</label>
-            <input type="range" id="damp-slider" min="5" max="50" value="24" />
+            <label for="damp-slider">damping</label>
+            <input type="range" id="damp-slider" aria-labelledby="damp-val" min="5" max="50" value="24" />
             <span class="mono" id="damp-val">24</span>
           </div>
           <div class="physics-stage">
