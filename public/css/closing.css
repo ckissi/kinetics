@@ -116,6 +116,23 @@
 .footer-links a { color: var(--bone-dim); transition: color 0.2s ease; }
 .footer-links a:hover { color: var(--amber); }
 
+.footer-badge {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  opacity: .85;
+  transition: opacity .2s;
+}
+.footer-badge:hover,
+.footer-badge:focus-visible {
+  opacity: 1;
+}
+.footer-badge img {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+
 @media (max-width: 760px) {
   .physics-grid { grid-template-columns: 1fr; }
 }

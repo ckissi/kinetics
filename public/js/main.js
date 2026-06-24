@@ -882,4 +882,24 @@
     });
   });
 
+  /* Header dropdown — Colorion network links */
+  $$('.nav-dropdown').forEach((drop) => {
+    const trigger = $('.nav-dropdown-trigger', drop);
+    const close = () => {
+      drop.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = drop.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e) => {
+      if (!drop.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  });
+
 })();
