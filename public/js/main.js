@@ -882,6 +882,247 @@
     });
   });
 
+  /* ---------------------------------------------------------
+     22. Swipe to reveal
+  --------------------------------------------------------- */
+  $$('.demo-swipe-item').forEach((item) => {
+    let startX = 0, dx = 0, dragging = false;
+    const down = (e) => {
+      dragging = true; startX = e.clientX; dx = 0;
+      item.classList.add('dragging');
+      item.classList.remove('open');
+      item.setPointerCapture(e.pointerId);
+    };
+    const move = (e) => {
+      if (!dragging) return;
+      dx = Math.min(0, e.clientX - startX);
+      item.style.transform = `translateX(${dx}px)`;
+    };
+    const up = () => {
+      if (!dragging) return;
+      dragging = false;
+      item.classList.remove('dragging');
+      item.style.transform = '';
+      if (dx <= -96) item.classList.add('open');
+    };
+    item.addEventListener('pointerdown', down);
+    item.addEventListener('pointermove', move);
+    item.addEventListener('pointerup', up);
+    item.addEventListener('pointercancel', up);
+  });
+
+  /* ---------------------------------------------------------
+     23. Rotary knob
+  --------------------------------------------------------- */
+  $$('.demo-knob').forEach((knob) => {
+    const zone = knob.closest('.demo-knob-zone');
+    const val = $('.demo-knob-val', zone);
+    const fill = $('.demo-knob-arc .fill', zone);
+    const MAX = 270, STEPS = 10, C = 2 * Math.PI * 45, POINTER_OFFSET = 225;
+    let angle = 0, dragging = false, prevA = 0;
+
+    const getAngle = (e) => {
+      const r = knob.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI + 90;
+    };
+    const apply = (a) => {
+      angle = a;
+      knob.style.transform = `rotate(${a + POINTER_OFFSET}deg)`;
+      if (val) val.textContent = Math.round((a / MAX) * 100);
+      if (fill) fill.style.strokeDashoffset = C * (1 - a / 360);
+    };
+    const down = (e) => {
+      dragging = true;
+      knob.classList.add('dragging');
+      prevA = getAngle(e);
+      knob.setPointerCapture(e.pointerId);
+    };
+    const move = (e) => {
+      if (!dragging) return;
+      const cur = getAngle(e);
+      let delta = cur - prevA;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      prevA = cur;
+      apply(Math.min(MAX, Math.max(0, angle + delta)));
+    };
+    const up = () => {
+      if (!dragging) return;
+      dragging = false;
+      knob.classList.remove('dragging');
+      const detent = MAX / STEPS;
+      apply(Math.round(angle / detent) * detent);
+    };
+    knob.addEventListener('pointerdown', down);
+    knob.addEventListener('pointermove', move);
+    knob.addEventListener('pointerup', up);
+    knob.addEventListener('pointercancel', up);
+    apply(0);
+  });
+
+  /* ---------------------------------------------------------
+     24. Reorderable list
+  --------------------------------------------------------- */
+  $$('.demo-reorder').forEach((list) => {
+    const items = $$('.demo-reorder-item', list);
+    let dragEl = null, startY = 0, dragOffset = 0;
+
+    const renumber = () => {
+      $$('.demo-reorder-num', list).forEach((n, i) => { n.textContent = i + 1; });
+    };
+
+    items.forEach((item) => {
+      const down = (e) => {
+        dragEl = item;
+        startY = e.clientY;
+        const r = item.getBoundingClientRect();
+        dragOffset = 0;
+        item.classList.add('dragging');
+        item.setPointerCapture(e.pointerId);
+      };
+      const move = (e) => {
+        if (!dragEl || dragEl !== item) return;
+        dragOffset = e.clientY - startY;
+        item.style.transform = `translateY(${dragOffset}px)`;
+
+        const r = item.getBoundingClientRect();
+        const midY = r.top + r.height / 2;
+        const others = $$('.demo-reorder-item', list).filter((el) => el !== item);
+        for (const other of others) {
+          const or = other.getBoundingClientRect();
+          const oMid = or.top + or.height / 2;
+          if (dragOffset < 0 && midY < oMid && other.previousElementSibling !== item) {
+            list.insertBefore(item, other);
+            startY = e.clientY;
+            item.style.transform = '';
+            dragOffset = 0;
+            break;
+          } else if (dragOffset > 0 && midY > oMid && other.nextElementSibling !== item) {
+            if (other.nextElementSibling) {
+              list.insertBefore(item, other.nextElementSibling);
+            } else {
+              list.appendChild(item);
+            }
+            startY = e.clientY;
+            item.style.transform = '';
+            dragOffset = 0;
+            break;
+          }
+        }
+        renumber();
+      };
+      const up = () => {
+        if (!dragEl) return;
+        item.classList.remove('dragging');
+        item.style.transform = '';
+        dragEl = null;
+        renumber();
+      };
+      item.addEventListener('pointerdown', down);
+      item.addEventListener('pointermove', move);
+      item.addEventListener('pointerup', up);
+      item.addEventListener('pointercancel', up);
+    });
+  });
+
+  /* ---------------------------------------------------------
+     22b. Countdown ring
+  --------------------------------------------------------- */
+  $$('.demo-countdown').forEach((cd) => {
+    const zone = cd.closest('.demo-countdown-zone');
+    const label = $('.demo-countdown-label', zone);
+    const num = $('.demo-countdown-num', cd);
+    const prog = $('.prog', cd);
+    const C = 2 * Math.PI * 34;
+    const SECONDS = 5;
+    let running = false;
+
+    const setVal = (n) => {
+      if (num) num.textContent = n;
+      if (prog) {
+        prog.style.strokeDashoffset = C * (1 - n / SECONDS);
+      }
+    };
+
+    cd.addEventListener('click', () => {
+      if (running) return;
+      running = true;
+      cd.classList.remove('done');
+      if (label) label.textContent = 'Running…';
+      let n = SECONDS;
+      setVal(n);
+      const tick = () => {
+        n--;
+        setVal(n);
+        if (n <= 0) {
+          running = false;
+          cd.classList.add('done');
+          if (label) label.textContent = 'Done! Tap to restart';
+          setTimeout(() => {
+            cd.classList.remove('done');
+            if (label) label.textContent = 'Tap to start';
+            setVal(SECONDS);
+          }, 1800);
+        } else {
+          setTimeout(tick, 1000);
+        }
+      };
+      setTimeout(tick, 1000);
+    });
+    setVal(SECONDS);
+  });
+
+  /* ---------------------------------------------------------
+     23b. Skeleton to content
+  --------------------------------------------------------- */
+  $$('.demo-skel-content').forEach((el) => {
+    el.addEventListener('click', () => {
+      el.classList.toggle('loaded');
+    });
+  });
+
+  /* ---------------------------------------------------------
+     24b. Toast stack
+  --------------------------------------------------------- */
+  $$('.demo-toaststack-trigger').forEach((btn) => {
+    const zone = btn.closest('.demo-toaststack-zone');
+    const stack = $('.demo-toaststack', zone);
+    const MAX = 3;
+    let counter = 0;
+
+    btn.addEventListener('click', () => {
+      counter++;
+      const item = document.createElement('div');
+      item.className = 'demo-toaststack-item';
+      item.innerHTML = '<span class="demo-toaststack-dot"></span> Saved #' + counter;
+      stack.appendChild(item);
+
+      while (stack.children.length > MAX) {
+        const old = stack.firstElementChild;
+        old.classList.add('hide');
+        setTimeout(() => old.remove(), 400);
+      }
+
+      requestAnimationFrame(() => item.classList.add('show'));
+
+      setTimeout(() => {
+        item.classList.remove('show');
+        item.classList.add('hide');
+        setTimeout(() => item.remove(), 400);
+      }, 2400);
+    });
+  });
+
+  /* ---------------------------------------------------------
+     22c. Text split reveal (hover toggle)
+  --------------------------------------------------------- */
+  $$('.demo-split').forEach((el) => {
+    el.addEventListener('mouseenter', () => el.classList.add('in'));
+    el.addEventListener('mouseleave', () => el.classList.remove('in'));
+  });
+
   /* Header dropdown — Colorion network links */
   $$('.nav-dropdown').forEach((drop) => {
     const trigger = $('.nav-dropdown-trigger', drop);

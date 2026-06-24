@@ -22,8 +22,13 @@
   outline: none;
   transition: border-color 0.2s ease;
 }
-.demo-shake-input::placeholder { color: var(--bone-faint); }
-.demo-shake-input.error { border-color: var(--danger); animation: shake-x 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+.demo-shake-input::placeholder {
+  color: var(--bone-faint);
+}
+.demo-shake-input.error {
+  border-color: var(--danger);
+  animation: shake-x 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
 .demo-shake-err {
   width: 100%;
   font-size: 11px;
@@ -32,16 +37,34 @@
   height: 0;
   transition: opacity 0.2s ease;
 }
-.demo-shake-zone.invalid .demo-shake-err { opacity: 1; height: auto; }
+.demo-shake-zone.invalid .demo-shake-err {
+  opacity: 1;
+  height: auto;
+}
 @keyframes shake-x {
-  10%, 90% { transform: translateX(-1px); }
-  20%, 80% { transform: translateX(2px); }
-  30%, 50%, 70% { transform: translateX(-4px); }
-  40%, 60% { transform: translateX(4px); }
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
 }
 
 /* 18. Confetti burst */
-.demo-confetti-zone { position: relative; }
+.demo-confetti-zone {
+  position: relative;
+}
 .demo-confetti-btn {
   padding: 13px 24px;
   background: var(--amber);
@@ -51,7 +74,9 @@
   border-radius: 100px;
   transition: transform 0.2s var(--spring);
 }
-.demo-confetti-btn:active { transform: scale(0.94); }
+.demo-confetti-btn:active {
+  transform: scale(0.94);
+}
 .confetti-particle {
   position: absolute;
   top: 50%;
@@ -63,12 +88,20 @@
   animation: confetti-fly 0.9s var(--glide) forwards;
 }
 @keyframes confetti-fly {
-  0%   { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
-  100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+    opacity: 0;
+  }
 }
 
 /* 19. Parallax tilt */
-.demo-tilt-zone { perspective: 800px; }
+.demo-tilt-zone {
+  perspective: 800px;
+}
 .demo-tilt-card {
   position: relative;
   display: flex;
@@ -92,7 +125,11 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--amber) 40%, transparent), transparent 65%);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--amber) 40%, transparent),
+    transparent 65%
+  );
   pointer-events: none;
   transform: translate(-50%, -50%);
   left: 50%;
@@ -100,10 +137,15 @@
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.demo-tilt-card:hover .glow { opacity: 1; }
+.demo-tilt-card:hover .glow {
+  opacity: 1;
+}
 
 /* 20. Wave loader */
-.demo-dots { display: flex; gap: 7px; }
+.demo-dots {
+  display: flex;
+  gap: 7px;
+}
 .demo-dots span {
   width: 11px;
   height: 11px;
@@ -111,12 +153,26 @@
   background: var(--amber);
   animation: dot-wave 1.1s ease-in-out infinite;
 }
-.demo-dots span:nth-child(2) { animation-delay: 0.12s; }
-.demo-dots span:nth-child(3) { animation-delay: 0.24s; }
-.demo-dots span:nth-child(4) { animation-delay: 0.36s; }
+.demo-dots span:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.demo-dots span:nth-child(3) {
+  animation-delay: 0.24s;
+}
+.demo-dots span:nth-child(4) {
+  animation-delay: 0.36s;
+}
 @keyframes dot-wave {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30%           { transform: translateY(-12px); opacity: 1; }
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-12px);
+    opacity: 1;
+  }
 }
 
 /* 21. Skeleton sweep */
@@ -129,14 +185,25 @@
 .demo-skel-line {
   height: 12px;
   border-radius: 6px;
-  background: linear-gradient(90deg, var(--card-2) 25%, #34343a 50%, var(--card-2) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--card-2) 25%,
+    #34343a 50%,
+    var(--card-2) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer-sweep 1.4s ease-in-out infinite;
 }
-.demo-skel-line.short { width: 60%; }
+.demo-skel-line.short {
+  width: 60%;
+}
 @keyframes shimmer-sweep {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* 22. Page peel */
@@ -159,11 +226,21 @@
   font-size: 14px;
   transform-origin: left center;
   backface-visibility: hidden;
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.6s ease;
+  transition:
+    transform 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.6s ease;
 }
-.demo-peel-card:first-child { background: var(--graphite-2); color: var(--bone-dim); }
-.demo-peel-card.peeled { transform: rotateY(-130deg) translateX(-20px); opacity: 0; }
-.demo-peel-trigger { z-index: 3; }
+.demo-peel-card:first-child {
+  background: var(--graphite-2);
+  color: var(--bone-dim);
+}
+.demo-peel-card.peeled {
+  transform: rotateY(-130deg) translateX(-20px);
+  opacity: 0;
+}
+.demo-peel-trigger {
+  z-index: 3;
+}
 
 /* 23. Cursor spotlight */
 .demo-spotlight-zone {
@@ -184,7 +261,11 @@
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--amber) 22%, transparent), transparent 70%);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--amber) 22%, transparent),
+    transparent 70%
+  );
   transform: translate(-50%, -50%);
   left: -200px;
   top: -200px;
@@ -205,91 +286,201 @@
    ─────────────────────────────────────────────── */
 
 /* 8. Flip card */
-.demo-flip-zone { perspective: 800px; }
+.demo-flip-zone {
+  perspective: 800px;
+}
 .demo-flip-card {
-  position: relative; width: 150px; height: 110px;
-  transform-style: preserve-3d; cursor: pointer;
+  position: relative;
+  width: 150px;
+  height: 110px;
+  transform-style: preserve-3d;
+  cursor: pointer;
   transition: transform 0.6s var(--spring);
 }
-.demo-flip-card.flipped { transform: rotateY(180deg); }
-.demo-flip-face {
-  position: absolute; inset: 0;
-  display: grid; place-items: center;
-  border-radius: var(--radius); border: 1px solid var(--line);
-  backface-visibility: hidden; font-weight: 600; font-size: 14px;
+.demo-flip-card.flipped {
+  transform: rotateY(180deg);
 }
-.demo-flip-face.front { background: var(--card-2); color: var(--bone); }
-.demo-flip-face.back { background: var(--amber); color: var(--graphite); transform: rotateY(180deg); }
+.demo-flip-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  backface-visibility: hidden;
+  font-weight: 600;
+  font-size: 14px;
+}
+.demo-flip-face.front {
+  background: var(--card-2);
+  color: var(--bone);
+}
+.demo-flip-face.back {
+  background: var(--amber);
+  color: var(--graphite);
+  transform: rotateY(180deg);
+}
 
 /* 9. Glitch text */
 .demo-glitch {
-  position: relative; font-family: var(--font-display); font-weight: 900;
-  font-size: 34px; letter-spacing: -0.02em; color: var(--bone);
-  cursor: pointer; user-select: none;
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 34px;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+  cursor: pointer;
+  user-select: none;
 }
 .demo-glitch::before,
 .demo-glitch::after {
-  content: attr(data-text); position: absolute; left: 0; top: 0;
-  width: 100%; overflow: hidden; opacity: 0; pointer-events: none;
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
-.demo-glitch::before { color: var(--danger); }
-.demo-glitch::after { color: var(--wire); }
-.demo-glitch:hover::before { opacity: 0.85; animation: glitch-a 0.4s steps(2) infinite; }
-.demo-glitch:hover::after  { opacity: 0.85; animation: glitch-b 0.4s steps(2) infinite; }
+.demo-glitch::before {
+  color: var(--danger);
+}
+.demo-glitch::after {
+  color: var(--wire);
+}
+.demo-glitch:hover::before {
+  opacity: 0.85;
+  animation: glitch-a 0.4s steps(2) infinite;
+}
+.demo-glitch:hover::after {
+  opacity: 0.85;
+  animation: glitch-b 0.4s steps(2) infinite;
+}
 @keyframes glitch-a {
-  0%   { clip-path: inset(0 0 72% 0); transform: translate(-2px, -1px); }
-  50%  { clip-path: inset(42% 0 20% 0); transform: translate(2px, 1px); }
-  100% { clip-path: inset(70% 0 0 0); transform: translate(-1px, 1px); }
+  0% {
+    clip-path: inset(0 0 72% 0);
+    transform: translate(-2px, -1px);
+  }
+  50% {
+    clip-path: inset(42% 0 20% 0);
+    transform: translate(2px, 1px);
+  }
+  100% {
+    clip-path: inset(70% 0 0 0);
+    transform: translate(-1px, 1px);
+  }
 }
 @keyframes glitch-b {
-  0%   { clip-path: inset(60% 0 10% 0); transform: translate(2px, 1px); }
-  50%  { clip-path: inset(10% 0 60% 0); transform: translate(-2px, -1px); }
-  100% { clip-path: inset(30% 0 40% 0); transform: translate(1px, -1px); }
+  0% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(2px, 1px);
+  }
+  50% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-2px, -1px);
+  }
+  100% {
+    clip-path: inset(30% 0 40% 0);
+    transform: translate(1px, -1px);
+  }
 }
 
 /* 10. Border beam */
 .demo-beam {
-  position: relative; width: 150px; height: 110px;
-  border-radius: var(--radius); padding: 1.5px; overflow: hidden;
+  position: relative;
+  width: 150px;
+  height: 110px;
+  border-radius: var(--radius);
+  padding: 1.5px;
+  overflow: hidden;
   background: var(--line);
 }
 .demo-beam::before {
-  content: ''; position: absolute; top: 50%; left: 50%;
-  width: 200%; height: 200%; transform: translate(-50%, -50%);
-  background: conic-gradient(from 0deg, transparent 0 72%, var(--amber) 84%, var(--bone) 90%, transparent 96% 100%);
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 72%,
+    var(--amber) 84%,
+    var(--bone) 90%,
+    transparent 96% 100%
+  );
   animation: beam-spin 3s linear infinite;
 }
 .demo-beam-inner {
-  position: relative; z-index: 1; width: 100%; height: 100%;
-  display: grid; place-items: center;
-  border-radius: calc(var(--radius) - 1.5px); background: var(--card-2);
-  font-family: var(--font-mono); font-size: 12px; color: var(--bone-dim);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: calc(var(--radius) - 1.5px);
+  background: var(--card-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--bone-dim);
 }
-@keyframes beam-spin { to { transform: translate(-50%, -50%) rotate(1turn); } }
+@keyframes beam-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(1turn);
+  }
+}
 
 /* 11. Aurora drift */
 .demo-aurora {
-  position: relative; width: 170px; height: 110px;
-  border-radius: var(--radius); border: 1px solid var(--line);
-  overflow: hidden; display: grid; place-items: center;
+  position: relative;
+  width: 170px;
+  height: 110px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
   background: var(--graphite-2);
 }
 .demo-aurora::before {
-  content: ''; position: absolute; inset: -40%;
+  content: "";
+  position: absolute;
+  inset: -40%;
   background:
-    radial-gradient(40% 50% at 30% 38%, color-mix(in srgb, var(--amber) 60%, transparent), transparent 60%),
-    radial-gradient(45% 55% at 72% 62%, color-mix(in srgb, var(--wire) 60%, transparent), transparent 60%),
-    radial-gradient(40% 50% at 50% 82%, color-mix(in srgb, var(--ok) 50%, transparent), transparent 60%);
+    radial-gradient(
+      40% 50% at 30% 38%,
+      color-mix(in srgb, var(--amber) 60%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      45% 55% at 72% 62%,
+      color-mix(in srgb, var(--wire) 60%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      40% 50% at 50% 82%,
+      color-mix(in srgb, var(--ok) 50%, transparent),
+      transparent 60%
+    );
   filter: blur(16px);
   animation: aurora-drift 12s ease-in-out infinite alternate;
 }
 .demo-aurora span {
-  position: relative; z-index: 1;
-  font-family: var(--font-mono); font-size: 12px; color: var(--bone);
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--bone);
 }
 @keyframes aurora-drift {
-  0%   { transform: translate(-6%, -4%) rotate(0deg) scale(1.1); }
-  100% { transform: translate(6%, 4%) rotate(8deg) scale(1.3); }
+  0% {
+    transform: translate(-6%, -4%) rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: translate(6%, 4%) rotate(8deg) scale(1.3);
+  }
 }
 
 /* ───────────────────────────────────────────────
@@ -300,22 +491,32 @@
 .demo-shine {
   position: relative;
   overflow: hidden;
-  width: 200px; height: 96px;
-  display: grid; place-items: center;
+  width: 200px;
+  height: 96px;
+  display: grid;
+  place-items: center;
   background: var(--card-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  font-size: 13px; font-weight: 600;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--bone-dim);
   cursor: default;
 }
 .demo-shine::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; left: -120%;
-  width: 60%; height: 100%;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
   transform: skewX(-20deg);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bone) 25%, transparent), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--bone) 25%, transparent),
+    transparent
+  );
 }
 .demo-shine:hover::before {
   left: 120%;
@@ -324,15 +525,26 @@
 
 /* 25. Breathing orb (pure CSS) */
 .demo-breathe {
-  width: 96px; height: 96px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  display: grid; place-items: center;
-  background: radial-gradient(circle at 50% 45%, var(--amber), var(--amber-deep));
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    circle at 50% 45%,
+    var(--amber),
+    var(--amber-deep)
+  );
   animation: breathe 5s ease-in-out infinite;
 }
-.demo-breathe span { color: var(--graphite); font-size: 11px; font-weight: 600; }
+.demo-breathe span {
+  color: var(--graphite);
+  font-size: 11px;
+  font-weight: 600;
+}
 @keyframes breathe {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(0.9);
     box-shadow: 0 0 20px 0 color-mix(in srgb, var(--amber) 35%, transparent);
   }
@@ -344,21 +556,28 @@
 
 /* 26. Float bob (pure CSS) */
 .demo-float-zone {
-  display: flex; align-items: center; justify-content: center;
-  width: 100%; height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 140px;
 }
 .demo-float-card {
-  width: 150px; height: 84px;
-  display: grid; place-items: center;
+  width: 150px;
+  height: 84px;
+  display: grid;
+  place-items: center;
   background: var(--card-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   font-family: var(--font-mono);
-  font-size: 12px; color: var(--bone-dim);
+  font-size: 12px;
+  color: var(--bone-dim);
   animation: float-bob 4s ease-in-out infinite;
 }
 @keyframes float-bob {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.55);
   }
@@ -370,17 +589,30 @@
 
 /* 27. Liquid blob (pure CSS) */
 .demo-blob {
-  width: 96px; height: 96px;
-  display: grid; place-items: center;
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
   background: linear-gradient(135deg, var(--amber), var(--amber-deep));
   border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
   animation: blob-morph 8s ease-in-out infinite;
 }
-.demo-blob span { color: var(--graphite); font-size: 11px; font-weight: 600; }
+.demo-blob span {
+  color: var(--graphite);
+  font-size: 11px;
+  font-weight: 600;
+}
 @keyframes blob-morph {
-  0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
-  33%      { border-radius: 70% 30% 46% 54% / 30% 60% 40% 70%; }
-  66%      { border-radius: 34% 66% 60% 40% / 65% 35% 65% 35%; }
+  0%,
+  100% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  }
+  33% {
+    border-radius: 70% 30% 46% 54% / 30% 60% 40% 70%;
+  }
+  66% {
+    border-radius: 34% 66% 60% 40% / 65% 35% 65% 35%;
+  }
 }
 
 /* ───────────────────────────────────────────────
@@ -390,78 +622,134 @@
 /* 28. Gradient shimmer text */
 .demo-shimmer-text {
   font-family: var(--font-display);
-  font-weight: 900; font-size: 40px;
+  font-weight: 900;
+  font-size: 40px;
   letter-spacing: -0.02em;
-  background: linear-gradient(100deg,
-    var(--bone-faint) 30%, var(--amber) 50%, var(--bone-faint) 70%);
+  background: linear-gradient(
+    100deg,
+    var(--bone-faint) 30%,
+    var(--amber) 50%,
+    var(--bone-faint) 70%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   animation: text-shimmer 3s linear infinite;
 }
-@keyframes text-shimmer { to { background-position: -200% center; } }
+@keyframes text-shimmer {
+  to {
+    background-position: -200% center;
+  }
+}
 
 /* 29. Neon glow pulse */
 .demo-neon {
   padding: 10px 22px;
-  font-size: 14px; font-weight: 600; letter-spacing: 0.18em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   color: var(--amber);
   border: 1px solid var(--amber);
   border-radius: 100px;
   animation: neon-pulse 2s ease-in-out infinite;
 }
 @keyframes neon-pulse {
-  0%, 100% {
+  0%,
+  100% {
     text-shadow: 0 0 4px var(--amber);
-    box-shadow: 0 0 6px -1px var(--amber), inset 0 0 6px -2px var(--amber);
+    box-shadow:
+      0 0 6px -1px var(--amber),
+      inset 0 0 6px -2px var(--amber);
   }
   50% {
-    text-shadow: 0 0 12px var(--amber), 0 0 22px var(--amber);
-    box-shadow: 0 0 18px 0 var(--amber), inset 0 0 12px -2px var(--amber);
+    text-shadow:
+      0 0 12px var(--amber),
+      0 0 22px var(--amber);
+    box-shadow:
+      0 0 18px 0 var(--amber),
+      inset 0 0 12px -2px var(--amber);
   }
 }
 
 /* 30. Equalizer bars */
-.demo-eq { display: flex; align-items: flex-end; gap: 5px; height: 56px; }
+.demo-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 56px;
+}
 .demo-eq span {
-  width: 6px; height: 100%;
-  background: var(--amber); border-radius: 3px;
+  width: 6px;
+  height: 100%;
+  background: var(--amber);
+  border-radius: 3px;
   transform-origin: bottom;
   animation: eq-pump 1s ease-in-out infinite;
 }
-.demo-eq span:nth-child(2) { animation-delay: -0.8s; }
-.demo-eq span:nth-child(3) { animation-delay: -0.4s; }
-.demo-eq span:nth-child(4) { animation-delay: -0.6s; }
-.demo-eq span:nth-child(5) { animation-delay: -0.2s; }
+.demo-eq span:nth-child(2) {
+  animation-delay: -0.8s;
+}
+.demo-eq span:nth-child(3) {
+  animation-delay: -0.4s;
+}
+.demo-eq span:nth-child(4) {
+  animation-delay: -0.6s;
+}
+.demo-eq span:nth-child(5) {
+  animation-delay: -0.2s;
+}
 @keyframes eq-pump {
-  0%, 100% { transform: scaleY(0.25); }
-  50%      { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
 /* 19. Radar pulse */
 .demo-radar {
   position: relative;
-  width: 120px; height: 120px;
-  display: grid; place-items: center;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
 }
 .demo-radar-core {
-  width: 16px; height: 16px; border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
   background: radial-gradient(circle, var(--amber), var(--amber-deep) 70%);
   box-shadow: 0 0 14px 0 color-mix(in srgb, var(--amber) 50%, transparent);
   z-index: 1;
 }
 .demo-radar-wave {
-  position: absolute; inset: 0; margin: auto;
-  width: 24px; height: 24px; border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   border: 2px solid var(--amber);
   animation: radar-ping 2.4s cubic-bezier(0, 0.4, 0.2, 1) infinite;
 }
-.demo-radar-wave:nth-child(3) { animation-delay: 0.8s; }
-.demo-radar-wave:nth-child(4) { animation-delay: 1.6s; }
+.demo-radar-wave:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.demo-radar-wave:nth-child(4) {
+  animation-delay: 1.6s;
+}
 @keyframes radar-ping {
-  0%   { transform: scale(0.4); opacity: 0.9; }
-  100% { transform: scale(4.2); opacity: 0; }
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(4.2);
+    opacity: 0;
+  }
 }
 
 /* 20. Newton's cradle */
@@ -476,52 +764,240 @@
   transform-origin: top center;
 }
 .demo-cradle-ball::before {
-  content: ""; position: absolute; top: 0; left: 50%;
-  width: 1px; height: 56px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 56px;
   background: var(--line);
   transform: translateX(-50%);
 }
 .demo-cradle-ball::after {
-  content: ""; position: absolute; top: 54px; left: 50%;
-  width: 22px; height: 22px; border-radius: 50%;
+  content: "";
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
   transform: translateX(-50%);
-  background: radial-gradient(circle at 35% 30%, var(--bone), var(--bone-faint));
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--bone),
+    var(--bone-faint)
+  );
 }
-.demo-cradle-ball.first { animation: cradle-l 1.2s ease-in-out infinite; }
-.demo-cradle-ball.last  { animation: cradle-r 1.2s ease-in-out infinite; }
+.demo-cradle-ball.first {
+  animation: cradle-l 1.2s ease-in-out infinite;
+}
+.demo-cradle-ball.last {
+  animation: cradle-r 1.2s ease-in-out infinite;
+}
 @keyframes cradle-l {
-  0%, 50%, 100% { transform: rotate(0); }
-  25%           { transform: rotate(-48deg); }
+  0%,
+  50%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(48deg);
+  }
 }
 @keyframes cradle-r {
-  0%, 50%, 100% { transform: rotate(0); }
-  75%           { transform: rotate(48deg); }
+  0%,
+  50%,
+  100% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(-48deg);
+  }
 }
 
 /* 21. Bouncing ball */
 .demo-bounce {
   position: relative;
-  width: 80px; height: 110px;
-  display: flex; align-items: flex-end; justify-content: center;
+  width: 80px;
+  height: 110px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 .demo-bounce-ball {
-  position: absolute; bottom: 14px;
-  width: 34px; height: 34px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--amber), var(--amber-deep));
+  position: absolute;
+  bottom: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--amber),
+    var(--amber-deep)
+  );
   animation: bounce-drop 1s cubic-bezier(0.7, 0, 0.3, 1) infinite;
   will-change: transform;
 }
 .demo-bounce-shadow {
-  position: absolute; bottom: 8px;
-  width: 38px; height: 9px; border-radius: 50%;
+  position: absolute;
+  bottom: 8px;
+  width: 38px;
+  height: 9px;
+  border-radius: 50%;
   background: #000;
   animation: bounce-shade 1s cubic-bezier(0.7, 0, 0.3, 1) infinite;
 }
 @keyframes bounce-drop {
-  0%, 100% { transform: translateY(-54px) scaleY(1.05); }
-  50%      { transform: translateY(0) scaleY(0.8) scaleX(1.15); }
+  0%,
+  100% {
+    transform: translateY(-54px) scaleY(1.05);
+  }
+  50% {
+    transform: translateY(0) scaleY(0.8) scaleX(1.15);
+  }
 }
 @keyframes bounce-shade {
-  0%, 100% { transform: scale(0.5); opacity: 0.25; }
-  50%      { transform: scale(1);   opacity: 0.5; }
+  0%,
+  100% {
+    transform: scale(0.5);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* ───────────────────────────────────────────────
+   Added surface & motion (22–24)
+   ─────────────────────────────────────────────── */
+
+/* 22. Marquee reveal (pure CSS) */
+.demo-reveal-zone {
+  position: relative;
+  width: 220px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--graphite-2);
+}
+.demo-reveal-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  padding: 18px 0;
+  animation: reveal-scroll 6s linear infinite;
+}
+.demo-reveal-track:hover {
+  animation-play-state: paused;
+}
+@keyframes reveal-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.demo-reveal-card {
+  flex-shrink: 0;
+  width: 80px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--bone-dim);
+}
+
+/* 23. Gradient border morph (pure CSS) */
+.demo-gradborder {
+  position: relative;
+  width: 160px;
+  height: 100px;
+  border-radius: var(--radius);
+  padding: 2px;
+  overflow: hidden;
+  background: var(--line);
+}
+.demo-gradborder::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--amber),
+    var(--wire),
+    var(--ok),
+    var(--danger),
+    var(--amber)
+  );
+  animation: gradborder-spin 4s linear infinite;
+}
+@keyframes gradborder-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.demo-gradborder-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--card-2);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--bone-dim);
+}
+
+/* 24. Text split reveal (pure CSS) */
+.demo-split {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  overflow: hidden;
+}
+.demo-split span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.5s var(--spring);
+}
+.demo-split span:nth-child(1) {
+  transition-delay: 0ms;
+}
+.demo-split span:nth-child(2) {
+  transition-delay: 40ms;
+}
+.demo-split span:nth-child(3) {
+  transition-delay: 80ms;
+}
+.demo-split span:nth-child(4) {
+  transition-delay: 120ms;
+}
+.demo-split span:nth-child(5) {
+  transition-delay: 160ms;
+}
+.demo-split span:nth-child(6) {
+  transition-delay: 200ms;
+}
+.demo-split span:nth-child(7) {
+  transition-delay: 240ms;
+}
+.demo-split.in span {
+  transform: translateY(0);
+}
+.demo-split span.accent {
+  color: var(--amber);
 }

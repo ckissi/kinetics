@@ -179,7 +179,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Interaction &amp; Input</h2>
-        <span class="count mono">21 / 63</span>
+        <span class="count mono">24 / 72</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -1737,6 +1737,304 @@
             </div>
           </div>
         </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">swipe(-96px)</div>
+            <div class="demo-swipe-zone">
+              <div class="demo-swipe-actions">
+                <button class="demo-swipe-action archive">Archive</button>
+                <button class="demo-swipe-action delete">Delete</button>
+              </div>
+              <div class="demo-swipe-item">
+                Swipe me left
+                <div class="demo-swipe-hint">drag past 96px to reveal actions</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Swipe to Reveal</div>
+                <div class="desc">
+                  Drag an item horizontally to expose action buttons
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.swipe-item {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.swipe-item.dragging { transition: none; }
+.swipe-item.open { transform: translateX(-96px); }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function SwipeToReveal() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const start = useRef(0);
+  const dragging = useRef(false);
+
+  const onDown = (e) =&gt; {
+    dragging.current = true;
+    start.current = e.clientX;
+    ref.current.classList.add(&#x27;dragging&#x27;);
+  };
+  const onMove = (e) =&gt; {
+    if (!dragging.current) return;
+    const dx = Math.min(0, e.clientX - start.current);
+    ref.current.style.transform = `translateX(${dx}px)`;
+  };
+  const onUp = (e) =&gt; {
+    if (!dragging.current) return;
+    dragging.current = false;
+    ref.current.classList.remove(&#x27;dragging&#x27;);
+    const dx = e.clientX - start.current;
+    setOpen(dx &lt; -96);
+    ref.current.style.transform = &#x27;&#x27;;
+  };
+
+  return (
+    &lt;div style={{ position: &#x27;relative&#x27;, overflow: &#x27;hidden&#x27; }}&gt;
+      &lt;div style={{ position: &#x27;absolute&#x27;, right: 0 }}&gt;
+        &lt;button&gt;Archive&lt;/button&gt;
+        &lt;button&gt;Delete&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div
+        ref={ref}
+ className={open ? &#x27;swipe-item open&#x27; : &#x27;swipe-item&#x27;}
+        onPointerDown={onDown}
+        onPointerMove={onMove}
+        onPointerUp={onUp}
+      &gt;
+        Swipe me left
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a list item that can be swiped left to reveal archive and delete action buttons behind it. Track pointerdown/move/up, translate the item left following the pointer (clamped to 0 on the right). On release, if dragged past ~96px add an .open class that holds it at translateX(-96px) with a spring transition; otherwise spring it back to 0. The action buttons sit absolutely behind the item.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">rotate(0..270)</div>
+            <div class="demo-knob-zone">
+              <div class="demo-knob-wrap">
+                <div class="demo-knob"></div>
+                <svg class="demo-knob-arc" viewBox="0 0 92 92">
+                  <circle class="track" cx="46" cy="46" r="45" />
+                  <circle class="fill" cx="46" cy="46" r="45" />
+                </svg>
+              </div>
+              <div class="demo-knob-val">0</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Rotary Knob</div>
+                <div class="desc">
+                  Drag in a circle to set a value; snaps to detents on release
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.knob {
+  border-radius: 50%;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.knob.dragging { transition: none; }
+.knob::before {
+  content: '';
+  position: absolute; top: 8px; left: 50%;
+  width: 4px; height: 16px; margin-left: -2px;
+  border-radius: 2px; background: #FF8A00;
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function RotaryKnob({ max = 270, steps = 10 }) {
+  const ref = useRef(null);
+  const [angle, setAngle] = useState(0);
+  const dragging = useRef(false);
+  const prevAngle = useRef(0);
+  const pointerOffset = 225;
+
+  const getAngle = (e) =&gt; {
+    const r = ref.current.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI + 90;
+  };
+
+  const onDown = (e) =&gt; {
+    dragging.current = true;
+    prevAngle.current = getAngle(e);
+  };
+  const onMove = (e) =&gt; {
+    if (!dragging.current) return;
+    const cur = getAngle(e);
+    let delta = cur - prevAngle.current;
+    if (delta &gt; 180) delta -= 360;
+    if (delta &lt; -180) delta += 360;
+    prevAngle.current = cur;
+    setAngle((a) =&gt; Math.min(max, Math.max(0, a + delta)));
+  };
+  const onUp = () =&gt; {
+    dragging.current = false;
+    setAngle((a) =&gt; Math.round(a / (max / steps)) * (max / steps));
+  };
+
+  return (
+    &lt;div
+      ref={ref}
+      onPointerDown={onDown}
+      onPointerMove={onMove}
+      onPointerUp={onUp}
+      style={{ transform: `rotate(${angle + pointerOffset}deg)`, transition: dragging.current ? &#x27;none&#x27; : &#x27;transform .5s cubic-bezier(.34,1.56,.64,1)&#x27; }}
+    /&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a rotary knob that the user can drag in a circle to set a value from 0 to 270 degrees. On pointerdown record the starting angle from the knob center; on pointermove compute the delta angle, clamp it to 0–270, and rotate the knob. On release snap to the nearest detent (e.g. 10 steps) with a spring cubic-bezier(0.34,1.56,0.64,1). Show the current value as a number below the knob and fill an SVG arc proportional to the angle.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">reorder(y-axis)</div>
+            <div class="demo-reorder">
+              <div class="demo-reorder-item">
+                <span class="demo-reorder-handle">⠿</span>
+                <span class="demo-reorder-num">1</span>
+                <span>Spring</span>
+              </div>
+              <div class="demo-reorder-item">
+                <span class="demo-reorder-handle">⠿</span>
+                <span class="demo-reorder-num">2</span>
+                <span>Glide</span>
+              </div>
+              <div class="demo-reorder-item">
+                <span class="demo-reorder-handle">⠿</span>
+                <span class="demo-reorder-num">3</span>
+                <span>Decay</span>
+              </div>
+              <div class="demo-reorder-item">
+                <span class="demo-reorder-handle">⠿</span>
+                <span class="demo-reorder-num">4</span>
+                <span>Bounce</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Reorderable List</div>
+                <div class="desc">
+                  Drag items up and down; others shift to make room
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.reorder-item {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.2s, box-shadow 0.2s;
+}
+.reorder-item.dragging {
+  transition: none;
+  opacity: 0.9;
+  box-shadow: 0 8px 24px -6px rgba(0,0,0,0.6);
+  z-index: 10;
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function ReorderList({ items: initial }) {
+  const [items, setItems] = useState(initial);
+  const [dragIdx, setDragIdx] = useState(null);
+  const [dragY, setDragY] = useState(0);
+  const startY = useRef(0);
+  const itemH = 44;
+
+  const onDown = (i, e) =&gt; {
+    setDragIdx(i);
+    startY.current = e.clientY;
+  };
+  const onMove = (e) =&gt; {
+    if (dragIdx === null) return;
+    const dy = e.clientY - startY.current;
+    setDragY(dy);
+    const target = Math.min(items.length - 1,
+      Math.max(0, Math.round((i * itemH + dy) / itemH)));
+    if (target !== dragIdx) {
+      const next = [...items];
+      const [m] = next.splice(dragIdx, 1);
+      next.splice(target, 0, m);
+      setItems(next);
+      setDragIdx(target);
+      startY.current = e.clientY;
+      setDragY(0);
+    }
+  };
+  const onUp = () =&gt; { setDragIdx(null); setDragY(0); };
+
+  return (
+    &lt;div onPointerMove={onMove} onPointerUp={onUp}&gt;
+      {items.map((item, i) =&gt; (
+        &lt;div
+          key={item}
+          onPointerDown={(e) =&gt; onDown(i, e)}
+          style={{
+            transform: dragIdx === i ? `translateY(${dragY}px)` : &#x27;&#x27;,
+            transition: dragIdx === i ? &#x27;none&#x27; : &#x27;transform .3s cubic-bezier(.16,1,.3,1)&#x27;,
+          }}
+        &gt;
+          {item}
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a reorderable vertical list where items can be dragged up or down to rearrange. On pointerdown on an item, mark it as dragging (disable its transition, add a shadow). On pointermove translate it by the drag delta; when it crosses the midpoint of an adjacent item, swap their positions in the array and reset the drag origin so the dragged item stays under the cursor. On release, snap it into place with a glide cubic-bezier(0.16,1,0.3,1) transition. Show a drag handle on each item.</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1745,7 +2043,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Feedback &amp; State</h2>
-        <span class="count mono">21 / 63</span>
+        <span class="count mono">24 / 72</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -3194,6 +3492,244 @@ function useScramble(text) {
             </div>
           </div>
         </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">countdown(5s)</div>
+            <div class="demo-countdown-zone">
+              <div class="demo-countdown">
+                <svg viewBox="0 0 80 80">
+                  <circle class="track" cx="40" cy="40" r="34" />
+                  <circle class="prog" cx="40" cy="40" r="34" />
+                </svg>
+                <span class="demo-countdown-num">5</span>
+              </div>
+              <span class="demo-countdown-label">Tap to start</span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Countdown Ring</div>
+                <div class="desc">
+                  Drains a circular ring as the seconds tick down
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.countdown .prog {
+  stroke-dasharray: 213.6;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+}
+.countdown.done .prog { stroke: #4CD08A; }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Countdown({ seconds = 5 }) {
+  const [n, setN] = useState(seconds);
+  const [running, setRunning] = useState(false);
+  const C = 2 * Math.PI * 34;
+
+  useEffect(() =&gt; {
+    if (!running) return;
+    if (n &lt;= 0) { setRunning(false); return; }
+    const t = setTimeout(() =&gt; setN(n - 1), 1000);
+    return () =&gt; clearTimeout(t);
+  }, [n, running]);
+
+  const pct = n / seconds;
+  return (
+    &lt;div onClick={() =&gt; { if (!running) { setN(seconds); setRunning(true); } }}&gt;
+      &lt;svg viewBox=&quot;0 0 80 80&quot;&gt;
+        &lt;circle className=&quot;track&quot; cx=&quot;40&quot; cy=&quot;40&quot; r=&quot;34&quot; /&gt;
+        &lt;circle className=&quot;prog&quot; cx=&quot;40&quot; cy=&quot;40&quot; r=&quot;34&quot;
+          style={{
+            strokeDashoffset: C * (1 - pct),
+            transition: &#x27;stroke-dashoffset 1s linear&#x27;,
+          }} /&gt;
+      &lt;/svg&gt;
+      &lt;span&gt;{n}&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a circular countdown timer. An SVG ring with stroke-dasharray equal to its circumference starts fully drawn; each second the stroke-dashoffset increases by one segment over a 1s linear transition so the ring drains. Show the remaining seconds in the center. On tap, reset to the start value and begin ticking; when it reaches zero, switch the ring color to a success green.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">skeleton(1.4s)</div>
+            <div class="demo-skel-wrap">
+              <div class="demo-skel-content">
+                <div class="demo-skel-row">
+                  <div class="demo-skel-avatar"></div>
+                  <div class="demo-skel-lines">
+                    <div class="demo-skel-bar"></div>
+                    <div class="demo-skel-bar short"></div>
+                  </div>
+                </div>
+                <div class="demo-skel-real">
+                  <div class="demo-skel-real-avatar">K</div>
+                  <div class="demo-skel-real-text">
+                    <div class="demo-skel-real-name">Ada Lovelace</div>
+                    <div class="demo-skel-real-meta">Analytical Engine</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Skeleton to Content</div>
+                <div class="desc">
+                  Shimmering placeholder resolves into real content on click
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.skel-bar {
+  background: linear-gradient(90deg, #232326 25%, #34343a 50%, #232326 75%);
+  background-size: 200% 100%;
+  animation: shimmer-sweep 1.4s ease-in-out infinite;
+}
+@keyframes shimmer-sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skel-content.loaded .skel-bar { animation: none; opacity: 0; }
+.skel-content.loaded .skel-real { opacity: 1; transform: translateY(0); }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function SkeletonCard() {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    &lt;div
+      className={loaded ? &#x27;skel-content loaded&#x27; : &#x27;skel-content&#x27;}
+      onClick={() =&gt; setLoaded(true)}
+    &gt;
+      {!loaded &amp;&amp; (
+        &lt;&gt;
+          &lt;div className=&quot;skel-avatar&quot; /&gt;
+          &lt;div className=&quot;skel-bar&quot; /&gt;
+          &lt;div className=&quot;skel-bar short&quot; /&gt;
+        &lt;/&gt;
+      )}
+      {loaded &amp;&amp; (
+        &lt;&gt;
+          &lt;div className=&quot;skel-real-avatar&quot;&gt;K&lt;/div&gt;
+          &lt;div className=&quot;skel-real-name&quot;&gt;Ada Lovelace&lt;/div&gt;
+          &lt;div className=&quot;skel-real-meta&quot;&gt;Analytical Engine&lt;/div&gt;
+        &lt;/&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a skeleton loading card that shimmers with a gradient sweep and resolves into real content on click. Show a circular avatar placeholder and two text bars with a 200%-size linear-gradient background that animates its background-position back and forth (shimmer-sweep). On click, fade out the skeleton elements and fade in the real avatar, name, and metadata with a small translateY glide.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">stack(3 max)</div>
+            <div class="demo-toaststack-zone">
+              <button class="demo-toaststack-trigger">Push toast</button>
+              <div class="demo-toaststack"></div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Toast Stack</div>
+                <div class="desc">
+                  Multiple toasts stack upward and auto-dismiss in sequence
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.toaststack-item {
+  transform: translateY(100%) scale(0.9);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.18, 1.25, 0.4, 1),
+              opacity 0.3s ease;
+}
+.toaststack-item.show {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.toaststack-item.hide {
+  transform: translateY(20px) scale(0.9);
+  opacity: 0;
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function ToastStack({ max = 3 }) {
+  const [toasts, setToasts] = useState([]);
+  const idRef = useRef(0);
+
+  const push = () =&gt; {
+    const id = ++idRef.current;
+    setToasts((prev) =&gt; [...prev.slice(-max + 1), { id, msg: &#x27;Saved &#x27; + id }]);
+    setTimeout(() =&gt; {
+      setToasts((prev) =&gt; prev.filter((t) =&gt; t.id !== id));
+    }, 2400);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;button onClick={push}&gt;Push toast&lt;/button&gt;
+      &lt;div className=&quot;toaststack&quot;&gt;
+        {toasts.map((t) =&gt; (
+          &lt;div key={t.id} className=&quot;toaststack-item show&quot;&gt;
+            &lt;span className=&quot;dot&quot; /&gt; {t.msg}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a toast stack that can hold up to 3 toasts. On button click, push a new toast that slides up from the bottom with an overshoot cubic-bezier(0.18,1.25,0.4,1) and auto-dismisses after ~2.4s by sliding down and fading. When a new toast is pushed beyond the max, the oldest is removed. Stack them vertically with a small gap.</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -3202,7 +3738,7 @@ function useScramble(text) {
     <div class="wrap">
       <div class="section-head">
         <h2>Surface &amp; Motion</h2>
-        <span class="count mono">21 / 63</span>
+        <span class="count mono">24 / 72</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -4439,11 +4975,11 @@ function useScramble(text) {
    reading as transferred momentum */
 @keyframes swing-l {
   0%, 50%, 100% { transform: rotate(0); }
-  25%           { transform: rotate(-48deg); }
+  25%           { transform: rotate(48deg); }
 }
 @keyframes swing-r {
   0%, 50%, 100% { transform: rotate(0); }
-  75%           { transform: rotate(48deg); }
+  75%           { transform: rotate(-48deg); }
 }</code></pre>
               <pre
                 data-lang="react"
@@ -4458,13 +4994,13 @@ function useScramble(text) {
   );
 }
 /* @keyframes swing-l { 0%,50%,100% { transform: rotate(0); }
-                        25% { transform: rotate(-48deg); } }
+                        25% { transform: rotate(48deg); } }
    @keyframes swing-r { 0%,50%,100% { transform: rotate(0); }
-                        75% { transform: rotate(48deg); } } */</code></pre>
+                        75% { transform: rotate(-48deg); } } */</code></pre>
               <pre
                 data-lang="prompt"
                 class="hidden"
-              ><code>Build a Newton&#x27;s cradle, pure CSS: a row of five balls hanging from a bar. Give each ball a top-center transform-origin. Animate only the leftmost ball swinging out and back (rotate to ~-48deg in the first quarter) and the rightmost ball swinging out and back (rotate to ~48deg in the third quarter) on the same ease-in-out infinite loop (~1.2s), so the impact reads as momentum passing through the three still middle balls.</code></pre>
+              ><code>Build a Newton&#x27;s cradle, pure CSS: a row of five balls hanging from a bar. Give each ball a top-center transform-origin. Animate only the leftmost ball swinging out and back (rotate to ~48deg in the first quarter) and the rightmost ball swinging out and back (rotate to ~-48deg in the third quarter) on the same ease-in-out infinite loop (~1.2s), so the impact reads as momentum passing through the three still middle balls.</code></pre>
             </div>
           </div>
         </div>
@@ -4534,6 +5070,224 @@ function useScramble(text) {
                 data-lang="prompt"
                 class="hidden"
               ><code>Build a bouncing ball with squash and stretch, pure CSS. Animate the ball falling and rising (translateY between -54px and 0) on a sharp cubic-bezier(0.7, 0, 0.3, 1) infinite loop (~1s); at the bottom of the bounce flatten it with scaleY(0.8)/scaleX(1.15) and stretch it slightly vertically at the top. Sync a separate ellipse shadow underneath that grows darker and wider as the ball lands and shrinks as it rises.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">marquee(6s loop)</div>
+            <div class="demo-reveal-zone">
+              <div class="demo-reveal-track">
+                <div class="demo-reveal-card">01</div>
+                <div class="demo-reveal-card">02</div>
+                <div class="demo-reveal-card">03</div>
+                <div class="demo-reveal-card">04</div>
+                <div class="demo-reveal-card">05</div>
+                <div class="demo-reveal-card">01</div>
+                <div class="demo-reveal-card">02</div>
+                <div class="demo-reveal-card">03</div>
+                <div class="demo-reveal-card">04</div>
+                <div class="demo-reveal-card">05</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Marquee Reveal</div>
+                <div class="desc">
+                  Cards scroll horizontally, pausing on hover — pure CSS
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.reveal-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: reveal-scroll 6s linear infinite;
+}
+.reveal-zone:hover .reveal-track {
+  animation-play-state: paused;
+}
+@keyframes reveal-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function MarqueeReveal({ items }) {
+  return (
+    &lt;div style={{ overflow: &#x27;hidden&#x27; }}&gt;
+      &lt;div
+        className=&quot;reveal-track&quot;
+        style={{
+          display: &#x27;flex&#x27;,
+          gap: 12,
+          width: &#x27;max-content&#x27;,
+          animation: &#x27;reveal-scroll 6s linear infinite&#x27;,
+        }}
+      &gt;
+        {[...items, ...items].map((item, i) =&gt; (
+          &lt;div key={i} className=&quot;reveal-card&quot;&gt;{item}&lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a horizontal marquee of small cards that scrolls infinitely, pure CSS. Duplicate the card list so the track is 2x wide; animate translateX from 0 to -50% on a 6s linear infinite loop so the second copy seamlessly takes over. Pause the animation on hover. Mask the edges with a fade gradient so cards appear and disappear smoothly.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">border(spin 4s)</div>
+            <div class="demo-gradborder">
+              <div class="demo-gradborder-inner">morph</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Gradient Border Morph</div>
+                <div class="desc">
+                  A rotating conic gradient creates a living border — pure CSS
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.gradborder {
+  position: relative;
+  padding: 2px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #2A2A2E;
+}
+.gradborder::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    #FF8A00, #5B8DEF, #4CD08A, #FF5C5C, #FF8A00
+  );
+  animation: gradborder-spin 4s linear infinite;
+}
+@keyframes gradborder-spin {
+  to { transform: rotate(1turn); }
+}
+.gradborder-inner {
+  position: relative;
+  z-index: 1;
+  background: #232326;
+  border-radius: 12px;
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function GradientBorder({ children }) {
+  return (
+    &lt;div className=&quot;gradborder&quot;&gt;
+      &lt;div className=&quot;gradborder-inner&quot;&gt;
+        {children}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a card with an animated gradient border, pure CSS. Give the card 2px padding and overflow:hidden; place a pseudo-element behind the inner content that is a conic-gradient cycling through 4 accent colors and is 200% the card size. Rotate it 360 degrees on a 4s linear infinite loop so the colors flow around the border. The inner content sits on top with a solid background and slightly smaller border-radius to reveal the 2px gradient ring.</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">split(stagger)</div>
+            <div class="demo-split" data-text="KINETIC">
+              <span>K</span><span>I</span><span>N</span><span class="accent">E</span><span>T</span><span>I</span><span>C</span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Text Split Reveal</div>
+                <div class="desc">
+                  Each letter springs up in sequence on hover — pure CSS
+                </div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.split {
+  display: flex;
+  overflow: hidden;
+}
+.split span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.split span:nth-child(1) { transition-delay: 0ms; }
+.split span:nth-child(2) { transition-delay: 40ms; }
+/* ...increment 40ms per letter... */
+.split.in span { transform: translateY(0); }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function TextSplit({ text }) {
+  const [in_, setIn] = useState(false);
+  return (
+    &lt;div
+      className={in_ ? &#x27;split in&#x27; : &#x27;split&#x27;}
+      onMouseEnter={() =&gt; setIn(true)}
+      onMouseLeave={() =&gt; setIn(false)}
+    &gt;
+      {text.split(&#x27;&#x27;).map((c, i) =&gt; (
+        &lt;span
+          key={i}
+          style={{ transitionDelay: `${i * 40}ms` }}
+        &gt;
+          {c}
+        &lt;/span&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a text reveal where each letter springs up from below a hidden mask in sequence, pure CSS. Wrap each character in a span inside a flex container with overflow:hidden so letters start hidden below the baseline (translateY(110%)). On hover add an .in class that sets translateY(0) with a spring cubic-bezier(0.34,1.56,0.64,1) and stagger the transition-delay by ~40ms per letter so they cascade in.</code></pre>
             </div>
           </div>
         </div>

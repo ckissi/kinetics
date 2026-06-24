@@ -14,14 +14,28 @@
   user-select: none;
   white-space: pre;
 }
-.demo-scramble:hover { color: var(--amber); }
+.demo-scramble:hover {
+  color: var(--amber);
+}
 
 /* 10. Momentum marquee */
 .demo-marquee-zone {
   width: 100%;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
 }
 .demo-marquee-track {
   display: flex;
@@ -29,10 +43,16 @@
   width: max-content;
   animation: marquee-scroll 14s linear infinite;
 }
-.demo-marquee-zone:hover .demo-marquee-track { animation-play-state: paused; }
+.demo-marquee-zone:hover .demo-marquee-track {
+  animation-play-state: paused;
+}
 @keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .demo-marquee-chip {
   flex-shrink: 0;
@@ -60,9 +80,14 @@
   font-size: 13px;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.45s var(--glide), transform 0.45s var(--glide);
+  transition:
+    opacity 0.45s var(--glide),
+    transform 0.45s var(--glide);
 }
-.demo-stagger-item.in { opacity: 1; transform: translateY(0); }
+.demo-stagger-item.in {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* 12. Icon morph swap */
 .demo-morph-icon {
@@ -74,7 +99,10 @@
 .demo-morph-icon svg {
   position: absolute;
   inset: 0;
-  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s var(--spring);
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease,
+    transform 0.3s var(--spring);
 }
 .demo-morph-icon svg.hide {
   opacity: 0;
@@ -95,7 +123,7 @@
   color: var(--bone);
 }
 .demo-underline-link::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: -5px;
@@ -106,7 +134,9 @@
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
-.demo-underline-link:hover::after { transform: scaleX(1); }
+.demo-underline-link:hover::after {
+  transform: scaleX(1);
+}
 
 /* 14. Elastic progress */
 .demo-progress-track {
@@ -124,7 +154,9 @@
 }
 
 /* 15. Delayed tooltip */
-.demo-tooltip-zone { position: relative; }
+.demo-tooltip-zone {
+  position: relative;
+}
 .demo-tooltip-trigger {
   padding: 11px 18px;
   background: var(--card-2);
@@ -148,10 +180,12 @@
   transform: translateX(-50%) scale(0.85);
   transform-origin: bottom center;
   pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
 }
 .demo-tooltip-bubble::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;
@@ -162,7 +196,9 @@
 .demo-tooltip-zone:hover .demo-tooltip-bubble {
   opacity: 1;
   transform: translateX(-50%) scale(1);
-  transition: opacity 0.15s ease 0.4s, transform 0.15s var(--spring) 0.4s;
+  transition:
+    opacity 0.15s ease 0.4s,
+    transform 0.15s var(--spring) 0.4s;
 }
 
 /* 16. Switch spring */
@@ -174,7 +210,9 @@
   border: 1px solid var(--line);
   border-radius: 100px;
   cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
 }
 .demo-switch.on {
   background: var(--amber-deep);
@@ -185,79 +223,177 @@
   height: 22px;
   border-radius: 50%;
   background: var(--bone-dim);
-  transition: transform 0.4s var(--spring), background 0.3s ease;
+  transition:
+    transform 0.4s var(--spring),
+    background 0.3s ease;
 }
-.demo-switch.on .demo-switch-knob { transform: translateX(24px); background: var(--graphite); }
+.demo-switch.on .demo-switch-knob {
+  transform: translateX(24px);
+  background: var(--graphite);
+}
 
 /* ───────────────────────────────────────────────
    Added feedback & state (9–12)
    ─────────────────────────────────────────────── */
 
 /* 9. Checkbox draw */
-.demo-check { display: inline-flex; align-items: center; gap: 11px; cursor: pointer; font-size: 14px; user-select: none; }
-.demo-check-box {
-  width: 24px; height: 24px; border-radius: 7px;
-  border: 2px solid var(--line); background: var(--card-2);
-  display: grid; place-items: center;
-  transition: background 0.25s ease, border-color 0.25s ease;
+.demo-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
 }
-.demo-check.checked .demo-check-box { background: var(--amber); border-color: var(--amber); }
-.demo-check-box svg { width: 16px; height: 16px; }
+.demo-check-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 2px solid var(--line);
+  background: var(--card-2);
+  display: grid;
+  place-items: center;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+.demo-check.checked .demo-check-box {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.demo-check-box svg {
+  width: 16px;
+  height: 16px;
+}
 .demo-check-box .tick {
-  fill: none; stroke: var(--graphite); stroke-width: 3;
-  stroke-linecap: round; stroke-linejoin: round;
-  stroke-dasharray: 24; stroke-dashoffset: 24;
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
   transition: stroke-dashoffset 0.32s var(--glide) 0.05s;
 }
-.demo-check.checked .demo-check-box .tick { stroke-dashoffset: 0; }
-.demo-check-label { transition: color 0.25s ease; }
-.demo-check.checked .demo-check-label { color: var(--bone-faint); text-decoration: line-through; }
+.demo-check.checked .demo-check-box .tick {
+  stroke-dashoffset: 0;
+}
+.demo-check-label {
+  transition: color 0.25s ease;
+}
+.demo-check.checked .demo-check-label {
+  color: var(--bone-faint);
+  text-decoration: line-through;
+}
 
 /* 10. Typewriter */
-.demo-typewriter { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 18px; color: var(--bone); min-height: 24px; }
-.demo-type-text { white-space: pre; }
-.demo-type-caret {
-  display: inline-block; width: 2px; height: 1.1em; margin-left: 2px;
-  background: var(--amber); animation: caret-blink 1s steps(1) infinite;
+.demo-typewriter {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--bone);
+  min-height: 24px;
 }
-@keyframes caret-blink { 50% { opacity: 0; } }
+.demo-type-text {
+  white-space: pre;
+}
+.demo-type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: var(--amber);
+  animation: caret-blink 1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
 
 /* 11. Odometer count-up */
 .demo-odometer {
-  font-family: var(--font-display); font-weight: 900; font-size: 52px;
-  color: var(--amber); font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 52px;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 /* 12. Status pill */
 .demo-status-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 18px; border-radius: 100px;
-  background: var(--card-2); border: 1px solid var(--line);
-  font-size: 13px; font-weight: 600; color: var(--bone);
-  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bone);
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease;
 }
-.demo-status-icon { width: 14px; height: 14px; display: grid; place-items: center; }
-.demo-status-icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.demo-status-pill[data-state="loading"] { color: var(--wire); border-color: color-mix(in srgb, var(--wire) 45%, transparent); }
+.demo-status-icon {
+  width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+}
+.demo-status-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.demo-status-pill[data-state="loading"] {
+  color: var(--wire);
+  border-color: color-mix(in srgb, var(--wire) 45%, transparent);
+}
 .demo-status-pill[data-state="loading"] .demo-status-icon::before {
-  content: ''; width: 12px; height: 12px; border-radius: 50%;
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   border: 2px solid color-mix(in srgb, var(--wire) 30%, transparent);
-  border-top-color: var(--wire); animation: status-spin 0.7s linear infinite;
+  border-top-color: var(--wire);
+  animation: status-spin 0.7s linear infinite;
 }
-.demo-status-pill[data-state="success"] { color: var(--graphite); background: var(--ok); border-color: var(--ok); }
-@keyframes status-spin { to { transform: rotate(1turn); } }
+.demo-status-pill[data-state="success"] {
+  color: var(--graphite);
+  background: var(--ok);
+  border-color: var(--ok);
+}
+@keyframes status-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
 
 /* ───────────────────────────────────────────────
    Added feedback & state (17–19)
    ─────────────────────────────────────────────── */
 
 /* 17. Pulse badge (pure CSS) */
-.demo-pulse-zone { display: inline-flex; align-items: center; gap: 14px; }
+.demo-pulse-zone {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
 .demo-pulse-badge {
   position: relative;
   display: grid;
   place-items: center;
-  width: 34px; height: 34px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--amber);
   color: var(--graphite);
@@ -266,64 +402,113 @@
 }
 .demo-pulse-badge::before,
 .demo-pulse-badge::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 50%;
   border: 2px solid var(--amber);
   animation: pulse-ring 1.8s ease-out infinite;
 }
-.demo-pulse-badge::after { animation-delay: 0.9s; }
-.demo-pulse-label { font-size: 12px; color: var(--bone-faint); }
+.demo-pulse-badge::after {
+  animation-delay: 0.9s;
+}
+.demo-pulse-label {
+  font-size: 12px;
+  color: var(--bone-faint);
+}
 @keyframes pulse-ring {
-  0%   { transform: scale(1);   opacity: 0.7; }
-  100% { transform: scale(2.4); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 /* 18. Success check draw */
 .demo-draw-check {
-  width: 84px; height: 84px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
-  display: grid; place-items: center;
+  display: grid;
+  place-items: center;
   background: var(--card-2);
   border: 1px solid var(--line);
-  transition: background 0.4s ease, border-color 0.4s ease;
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease;
 }
-.demo-draw-check svg { width: 52px; height: 52px; }
+.demo-draw-check svg {
+  width: 52px;
+  height: 52px;
+}
 .demo-draw-check .ring {
-  fill: none; stroke: var(--line); stroke-width: 3;
-  stroke-dasharray: 151; stroke-dashoffset: 151;
-  transition: stroke-dashoffset 0.5s cubic-bezier(0.65, 0, 0.35, 1), stroke 0.5s ease;
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  transition:
+    stroke-dashoffset 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+    stroke 0.5s ease;
 }
 .demo-draw-check .tick {
-  fill: none; stroke: var(--ok); stroke-width: 4;
-  stroke-linecap: round; stroke-linejoin: round;
-  stroke-dasharray: 28; stroke-dashoffset: 28;
+  fill: none;
+  stroke: var(--ok);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
   transition: stroke-dashoffset 0.3s ease-out 0.4s;
 }
 .demo-draw-check.done {
   background: color-mix(in srgb, var(--ok) 14%, transparent);
   border-color: color-mix(in srgb, var(--ok) 50%, transparent);
 }
-.demo-draw-check.done .ring { stroke: var(--ok); stroke-dashoffset: 0; }
-.demo-draw-check.done .tick { stroke-dashoffset: 0; }
+.demo-draw-check.done .ring {
+  stroke: var(--ok);
+  stroke-dashoffset: 0;
+}
+.demo-draw-check.done .tick {
+  stroke-dashoffset: 0;
+}
 
 /* 19. Segment loader */
-.demo-segments-zone { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 220px; }
-.demo-segments { display: flex; gap: 6px; width: 100%; }
+.demo-segments-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 220px;
+}
+.demo-segments {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
 .demo-segment {
-  flex: 1; height: 8px; border-radius: 4px;
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
   background: var(--card-2);
   overflow: hidden;
 }
 .demo-segment::after {
-  content: '';
-  display: block; height: 100%; width: 100%;
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
   background: linear-gradient(90deg, var(--amber-deep), var(--amber));
-  transform: scaleX(0); transform-origin: left;
+  transform: scaleX(0);
+  transform-origin: left;
   transition: transform 0.35s var(--glide);
 }
-.demo-segment.filled::after { transform: scaleX(1); }
+.demo-segment.filled::after {
+  transform: scaleX(1);
+}
 
 /* ───────────────────────────────────────────────
    Added feedback & state (20–22)
@@ -331,113 +516,207 @@
 
 /* 20. Orbit spinner */
 .demo-spinner {
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 4px solid var(--card-2);
   border-top-color: var(--amber);
   border-right-color: var(--amber);
   animation: orbit-spin 0.8s linear infinite;
 }
-@keyframes orbit-spin { to { transform: rotate(1turn); } }
+@keyframes orbit-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
 
 /* 21. Progress ring */
-.demo-ring-zone { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.demo-ring-wrap { position: relative; width: 88px; height: 88px; }
-.demo-ring { width: 88px; height: 88px; transform: rotate(-90deg); }
-.demo-ring .track { fill: none; stroke: var(--card-2); stroke-width: 6; }
+.demo-ring-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.demo-ring-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+}
+.demo-ring {
+  width: 88px;
+  height: 88px;
+  transform: rotate(-90deg);
+}
+.demo-ring .track {
+  fill: none;
+  stroke: var(--card-2);
+  stroke-width: 6;
+}
 .demo-ring .prog {
-  fill: none; stroke: var(--amber); stroke-width: 6; stroke-linecap: round;
-  stroke-dasharray: 213.6; stroke-dashoffset: 213.6;
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 213.6;
+  stroke-dashoffset: 213.6;
   transition: stroke-dashoffset 0.9s var(--glide);
 }
 .demo-ring-val {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  font-size: 16px; font-weight: 600; color: var(--bone);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bone);
   font-variant-numeric: tabular-nums;
 }
 
 /* 22. Notification slide-in */
-.demo-notify-zone { position: relative; width: 100%; height: 130px; }
-.demo-notify {
-  position: absolute; left: 50%; top: 14px;
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 11px 18px;
-  background: var(--card-2); border: 1px solid var(--line);
-  border-radius: 100px; font-size: 13px; white-space: nowrap;
-  transform: translate(-50%, -160%); opacity: 0;
-  transition: transform 0.55s cubic-bezier(0.18, 1.25, 0.4, 1), opacity 0.3s ease;
+.demo-notify-zone {
+  position: relative;
+  width: 100%;
+  height: 130px;
 }
-.demo-notify.show { transform: translate(-50%, 0); opacity: 1; }
+.demo-notify {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 18px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 13px;
+  white-space: nowrap;
+  transform: translate(-50%, -160%);
+  opacity: 0;
+  transition:
+    transform 0.55s cubic-bezier(0.18, 1.25, 0.4, 1),
+    opacity 0.3s ease;
+}
+.demo-notify.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
 
 /* 19. Step progress */
 .demo-steps-zone {
-  display: flex; flex-direction: column; align-items: center; gap: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
 }
 .demo-steps {
   position: relative;
-  display: flex; justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
   width: 210px;
 }
 .demo-steps-track {
-  position: absolute; top: 50%; left: 0; right: 0;
-  height: 3px; margin-top: -1.5px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  margin-top: -1.5px;
   background: var(--card-2);
   border-radius: 3px;
   z-index: 0;
 }
 .demo-steps-track i {
-  display: block; height: 100%;
+  display: block;
+  height: 100%;
   background: var(--amber);
   border-radius: 3px;
-  transform: scaleX(0); transform-origin: left;
+  transform: scaleX(0);
+  transform-origin: left;
   transition: transform 0.5s var(--spring);
 }
-.demo-steps[data-step="2"] .demo-steps-track i { transform: scaleX(0.333); }
-.demo-steps[data-step="3"] .demo-steps-track i { transform: scaleX(0.666); }
-.demo-steps[data-step="4"] .demo-steps-track i { transform: scaleX(1); }
+.demo-steps[data-step="2"] .demo-steps-track i {
+  transform: scaleX(0.333);
+}
+.demo-steps[data-step="3"] .demo-steps-track i {
+  transform: scaleX(0.666);
+}
+.demo-steps[data-step="4"] .demo-steps-track i {
+  transform: scaleX(1);
+}
 .demo-step {
-  position: relative; z-index: 1;
-  width: 30px; height: 30px; border-radius: 50%;
-  display: grid; place-items: center;
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
   background: var(--card-2);
   border: 1px solid var(--line);
-  transition: transform 0.4s var(--spring), background 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.4s var(--spring),
+    background 0.3s ease,
+    border-color 0.3s ease;
 }
 .demo-step b {
-  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
   color: var(--bone-faint);
 }
 .demo-step.active {
-  background: var(--amber); border-color: var(--amber);
+  background: var(--amber);
+  border-color: var(--amber);
   transform: scale(1.18);
 }
-.demo-step.active b { color: var(--graphite); }
+.demo-step.active b {
+  color: var(--graphite);
+}
 .demo-steps-next {
   padding: 8px 20px;
-  background: var(--card-2); color: var(--bone);
-  border: 1px solid var(--line); border-radius: 100px;
-  font-size: 13px; font-weight: 600;
+  background: var(--card-2);
+  color: var(--bone);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
   transition: border-color 0.2s ease;
 }
-.demo-steps-next:hover { border-color: var(--amber); }
+.demo-steps-next:hover {
+  border-color: var(--amber);
+}
 
 /* 20. Undo snackbar */
 .demo-undo-zone {
   position: relative;
-  width: 240px; height: 130px;
-  display: flex; align-items: center; justify-content: center;
+  width: 240px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .demo-undo-trigger {
   padding: 9px 18px;
-  background: var(--card-2); color: var(--bone);
-  border: 1px solid var(--line); border-radius: 100px;
-  font-size: 13px; font-weight: 600;
+  background: var(--card-2);
+  color: var(--bone);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
   transition: border-color 0.2s ease;
 }
-.demo-undo-trigger:hover { border-color: var(--danger); }
+.demo-undo-trigger:hover {
+  border-color: var(--danger);
+}
 .demo-undo-bar {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  display: flex; align-items: center; gap: 12px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 11px 14px;
   background: var(--graphite-2);
   border: 1px solid var(--line);
@@ -446,57 +725,342 @@
   transform: translateY(140%);
   transition: transform 0.4s var(--spring);
 }
-.demo-undo-bar.show { transform: translateY(0); }
-.demo-undo-text { font-size: 13px; color: var(--bone); flex: 1; }
+.demo-undo-bar.show {
+  transform: translateY(0);
+}
+.demo-undo-text {
+  font-size: 13px;
+  color: var(--bone);
+  flex: 1;
+}
 .demo-undo-action {
-  color: var(--amber); font-weight: 700; font-size: 13px;
+  color: var(--amber);
+  font-weight: 700;
+  font-size: 13px;
 }
 .demo-undo-progress {
-  position: absolute; left: 0; bottom: 0;
-  height: 2px; width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
   background: var(--amber);
-  transform-origin: left; transform: scaleX(1);
+  transform-origin: left;
+  transform: scaleX(1);
 }
 .demo-undo-bar.show .demo-undo-progress {
   animation: undo-drain 3s linear forwards;
 }
-@keyframes undo-drain { to { transform: scaleX(0); } }
+@keyframes undo-drain {
+  to {
+    transform: scaleX(0);
+  }
+}
 
 /* 21. Submit states */
 .demo-loaddone-zone {
-  display: flex; align-items: center; justify-content: center;
-  width: 100%; height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 130px;
 }
 .demo-loaddone-btn {
   position: relative;
-  width: 130px; height: 46px;
-  background: var(--amber); color: var(--graphite);
+  width: 130px;
+  height: 46px;
+  background: var(--amber);
+  color: var(--graphite);
   border-radius: 100px;
-  font-weight: 700; font-size: 14px;
+  font-weight: 700;
+  font-size: 14px;
   overflow: hidden;
 }
 .demo-loaddone-btn > * {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center; gap: 5px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   transition: opacity 0.25s ease;
 }
-.demo-loaddone-dots, .demo-loaddone-check { opacity: 0; }
+.demo-loaddone-dots,
+.demo-loaddone-check {
+  opacity: 0;
+}
 .demo-loaddone-btn.loading .demo-loaddone-label,
-.demo-loaddone-btn.done .demo-loaddone-label { opacity: 0; }
-.demo-loaddone-btn.loading .demo-loaddone-dots { opacity: 1; }
-.demo-loaddone-btn.done .demo-loaddone-check { opacity: 1; }
+.demo-loaddone-btn.done .demo-loaddone-label {
+  opacity: 0;
+}
+.demo-loaddone-btn.loading .demo-loaddone-dots {
+  opacity: 1;
+}
+.demo-loaddone-btn.done .demo-loaddone-check {
+  opacity: 1;
+}
 .demo-loaddone-dots i {
-  width: 7px; height: 7px; border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background: var(--graphite);
   animation: ld-bounce 0.6s ease-in-out infinite;
 }
-.demo-loaddone-dots i:nth-child(2) { animation-delay: 0.12s; }
-.demo-loaddone-dots i:nth-child(3) { animation-delay: 0.24s; }
-@keyframes ld-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-.demo-loaddone-check { width: 24px; height: 24px; }
-.demo-loaddone-check svg { width: 24px; height: 24px; }
+.demo-loaddone-dots i:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.demo-loaddone-dots i:nth-child(3) {
+  animation-delay: 0.24s;
+}
+@keyframes ld-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.demo-loaddone-check {
+  width: 24px;
+  height: 24px;
+}
+.demo-loaddone-check svg {
+  width: 24px;
+  height: 24px;
+}
 .demo-loaddone-check path {
-  stroke-dasharray: 30; stroke-dashoffset: 30;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
   transition: stroke-dashoffset 0.4s var(--spring);
 }
-.demo-loaddone-btn.done .demo-loaddone-check path { stroke-dashoffset: 0; }
+.demo-loaddone-btn.done .demo-loaddone-check path {
+  stroke-dashoffset: 0;
+}
+
+/* ───────────────────────────────────────────────
+   Added feedback & state (22–24)
+   ─────────────────────────────────────────────── */
+
+/* 22. Countdown ring */
+.demo-countdown-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.demo-countdown {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  user-select: none;
+}
+.demo-countdown svg {
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+.demo-countdown .track {
+  fill: none;
+  stroke: var(--card-2);
+  stroke-width: 5;
+}
+.demo-countdown .prog {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 213.6;
+  stroke-dashoffset: 0;
+  transition:
+    stroke-dashoffset 1s linear,
+    stroke 0.3s ease;
+}
+.demo-countdown.done .prog {
+  stroke: var(--ok);
+}
+.demo-countdown-num {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+.demo-countdown-label {
+  font-size: 11px;
+  color: var(--bone-faint);
+}
+
+/* 23. Skeleton to content */
+.demo-skel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 220px;
+  cursor: pointer;
+}
+.demo-skel-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.demo-skel-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    var(--card-2) 25%,
+    #34343a 50%,
+    var(--card-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-sweep 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+.demo-skel-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.demo-skel-bar {
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--card-2) 25%,
+    #34343a 50%,
+    var(--card-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-sweep 1.4s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+.demo-skel-bar.short {
+  width: 60%;
+}
+.demo-skel-content.loaded .demo-skel-avatar,
+.demo-skel-content.loaded .demo-skel-bar {
+  animation: none;
+  background: var(--card-2);
+  opacity: 0;
+}
+.demo-skel-real {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.4s var(--glide),
+    transform 0.4s var(--glide);
+  pointer-events: none;
+  position: absolute;
+}
+.demo-skel-content.loaded .demo-skel-real {
+  opacity: 1;
+  transform: translateY(0);
+}
+.demo-skel-real-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--amber), var(--amber-deep));
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: var(--graphite);
+  font-weight: 700;
+  font-size: 16px;
+}
+.demo-skel-real-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.demo-skel-real-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bone);
+}
+.demo-skel-real-meta {
+  font-size: 11px;
+  color: var(--bone-faint);
+}
+.demo-skel-wrap {
+  position: relative;
+  width: 220px;
+}
+
+/* 24. Toast stack */
+.demo-toaststack-zone {
+  position: relative;
+  width: 240px;
+  height: 130px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.demo-toaststack-trigger {
+  padding: 10px 20px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bone);
+  transition: border-color 0.2s ease;
+  z-index: 1;
+}
+.demo-toaststack-trigger:hover {
+  border-color: var(--amber);
+}
+.demo-toaststack {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+  width: 200px;
+  pointer-events: none;
+}
+.demo-toaststack-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--bone);
+  white-space: nowrap;
+  transform: translateY(100%) scale(0.9);
+  opacity: 0;
+  transition:
+    transform 0.5s cubic-bezier(0.18, 1.25, 0.4, 1),
+    opacity 0.3s ease;
+}
+.demo-toaststack-item.show {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.demo-toaststack-item.hide {
+  transform: translateY(20px) scale(0.9);
+  opacity: 0;
+}
+.demo-toaststack-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex-shrink: 0;
+}

@@ -840,3 +840,193 @@
 .demo-pointer-zone:hover .demo-pointer-tip {
   opacity: 1;
 }
+
+/* ───────────────────────────────────────────────
+   Added interactions (22–24)
+   ─────────────────────────────────────────────── */
+
+/* 22. Swipe to reveal */
+.demo-swipe-zone {
+  position: relative;
+  width: 240px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+.demo-swipe-actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  gap: 4px;
+  padding: 14px 10px;
+}
+.demo-swipe-action {
+  width: 40px;
+  height: 100%;
+  max-height: 52px;
+  margin: auto 0;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--graphite);
+  transition: transform 0.3s var(--spring);
+}
+.demo-swipe-action.archive {
+  background: var(--wire);
+}
+.demo-swipe-action.delete {
+  background: var(--danger);
+}
+.demo-swipe-item {
+  position: relative;
+  z-index: 1;
+  width: 240px;
+  padding: 16px 18px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.4s var(--spring);
+  will-change: transform;
+}
+.demo-swipe-item.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+.demo-swipe-item.open {
+  transform: translateX(-96px);
+}
+.demo-swipe-hint {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--bone-faint);
+}
+
+/* 23. Rotary knob */
+.demo-knob-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.demo-knob-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.demo-knob {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    var(--card-2),
+    var(--graphite-2)
+  );
+  border: 1px solid var(--line);
+  cursor: grab;
+  touch-action: none;
+  transform: rotate(225deg);
+  transition: transform 0.5s var(--spring);
+  will-change: transform;
+}
+.demo-knob.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+.demo-knob::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 4px;
+  height: 16px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--amber);
+}
+.demo-knob-arc {
+  position: absolute;
+  inset: -6px;
+  pointer-events: none;
+}
+.demo-knob-arc circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.demo-knob-arc .track {
+  stroke: var(--line);
+}
+.demo-knob-arc .fill {
+  stroke: var(--amber);
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  transform: rotate(135deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.3s var(--glide);
+}
+.demo-knob-val {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 24. Reorderable list */
+.demo-reorder {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 220px;
+}
+.demo-reorder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition:
+    transform 0.3s var(--glide),
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+  will-change: transform;
+}
+.demo-reorder-item.dragging {
+  cursor: grabbing;
+  opacity: 0.9;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6);
+  transition: none;
+  z-index: 10;
+}
+.demo-reorder-handle {
+  color: var(--bone-faint);
+  font-size: 16px;
+  line-height: 1;
+  cursor: grab;
+}
+.demo-reorder-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
