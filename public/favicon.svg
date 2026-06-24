@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0E0E10"/>
+  <!-- spring/damped sine wave -->
+  <path d="M8 32 C 14 12, 20 12, 24 32 S 34 52, 38 32 S 46 22, 50 32 L 56 32"
+        fill="none" stroke="#FF8A00" stroke-width="4"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- mass dot at rest -->
+  <circle cx="56" cy="32" r="5" fill="#FF8A00"/>
+</svg>
