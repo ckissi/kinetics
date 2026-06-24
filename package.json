@@ -1,0 +1,17 @@
+{
+  "name": "kinetics",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kinetics — spring-physics motion patterns for web interfaces. CSS + React, copy-paste ready.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  }
+}

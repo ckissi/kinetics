@@ -1,0 +1,114 @@
+/* ============================================================
+   Kinetics — hero.css
+   Hero section + signature oscilloscope waveform
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding-top: clamp(40px, 6vw, 72px);
+  padding-bottom: clamp(48px, 8vw, 96px);
+  overflow: hidden;
+}
+.hero::before {
+  /* faint amber wash behind the hero */
+  content: '';
+  position: absolute;
+  inset: -40% 30% auto -10%;
+  height: 460px;
+  background: radial-gradient(60% 60% at 30% 20%, color-mix(in srgb, var(--amber) 12%, transparent), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero .wrap { position: relative; z-index: 1; }
+
+/* ---- Oscilloscope ---- */
+.hero-scope {
+  position: relative;
+  height: 84px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, var(--graphite-2), var(--graphite));
+  overflow: hidden;
+}
+.hero-scope::after {
+  /* scanline grid texture */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(90deg, transparent 0 39px, color-mix(in srgb, var(--line) 60%, transparent) 39px 40px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.hero-scope svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.grid-line { stroke: var(--line); stroke-width: 1; }
+.wave {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--amber) 60%, transparent));
+}
+.wave.secondary {
+  stroke: var(--wire);
+  stroke-width: 1.5;
+  opacity: 0.55;
+  filter: none;
+}
+.hero-readout {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  display: flex;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--bone-faint);
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+.hero-readout b { color: var(--amber); font-weight: 600; }
+
+/* ---- Hero grid ---- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: end;
+}
+.hero h1 { margin-top: 18px; }
+.hero-sub {
+  margin-top: 22px;
+  max-width: 520px;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--bone-dim);
+  line-height: 1.6;
+}
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--bone-faint);
+  padding-left: 18px;
+  border-left: 2px solid var(--amber);
+}
+.hero-meta b { color: var(--bone); font-weight: 500; }
+
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; align-items: start; }
+  .hero-meta { border-left: none; padding-left: 0; padding-top: 18px; border-top: 1px solid var(--line); }
+}

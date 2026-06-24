@@ -1,0 +1,39 @@
+---
+// Kinetics — spring-physics motion gallery.
+// The body markup lives in src/content/body.html and is imported raw so the
+// embedded React code samples (full of {}, backticks and ${}) are never parsed
+// as Astro/JSX expressions.
+import body from '../content/body.html?raw';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kinetics — Spring-physics motion for web interfaces</title>
+  <meta
+    name="description"
+    content="A library of spring-driven micro-interactions for web apps. Copy the CSS or React, tune the physics, ship the motion."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/hero.css" />
+  <link rel="stylesheet" href="/css/gallery.css" />
+  <link rel="stylesheet" href="/css/effects-a.css" />
+  <link rel="stylesheet" href="/css/effects-b.css" />
+  <link rel="stylesheet" href="/css/effects-c.css" />
+  <link rel="stylesheet" href="/css/closing.css" />
+</head>
+<body>
+  <Fragment set:html={body} />
+
+  <script is:inline src="/js/main.js"></script>
+  <script is:inline src="/js/physics-demo.js"></script>
+</body>
+</html>
