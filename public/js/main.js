@@ -1,6 +1,6 @@
 /* ============================================================
    Kinetics — main.js
-   Code-panel UI + all 35 live demo interactions
+   Code-panel UI + all live demo interactions
    ============================================================ */
 (function () {
   'use strict';
@@ -1141,6 +1141,181 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') close();
     });
+  });
+
+  /* ---------------------------------------------------------
+     36. Value scrubber — drag horizontally, 1px ≈ 1 unit
+  --------------------------------------------------------- */
+  $$('.demo-scrubber-val').forEach((el) => {
+    let startX = 0, startVal = 0, dragging = false;
+    const setVal = (v) => { el.textContent = v; el.dataset.value = v; };
+    setVal(parseInt(el.dataset.value || el.textContent, 10) || 0);
+
+    const down = (e) => {
+      dragging = true;
+      startX = e.clientX;
+      startVal = parseInt(el.dataset.value, 10) || 0;
+      el.classList.add('scrubbing');
+      el.setPointerCapture(e.pointerId);
+    };
+    const move = (e) => {
+      if (!dragging) return;
+      setVal(startVal + Math.round(e.clientX - startX));
+    };
+    const up = () => {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove('scrubbing');
+    };
+    el.addEventListener('pointerdown', down);
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', up);
+    el.addEventListener('pointercancel', up);
+  });
+
+  /* ---------------------------------------------------------
+     37. 3D cube — click rotates a quarter turn to the next face
+  --------------------------------------------------------- */
+  $$('.demo-cube').forEach((cube) => {
+    let n = 0;
+    (cube.closest('.demo-cube-scene') || cube).addEventListener('click', () => {
+      n += 1;
+      cube.style.transform = `translateZ(-56px) rotateY(${-90 * n}deg)`;
+    });
+  });
+
+  /* ---------------------------------------------------------
+     38. Slide to unlock — drag past 85% to latch, else spring back
+  --------------------------------------------------------- */
+  $$('.demo-unlock').forEach((track) => {
+    const thumb = $('.demo-unlock-thumb', track);
+    const fill = $('.demo-unlock-fill', track);
+    const label = $('.demo-unlock-label', track);
+    const PAD = 3, TW = 46;
+    const maxLeft = () => track.clientWidth - TW - PAD;
+    let dragging = false, startX = 0, startLeft = PAD;
+
+    const place = (px) => {
+      const l = Math.min(Math.max(px, PAD), maxLeft());
+      thumb.style.left = l + 'px';
+      fill.style.width = (l + TW) + 'px';
+      return l;
+    };
+    place(PAD);
+
+    const down = (e) => {
+      if (track.classList.contains('unlocked')) {
+        track.classList.remove('unlocked');
+        if (label) label.textContent = 'slide to unlock';
+      }
+      dragging = true;
+      track.classList.add('dragging');
+      startX = e.clientX;
+      startLeft = parseFloat(thumb.style.left) || PAD;
+      thumb.setPointerCapture(e.pointerId);
+    };
+    const move = (e) => { if (dragging) place(startLeft + (e.clientX - startX)); };
+    const up = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('dragging');
+      const l = parseFloat(thumb.style.left) || PAD;
+      if (l >= maxLeft() * 0.85) {
+        place(maxLeft());
+        fill.style.width = '100%';
+        track.classList.add('unlocked');
+        if (label) label.textContent = 'unlocked';
+      } else {
+        place(PAD);
+      }
+    };
+    thumb.addEventListener('pointerdown', down);
+    thumb.addEventListener('pointermove', move);
+    thumb.addEventListener('pointerup', up);
+    thumb.addEventListener('pointercancel', up);
+  });
+
+  /* ---------------------------------------------------------
+     39. Tag input — Enter adds a chip, × (or Backspace) removes it
+  --------------------------------------------------------- */
+  $$('.demo-taginput').forEach((box) => {
+    const field = $('.demo-taginput-field', box);
+    const remove = (tag) => {
+      tag.classList.add('removing');
+      setTimeout(() => tag.remove(), 240);
+    };
+    const addTag = (text) => {
+      const tag = document.createElement('span');
+      tag.className = 'demo-tag';
+      tag.append(document.createTextNode(text));
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Remove ' + text);
+      btn.textContent = '×';
+      tag.appendChild(btn);
+      box.insertBefore(tag, field);
+    };
+    box.addEventListener('click', (e) => {
+      const btn = e.target.closest('.demo-tag button');
+      if (btn) remove(btn.closest('.demo-tag'));
+      else if (e.target === box) field.focus();
+    });
+    field.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const v = field.value.trim();
+        if (v) { addTag(v); field.value = ''; }
+      } else if (e.key === 'Backspace' && !field.value) {
+        const last = field.previousElementSibling;
+        if (last && last.classList.contains('demo-tag')) remove(last);
+      }
+    });
+  });
+
+  /* ---------------------------------------------------------
+     40. Badge counter — click increments with a spring pop
+  --------------------------------------------------------- */
+  $$('.demo-cartbadge').forEach((el) => {
+    const count = $('.demo-cartbadge-count', el);
+    let n = parseInt(count.textContent, 10) || 0;
+    el.addEventListener('click', () => {
+      n += 1;
+      count.textContent = n;
+      count.classList.remove('pop');
+      void count.offsetWidth;
+      count.classList.add('pop');
+      setTimeout(() => count.classList.remove('pop'), 320);
+    });
+  });
+
+  /* ---------------------------------------------------------
+     41. Before / after compare — drag handle wipes the top layer
+  --------------------------------------------------------- */
+  $$('.demo-compare').forEach((zone) => {
+    const after = $('.demo-compare-after', zone);
+    const divider = $('.demo-compare-divider', zone);
+    const handle = $('.demo-compare-handle', zone);
+    let dragging = false;
+
+    const setPct = (p) => {
+      const pct = Math.min(Math.max(p, 0), 100);
+      after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      divider.style.left = pct + '%';
+      handle.style.left = pct + '%';
+    };
+    const fromEvent = (e) => {
+      const r = zone.getBoundingClientRect();
+      setPct(((e.clientX - r.left) / r.width) * 100);
+    };
+    const down = (e) => { dragging = true; zone.setPointerCapture(e.pointerId); fromEvent(e); };
+    const move = (e) => { if (dragging) fromEvent(e); };
+    const up = () => { dragging = false; };
+
+    zone.addEventListener('pointerdown', down);
+    zone.addEventListener('pointermove', move);
+    zone.addEventListener('pointerup', up);
+    zone.addEventListener('pointercancel', up);
+    setPct(50);
   });
 
 })();

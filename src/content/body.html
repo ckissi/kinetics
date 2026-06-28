@@ -148,7 +148,7 @@
 
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">// 72 spring-driven interactions</div>
+          <div class="eyebrow">// 99 spring-driven interactions</div>
           <h1 class="h-display">
             Motion that<br />has <span class="accent">weight.</span>
           </h1>
@@ -179,7 +179,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Interaction &amp; Input</h2>
-        <span class="count mono">24 / 72</span>
+        <span class="count mono">33 / 99</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -2035,6 +2035,590 @@
             </div>
           </div>
         </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">width 0.4s glide</div>
+            <label class="demo-search">
+              <svg
+                class="demo-search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              ><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.5" y2="16.5" /></svg>
+              <input
+                class="demo-search-input"
+                placeholder="Search…"
+                aria-label="Search"
+              />
+            </label>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Expanding Search</div>
+                <div class="desc">Field grows on hover or focus, glide easing</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.search {
+  width: 56px;
+  overflow: hidden;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* label wrapper: click anywhere focuses the input */
+.search:hover,
+.search:focus-within {
+  width: 230px;
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function ExpandingSearch() {
+  return (
+    &lt;div
+      style={{
+        width: 56,
+        overflow: &#x27;hidden&#x27;,
+        transition: &#x27;width 0.4s cubic-bezier(0.16,1,0.3,1)&#x27;,
+      }}
+      onFocusCapture={(e) =&gt; (e.currentTarget.style.width = &#x27;230px&#x27;)}
+      onBlurCapture={(e) =&gt; (e.currentTarget.style.width = &#x27;56px&#x27;)}
+    &gt;
+      &lt;SearchIcon /&gt;
+      &lt;input placeholder=&quot;Search…&quot; /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a pill-shaped search field that starts collapsed to just its icon (~56px) and expands to full width when focused. Use :focus-within and animate only the width over ~0.4s with a glide cubic-bezier(0.16, 1, 0.3, 1). Keep overflow hidden so the input text is clipped while collapsed, and let the icon stay pinned on the left.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">scale 0.88 spring</div>
+            <button class="demo-squish-btn demo-ripple-btn">Press me</button>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Squish Button</div>
+                <div class="desc">Compresses on press, springs back on release</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.btn {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn:active {
+  transform: scale(0.88);
+  transition: transform 0.08s ease-out;
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function SquishButton({ children }) {
+  return (
+    &lt;button
+      style={{ transition: &#x27;transform 0.5s cubic-bezier(0.34,1.56,0.64,1)&#x27; }}
+      onPointerDown={(e) =&gt; {
+        e.currentTarget.style.transition = &#x27;transform 0.08s ease-out&#x27;;
+        e.currentTarget.style.transform = &#x27;scale(0.88)&#x27;;
+      }}
+      onPointerUp={(e) =&gt; {
+        e.currentTarget.style.transition =
+          &#x27;transform 0.5s cubic-bezier(0.34,1.56,0.64,1)&#x27;;
+        e.currentTarget.style.transform = &#x27;scale(1)&#x27;;
+      }}
+    &gt;
+      {children}
+    &lt;/button&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Make a button that squishes down to ~88% scale the instant it is pressed (fast 0.08s ease-out) and springs back to full size on release with an overshooting cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.5s. The asymmetric timing — quick down, bouncy up — is what makes it feel physical. Drive it from :active.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">spring scale 1.06</div>
+            <div class="demo-radio-pills" role="radiogroup" aria-label="Plan">
+              <label
+                ><input type="radio" name="plan-pills" checked /><span>Monthly</span></label
+              >
+              <label
+                ><input type="radio" name="plan-pills" /><span>Yearly</span></label
+              >
+              <label
+                ><input type="radio" name="plan-pills" /><span>Lifetime</span></label
+              >
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Toggle Pills</div>
+                <div class="desc">Selected pill pops with a spring scale</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.pill input { position: absolute; opacity: 0; }
+.pill span {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.25s ease, color 0.25s ease;
+}
+.pill input:checked + span {
+  background: #ff8a00;
+  color: #0e0e10;
+  transform: scale(1.06);
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function TogglePills({ options }) {
+  const [active, setActive] = useState(options[0]);
+  return options.map((opt) =&gt; (
+    &lt;button
+      key={opt}
+      onClick={() =&gt; setActive(opt)}
+      style={{
+        transform: active === opt ? &#x27;scale(1.06)&#x27; : &#x27;scale(1)&#x27;,
+        background: active === opt ? &#x27;#ff8a00&#x27; : &#x27;#232326&#x27;,
+        transition: &#x27;transform 0.5s cubic-bezier(0.34,1.56,0.64,1)&#x27;,
+      }}
+    &gt;
+      {opt}
+    &lt;/button&gt;
+  ));
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a row of rounded pill options backed by hidden radio inputs so only one is selected at a time. When a pill becomes checked, fill it with the accent colour and pop it to scale(1.06) using a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.5s while colour/background ease over 0.25s. Use :checked + span so it works with zero JS.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">drag · 1px = 1</div>
+            <div class="demo-scrubber">
+              <div class="demo-scrubber-val" data-value="48">48</div>
+              <div class="demo-scrubber-hint">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 4 12 9 18" /><polyline points="15 6 20 12 15 18" /></svg>
+                drag left / right
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Value Scrubber</div>
+                <div class="desc">Drag horizontally to scrub the number</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.value {
+  cursor: ew-resize;
+  touch-action: none;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.value.scrubbing {
+  color: #ff8a00;
+  transform: scale(1.06);
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Scrubber({ start = 48 }) {
+  const [v, setV] = useState(start);
+  const onDown = (e) =&gt; {
+    const x0 = e.clientX, v0 = v;
+    const move = (m) =&gt; setV(v0 + Math.round(m.clientX - x0));
+    const up = () =&gt; {
+      window.removeEventListener(&#x27;pointermove&#x27;, move);
+      window.removeEventListener(&#x27;pointerup&#x27;, up);
+    };
+    window.addEventListener(&#x27;pointermove&#x27;, move);
+    window.addEventListener(&#x27;pointerup&#x27;, up);
+  };
+  return (
+    &lt;span style={{ cursor: &#x27;ew-resize&#x27; }} onPointerDown={onDown}&gt;
+      {v}
+    &lt;/span&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a draggable number scrubber: a large value you can click and drag horizontally to change, like a Blender/After Effects field. On pointerdown capture the start X and value; on pointermove add the pixel delta to the original value (1px ≈ 1 unit). Show an ew-resize cursor, pop the value to scale(1.06) with a spring while scrubbing, and release cleanly on pointerup.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">stagger spring</div>
+            <div class="demo-speeddial">
+              <input type="checkbox" id="speeddial-toggle" aria-label="Toggle actions" />
+              <button class="demo-speeddial-item" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.6" y1="13.5" x2="15.4" y2="17.5" /><line x1="15.4" y1="6.5" x2="8.6" y2="10.5" /></svg></button>
+              <button class="demo-speeddial-item" aria-label="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></svg></button>
+              <button class="demo-speeddial-item" aria-label="Star"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9" /></svg></button>
+              <label class="demo-speeddial-main" for="speeddial-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg></label>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Speed-Dial FAB</div>
+                <div class="desc">Actions fan out on a staggered spring</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.item {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+}
+:checked ~ .item:nth-of-type(1) { transform: translate(-54px, -58px); transition-delay: 0.02s; }
+:checked ~ .item:nth-of-type(2) { transform: translate(0, -80px);     transition-delay: 0.07s; }
+:checked ~ .item:nth-of-type(3) { transform: translate(54px, -58px);  transition-delay: 0.12s; }
+:checked ~ .item { opacity: 1; }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function SpeedDial({ actions }) {
+  const [open, setOpen] = useState(false);
+  const fan = [[-54, -58], [0, -80], [54, -58]];
+  return (
+    &lt;div&gt;
+      {actions.map((a, i) =&gt; (
+        &lt;button
+          key={i}
+          style={{
+            transform: open
+              ? `translate(${fan[i][0]}px, ${fan[i][1]}px)`
+              : &#x27;scale(0.4)&#x27;,
+            opacity: open ? 1 : 0,
+            transitionDelay: `${i * 0.05}s`,
+          }}
+        &gt;
+          {a.icon}
+        &lt;/button&gt;
+      ))}
+      &lt;button onClick={() =&gt; setOpen(!open)}&gt;+&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a floating action button that fans out 3 mini action buttons when toggled. Drive the open state from a hidden checkbox (label as the +) so it needs no JS. When checked, translate each item to a fanned position (upper-left, top, upper-right) and scale it from 0.4 to 1 using a spring cubic-bezier(0.34, 1.56, 0.64, 1), staggering transition-delay by ~50ms. Rotate the + icon to a × at the same time.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">spring scale 1.2</div>
+            <div class="demo-swatch" role="radiogroup" aria-label="Accent colour">
+              <label
+                ><input type="radio" name="swatch" checked /><span
+                  style="--c: #ff8a00"
+                ></span
+              ></label>
+              <label
+                ><input type="radio" name="swatch" /><span style="--c: #5b8def"></span
+              ></label>
+              <label
+                ><input type="radio" name="swatch" /><span style="--c: #4cd08a"></span
+              ></label>
+              <label
+                ><input type="radio" name="swatch" /><span style="--c: #ff5c5c"></span
+              ></label>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Swatch Picker</div>
+                <div class="desc">Selected colour springs up with a check</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.swatch span {
+  box-shadow: 0 0 0 2px #0e0e10;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+}
+.swatch input:checked + span {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px #0e0e10, 0 0 0 4px var(--c);
+}
+.swatch input:checked + span::after { content: &quot;✓&quot;; opacity: 1; }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Swatches({ colors }) {
+  const [active, setActive] = useState(colors[0]);
+  return colors.map((c) =&gt; (
+    &lt;button
+      key={c}
+      onClick={() =&gt; setActive(c)}
+      style={{
+        background: c,
+        transform: active === c ? &#x27;scale(1.2)&#x27; : &#x27;scale(1)&#x27;,
+        boxShadow:
+          active === c ? `0 0 0 2px #0e0e10, 0 0 0 4px ${c}` : &#x27;none&#x27;,
+        transition: &#x27;transform 0.5s cubic-bezier(0.34,1.56,0.64,1)&#x27;,
+      }}
+    /&gt;
+  ));
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a colour swatch picker: a row of circular swatches backed by hidden radio inputs. When one is checked, scale it to 1.2 with a spring cubic-bezier(0.34, 1.56, 0.64, 1), draw a ring around it using a double box-shadow in the swatch&#x27;s own colour, and fade-pop a ✓ glyph in the centre. Pure CSS via :checked + span, only one selected at a time.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">snap · 85% latch</div>
+            <div class="demo-unlock">
+              <div class="demo-unlock-fill"></div>
+              <div class="demo-unlock-label">slide to unlock</div>
+              <div class="demo-unlock-thumb" role="slider" aria-label="Slide to unlock">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18" /></svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Slide to Unlock</div>
+                <div class="desc">Drag past the latch or it springs back</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.thumb {
+  transition: left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.track.dragging .thumb { transition: none; }   /* follow finger 1:1 */
+.track.unlocked .thumb { background: #4cd08a; }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function SlideUnlock({ onUnlock }) {
+  const [x, setX] = useState(0);
+  const max = 184;
+  const onMove = (dx) =&gt; setX(Math.min(Math.max(dx, 0), max));
+  const onEnd = () =&gt; {
+    if (x &gt;= max * 0.85) { setX(max); onUnlock(); }
+    else setX(0); // spring back
+  };
+  return (
+    &lt;div className=&quot;track&quot;&gt;
+      &lt;div
+        className=&quot;thumb&quot;
+        style={{ left: x }}
+        onPointerMove={(e) =&gt; e.buttons &amp;&amp; onMove(x + e.movementX)}
+        onPointerUp={onEnd}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build an iOS-style slide-to-unlock control. A round thumb sits at the left of a pill track; dragging moves it 1:1 with the pointer (disable the transition while dragging) and a green fill grows behind it. On release, if the thumb passed ~85% of the track, latch it open at the far end and mark it unlocked; otherwise spring it back to the start with a cubic-bezier(0.34, 1.56, 0.64, 1).</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">pop in / out</div>
+            <div class="demo-taginput">
+              <span class="demo-tag">design<button type="button" aria-label="Remove design">×</button></span>
+              <span class="demo-tag">motion<button type="button" aria-label="Remove motion">×</button></span>
+              <input
+                class="demo-taginput-field"
+                placeholder="Add tag…"
+                aria-label="Add tag"
+              />
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Tag Input</div>
+                <div class="desc">Enter pops a chip in; × pops it out</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.tag { animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.tag.removing { animation: out 0.24s ease forwards; }
+@keyframes pop { from { transform: scale(0.4); opacity: 0; } }
+@keyframes out { to   { transform: scale(0.4); opacity: 0; } }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function TagInput() {
+  const [tags, setTags] = useState([&#x27;design&#x27;, &#x27;motion&#x27;]);
+  const add = (e) =&gt; {
+    if (e.key === &#x27;Enter&#x27; &amp;&amp; e.target.value.trim()) {
+      setTags([...tags, e.target.value.trim()]);
+      e.target.value = &#x27;&#x27;;
+    }
+  };
+  return (
+    &lt;div className=&quot;tags&quot;&gt;
+      {tags.map((t, i) =&gt; (
+        &lt;span key={i} className=&quot;tag&quot;&gt;
+          {t}
+          &lt;button onClick={() =&gt; setTags(tags.filter((_, j) =&gt; j !== i))}&gt;×&lt;/button&gt;
+        &lt;/span&gt;
+      ))}
+      &lt;input onKeyDown={add} placeholder=&quot;Add tag…&quot; /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a tag/token input. Typing a value and pressing Enter appends a pill that springs in from scale(0.4) with a cubic-bezier(0.34, 1.56, 0.64, 1) pop. Each pill has a × button that removes it with a quick scale-down fade. Pressing Backspace in the empty field removes the last tag. The field shares a bordered container with the pills and highlights on focus-within.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">translateY 6px</div>
+            <button class="demo-keycap">K</button>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Keycap Press</div>
+                <div class="desc">Mechanical keycap depresses on its shadow</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.key {
+  box-shadow: 0 7px 0 0 #0c0c0e, 0 10px 16px -4px rgba(0,0,0,0.6);
+  transition: transform 0.09s ease-out, box-shadow 0.09s ease-out;
+}
+.key:active {
+  transform: translateY(6px);
+  box-shadow: 0 1px 0 0 #0c0c0e, 0 2px 6px -2px rgba(0,0,0,0.6);
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Keycap({ label }) {
+  return &lt;button className=&quot;key&quot;&gt;{label}&lt;/button&gt;;
+  // The :active state collapses the 7px bottom shadow
+  // and pushes the cap down 6px — a 1:1 travel illusion.
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Style a button as a 3D mechanical keycap. Give it a solid offset box-shadow (0 7px 0 a dark colour) to act as the key&#x27;s side wall, plus a soft ambient shadow below. On :active, translate the cap down by the same 6–7px and shrink the side shadow to ~1px so it reads as physically bottoming out. Use a fast ~0.09s ease-out so the press feels crisp.</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2043,7 +2627,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Feedback &amp; State</h2>
-        <span class="count mono">24 / 72</span>
+        <span class="count mono">33 / 99</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -3730,6 +4314,524 @@ function useScramble(text) {
             </div>
           </div>
         </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">slide 1.4s loop</div>
+            <div class="demo-indeterminate" role="progressbar" aria-label="Loading"></div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Indeterminate Bar</div>
+                <div class="desc">Looping sweep for unknown-length work</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.bar { position: relative; overflow: hidden; }
+.bar::after {
+  content: &quot;&quot;;
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: #ff8a00;
+  animation: slide 1.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(320%); }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function IndeterminateBar() {
+  return (
+    &lt;div className=&quot;bar&quot; role=&quot;progressbar&quot;&gt;
+      &lt;span /&gt;
+    &lt;/div&gt;
+  );
+  // .bar span animates translateX(-100% -&gt; 320%)
+  // on a 1.4s glide loop; width is fixed at 40%.
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build an indeterminate progress bar: a thin rounded track with a 40%-wide accent segment that sweeps across it on an infinite 1.4s loop using a glide cubic-bezier(0.16, 1, 0.3, 1). Animate translateX from -100% to 320% so the segment fully enters and exits. Keep overflow hidden and the track a muted inset colour.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">ring 1.8s ease-out</div>
+            <div class="demo-pulse-dot" aria-label="3 unread">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+              </svg>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Pulse Badge</div>
+                <div class="desc">Expanding ring draws the eye to new state</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.badge::after {
+  content: &quot;&quot;;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #ff8a00;
+  animation: pulse 1.8s ease-out infinite;
+}
+@keyframes pulse {
+  0%        { transform: scale(1);   opacity: 0.7; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function PulseBadge({ children }) {
+  return (
+    &lt;span className=&quot;wrap&quot;&gt;
+      {children}
+      &lt;span className=&quot;dot&quot; /&gt;
+      &lt;span className=&quot;dot pulse&quot; /&gt;
+    &lt;/span&gt;
+  );
+  // .pulse animates scale(1 -&gt; 2.6) + opacity(0.7 -&gt; 0)
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Add a small accent notification dot to a bell icon, then layer a second copy behind it that pulses outward forever: scale(1) to scale(2.6) while fading opacity 0.7 to 0 on a 1.8s ease-out loop. The solid dot stays put while the ghost ring radiates, signalling an unread/new state without any interaction.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">shimmer 1.5s linear</div>
+            <div class="demo-shimmer" aria-label="Loading content">
+              <div class="demo-shimmer-line"></div>
+              <div class="demo-shimmer-line"></div>
+              <div class="demo-shimmer-line short"></div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Shimmer Skeleton</div>
+                <div class="desc">Sweeping highlight over placeholder lines</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.line {
+  background: linear-gradient(90deg, #232326 0%, #2a2a2e 20%, #232326 40%);
+  background-size: 280% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 140% 0; }
+  100% { background-position: -140% 0; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Skeleton({ lines = 3 }) {
+  return (
+    &lt;div className=&quot;skeleton&quot;&gt;
+      {Array.from({ length: lines }).map((_, i) =&gt; (
+        &lt;div key={i} className=&quot;line&quot; /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a loading skeleton of stacked rounded bars. Give each bar a wide linear-gradient (muted, lighter highlight, muted) sized to ~280% width and animate background-position from 140% to -140% on a 1.5s linear infinite loop so a soft highlight sweeps across. Make the last line shorter (~60%) to imply a paragraph.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">bounce 1.2s loop</div>
+            <div class="demo-typing" aria-label="Someone is typing">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Typing Indicator</div>
+                <div class="desc">Three dots bounce in sequence, chat-style</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.typing span {
+  animation: bounce 1.2s ease-in-out infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.16s; }
+.typing span:nth-child(3) { animation-delay: 0.32s; }
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0);    opacity: 0.4; }
+  30%           { transform: translateY(-7px); opacity: 1; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function TypingDots() {
+  return (
+    &lt;div className=&quot;typing&quot;&gt;
+      {[0, 1, 2].map((i) =&gt; (
+        &lt;span key={i} style={{ animationDelay: `${i * 0.16}s` }} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a chat &quot;typing…&quot; indicator: a rounded bubble (with one squared corner) holding three dots. Animate each dot on an infinite 1.2s ease-in-out loop that lifts it ~7px and brightens opacity at the 30% mark, otherwise resting low and dim. Stagger the three dots by ~0.16s so the bounce travels left to right.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">offset-path 2.4s</div>
+            <div class="demo-ekg" aria-label="Heart rate monitor">
+              <svg viewBox="0 0 230 84" preserveAspectRatio="none">
+                <path
+                  class="demo-ekg-line"
+                  d="M0,42 L58,42 L70,42 L80,18 L92,68 L104,42 L150,42 L162,42 L170,30 L178,54 L186,42 L230,42"
+                />
+              </svg>
+              <span class="demo-ekg-dot"></span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Heartbeat Monitor</div>
+                <div class="desc">Glowing dot traces an EKG along the path</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.dot {
+  background: #4cd08a;
+  box-shadow: 0 0 12px 2px #4cd08a;
+  offset-path: path(&quot;M0,42 L80,18 L92,68 L104,42 L230,42&quot;);
+  animation: trace 2.4s linear infinite;
+}
+@keyframes trace {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>const PATH = &#x27;M0,42 L80,18 L92,68 L104,42 L230,42&#x27;;
+
+function Heartbeat() {
+  return (
+    &lt;div className=&quot;ekg&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 230 84&quot;&gt;
+        &lt;path className=&quot;line&quot; d={PATH} /&gt;
+      &lt;/svg&gt;
+      &lt;span className=&quot;dot&quot; style={{ offsetPath: `path(&quot;${PATH}&quot;)` }} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a heart-rate monitor. Draw a faint EKG line as an SVG path (flat, a sharp QRS spike, flat, a small bump, flat). Then put a glowing accent dot on the same path using CSS offset-path: path(...) and animate offset-distance from 0% to 100% on an infinite 2.4s linear loop so the dot sweeps along the trace. Give the dot a box-shadow glow so it reads like a live signal.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">charge 3.6s loop</div>
+            <div class="demo-battery">
+              <div class="demo-battery-body">
+                <div class="demo-battery-fill"></div>
+                <div class="demo-battery-bolt">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" /></svg>
+                </div>
+              </div>
+              <div class="demo-battery-label mono">Charging…</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Battery Charge</div>
+                <div class="desc">Fill climbs as the bolt pulses</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.fill {
+  background: linear-gradient(90deg, #4cd08a, #74e2aa);
+  animation: charge 3.6s ease-in-out infinite;
+}
+@keyframes charge {
+  0%        { width: 14%; }
+  85%, 100% { width: 100%; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Battery({ level }) {
+  return (
+    &lt;div className=&quot;battery&quot;&gt;
+      &lt;div
+        className=&quot;fill&quot;
+        style={{ width: `${level}%`, transition: &#x27;width 0.4s ease&#x27; }}
+      /&gt;
+      &lt;BoltIcon className=&quot;bolt&quot; /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a charging battery indicator: a rounded battery body with a small terminal nub on the right. Inside, a green gradient fill grows its width from ~14% to 100% on an infinite 3.6s ease-in-out loop, holding full briefly before looping. Centre a lightning bolt icon over it that gently pulses scale and opacity, and show a &quot;Charging…&quot; label below.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">stagger 2.4s loop</div>
+            <div class="demo-signal" aria-label="Connecting">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Signal Bars</div>
+                <div class="desc">Bars light up in sequence while connecting</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.bar::after {
+  background: #4cd08a;
+  animation: fill 2.4s ease-in-out infinite;
+}
+.bar:nth-child(2)::after { animation-delay: 0.18s; }
+.bar:nth-child(3)::after { animation-delay: 0.36s; }
+.bar:nth-child(4)::after { animation-delay: 0.54s; }
+@keyframes fill {
+  0% { opacity: 0; } 12%,70% { opacity: 1; } 82%,100% { opacity: 0; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function SignalBars() {
+  const heights = [32, 55, 78, 100];
+  return (
+    &lt;div className=&quot;signal&quot;&gt;
+      {heights.map((h, i) =&gt; (
+        &lt;span
+          key={i}
+          className=&quot;bar&quot;
+          style={{ height: `${h}%`, animationDelay: `${i * 0.18}s` }}
+        /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a &quot;connecting&quot; signal-strength indicator: four bars of increasing height. Each has a green fill overlay that animates opacity 0→1→0 on an infinite 2.4s loop, with the four bars staggered by ~0.18s so they light up left-to-right in sequence, hold briefly, then clear and repeat — like a device searching for signal.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">spring pop 1.4×</div>
+            <div class="demo-cartbadge" aria-label="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.6" /><circle cx="18" cy="21" r="1.6" /><path d="M2.5 3h2l2.2 12.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 7H6" /></svg>
+              <span class="demo-cartbadge-count mono">1</span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Badge Counter</div>
+                <div class="desc">Count springs on every add</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.count { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.count.pop { transform: scale(1.4); }
+/* toggle .pop off after ~320ms to let it spring back */</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function CartBadge() {
+  const [n, setN] = useState(1);
+  const [pop, setPop] = useState(false);
+  const add = () =&gt; {
+    setN(n + 1);
+    setPop(true);
+    setTimeout(() =&gt; setPop(false), 320);
+  };
+  return (
+    &lt;button onClick={add}&gt;
+      &lt;CartIcon /&gt;
+      &lt;span className={pop ? &#x27;count pop&#x27; : &#x27;count&#x27;}&gt;{n}&lt;/span&gt;
+    &lt;/button&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a cart icon with a numeric badge in the corner. On each click, increment the number and pop the badge to scale(1.4) with a spring cubic-bezier(0.34, 1.56, 0.64, 1), then remove the class after ~320ms so it springs back to rest. Force a reflow between removing and re-adding the class so rapid clicks re-trigger the bump every time.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">drop spring</div>
+            <label class="demo-bookmark">
+              <input type="checkbox" aria-label="Save" />
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1z" /></svg>
+              <span class="demo-bookmark-label mono">Save</span>
+            </label>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Bookmark Toggle</div>
+                <div class="desc">Ribbon fills and drops in on save</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.mark svg { fill: transparent; stroke: #a8a6a0; transition: fill 0.3s, stroke 0.3s; }
+.mark input:checked + svg {
+  fill: #ff8a00; stroke: #ff8a00;
+  animation: drop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes drop {
+  0%   { transform: translateY(-9px) scale(0.9); }
+  55%  { transform: translateY(3px)  scale(1.14); }
+  100% { transform: translateY(0)    scale(1); }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Bookmark() {
+  const [saved, setSaved] = useState(false);
+  return (
+    &lt;button
+      onClick={() =&gt; setSaved(!saved)}
+      className={saved ? &#x27;mark on&#x27; : &#x27;mark&#x27;}
+      aria-pressed={saved}
+    &gt;
+      &lt;RibbonIcon /&gt;
+    &lt;/button&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a bookmark/ribbon save toggle backed by a hidden checkbox. When unchecked the ribbon is just an outline; when checked it fills with the accent colour and plays a one-shot &quot;drop in&quot; keyframe — start slightly above and small, overshoot down and large, then settle — using a spring cubic-bezier(0.34, 1.56, 0.64, 1). Tint the &quot;Save&quot; label to match. Pure CSS via :checked.</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -3738,7 +4840,7 @@ function useScramble(text) {
     <div class="wrap">
       <div class="section-head">
         <h2>Surface &amp; Motion</h2>
-        <span class="count mono">24 / 72</span>
+        <span class="count mono">33 / 99</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -5291,6 +6393,526 @@ function useScramble(text) {
             </div>
           </div>
         </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">lift -10px spring</div>
+            <div class="demo-lift">
+              <div class="demo-lift-title">Hover to lift</div>
+              <div class="demo-lift-sub">
+                Translate and shadow ease in on a single spring curve.
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Hover Lift</div>
+                <div class="desc">Surface rises with a soft cast shadow</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.card {
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function LiftCard({ children }) {
+  const [hover, setHover] = useState(false);
+  return (
+    &lt;div
+      onMouseEnter={() =&gt; setHover(true)}
+      onMouseLeave={() =&gt; setHover(false)}
+      style={{
+        transform: hover ? &#x27;translateY(-10px)&#x27; : &#x27;translateY(0)&#x27;,
+        boxShadow: hover ? &#x27;0 18px 40px -12px rgba(0,0,0,0.7)&#x27; : &#x27;none&#x27;,
+        transition: &#x27;all 0.5s cubic-bezier(0.34,1.56,0.64,1)&#x27;,
+      }}
+    &gt;
+      {children}
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Make a card that lifts on hover: translateY(-10px) with a soft, large cast shadow (0 18px 40px -12px rgba(0,0,0,0.7)). Animate both transform and box-shadow together over ~0.5s with an overshooting spring cubic-bezier(0.34, 1.56, 0.64, 1) so it gently bobs as it settles up and back down.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">sheen 0.7s glide</div>
+            <div class="demo-sheen">UPGRADE</div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Sheen Sweep</div>
+                <div class="desc">Specular highlight glides across on hover</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.surface { position: relative; overflow: hidden; }
+.surface::after {
+  content: &quot;&quot;;
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.surface:hover::after { left: 120%; }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Sheen({ children }) {
+  return &lt;div className=&quot;surface&quot;&gt;{children}&lt;/div&gt;;
+  // ::after is a skewed translucent stripe;
+  // :hover slides it from left: -60% to 120%
+  // over 0.7s with a glide curve.
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Add a moving specular sheen to a surface on hover. Use an ::after pseudo-element: a ~50%-wide vertical stripe with a translucent white linear-gradient, skewed by -18deg, positioned off-screen left (left: -60%). On :hover transition its left to 120% over ~0.7s with a glide cubic-bezier(0.16, 1, 0.3, 1) so a glint sweeps across. Keep the parent overflow hidden.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">clip-path 0.5s</div>
+            <div class="demo-wipe">
+              <div class="demo-wipe-base">Hover me</div>
+              <div class="demo-wipe-over">Revealed</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Clip Wipe</div>
+                <div class="desc">Overlay unmasks left-to-right with clip-path</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.over {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wipe:hover .over {
+  clip-path: inset(0 0 0 0);
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function ClipWipe({ base, reveal }) {
+  const [on, setOn] = useState(false);
+  return (
+    &lt;div
+      onMouseEnter={() =&gt; setOn(true)}
+      onMouseLeave={() =&gt; setOn(false)}
+      style={{ position: &#x27;relative&#x27; }}
+    &gt;
+      &lt;div&gt;{base}&lt;/div&gt;
+      &lt;div
+        style={{
+          position: &#x27;absolute&#x27;, inset: 0,
+          clipPath: on ? &#x27;inset(0 0 0 0)&#x27; : &#x27;inset(0 100% 0 0)&#x27;,
+          transition: &#x27;clip-path 0.5s cubic-bezier(0.16,1,0.3,1)&#x27;,
+        }}
+      &gt;
+        {reveal}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Stack two layers in a box: a base label and an accent-coloured overlay. Clip the overlay to nothing with clip-path: inset(0 100% 0 0) so only the base shows. On hover, transition the overlay&#x27;s clip-path to inset(0 0 0 0) over ~0.5s with a glide cubic-bezier(0.16, 1, 0.3, 1) so it wipes in left-to-right. Keep the box overflow hidden.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">rotateY spring</div>
+            <div class="demo-cube-scene">
+              <div class="demo-cube" data-face="0">
+                <div class="demo-cube-face front">ROLL</div>
+                <div class="demo-cube-face right">SPIN</div>
+                <div class="demo-cube-face back">FLIP</div>
+                <div class="demo-cube-face left">TURN</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">3D Cube Rotate</div>
+                <div class="desc">Click to roll a face in with depth</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.scene { perspective: 620px; }
+.cube {
+  transform-style: preserve-3d;
+  transform: translateZ(-56px) rotateY(0deg);
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.front { transform: rotateY(0deg)   translateZ(56px); }
+.right { transform: rotateY(90deg)  translateZ(56px); }
+.back  { transform: rotateY(180deg) translateZ(56px); }
+.left  { transform: rotateY(-90deg) translateZ(56px); }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Cube({ faces }) {
+  const [n, setN] = useState(0);
+  return (
+    &lt;div className=&quot;scene&quot; onClick={() =&gt; setN(n + 1)}&gt;
+      &lt;div
+        className=&quot;cube&quot;
+        style={{ transform: `translateZ(-56px) rotateY(${-90 * n}deg)` }}
+      &gt;
+        {faces.map((f, i) =&gt; (
+          &lt;div key={i} className={`face ${f.side}`}&gt;{f.label}&lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a 3D cube you can click to rotate. Use a scene with perspective and a preserve-3d cube whose four side faces are placed with rotateY(0/90/180/-90deg) translateZ(56px). Pull the cube back by translateZ(-56px) so faces sit around the centre. On each click, rotate the cube by -90deg on Y using a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.7s so the next face rolls into view with a slight overshoot.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">squash &amp; stretch</div>
+            <div class="demo-jelly">JELLO</div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Jelly Wobble</div>
+                <div class="desc">Squash-and-stretch settle on hover</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.jelly:hover {
+  animation: wobble 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes wobble {
+  0%   { transform: scale(1, 1); }
+  25%  { transform: scale(1.14, 0.86); }
+  45%  { transform: scale(0.9, 1.1); }
+  65%  { transform: scale(1.05, 0.95); }
+  100% { transform: scale(1, 1); }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Jelly({ children }) {
+  const [k, setK] = useState(0);
+  return (
+    &lt;div
+      key={k}
+      onMouseEnter={() =&gt; setK((x) =&gt; x + 1)}
+      className=&quot;jelly&quot;
+    &gt;
+      {children}
+    &lt;/div&gt;
+  );
+  // re-keying restarts the wobble keyframes on each enter
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Give an element a jelly squash-and-stretch wobble on hover. Run a single ~0.8s keyframe animation with an overshooting spring easing that alternates non-uniform scales: stretch wide and short (1.14, 0.86), then tall and narrow (0.9, 1.1), then progressively smaller corrections until it settles back to scale(1,1). The conservation-of-volume feel (one axis grows as the other shrinks) is what sells it.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">rotateY 0.6s glide</div>
+            <div class="demo-fold">
+              <div class="demo-fold-inner">UNLOCKED</div>
+              <div class="demo-fold-panel left">Hover</div>
+              <div class="demo-fold-panel right">to open</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Folding Doors</div>
+                <div class="desc">Two panels swing open in 3D on hover</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.fold { perspective: 820px; overflow: hidden; }
+.panel {
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.panel.left  { transform-origin: left center; }
+.panel.right { transform-origin: right center; }
+.fold:hover .panel.left  { transform: rotateY(-108deg); }
+.fold:hover .panel.right { transform: rotateY(108deg); }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function FoldReveal({ children }) {
+  return (
+    &lt;div className=&quot;fold&quot;&gt;
+      &lt;div className=&quot;inner&quot;&gt;{children}&lt;/div&gt;
+      &lt;div className=&quot;panel left&quot; /&gt;
+      &lt;div className=&quot;panel right&quot; /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a content box hidden behind two folding doors. Place an inner layer with the reveal content, then two half-width panels covering it. Give the parent perspective and each panel a transform-origin at its outer edge (left panel: left, right panel: right) with backface-visibility hidden. On hover, swing them open with rotateY(±108deg) over ~0.6s using a glide cubic-bezier(0.16, 1, 0.3, 1).</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">drag · clip-path</div>
+            <div class="demo-compare">
+              <div class="demo-compare-layer demo-compare-before">BEFORE</div>
+              <div class="demo-compare-layer demo-compare-after">AFTER</div>
+              <div class="demo-compare-divider"></div>
+              <div class="demo-compare-handle" role="slider" aria-label="Compare">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 7 4 12 9 17" /><polyline points="15 7 20 12 15 17" /></svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Before / After</div>
+                <div class="desc">Drag the handle to wipe between layers</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.after  { clip-path: inset(0 50% 0 0); }   /* reveal up to the divider */
+.divider, .handle { left: 50%; }
+/* JS sets:  after.clipPath = `inset(0 ${100 - pct}% 0 0)` */</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function Compare({ before, after }) {
+  const [pct, setPct] = useState(50);
+  const onMove = (e) =&gt; {
+    if (!e.buttons) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    setPct(((e.clientX - r.left) / r.width) * 100);
+  };
+  return (
+    &lt;div className=&quot;compare&quot; onPointerMove={onMove}&gt;
+      {before}
+      &lt;div style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}&gt;{after}&lt;/div&gt;
+      &lt;div className=&quot;divider&quot; style={{ left: `${pct}%` }} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a before/after image comparison slider. Stack two full-size layers; clip the top (after) layer with clip-path: inset(0 R% 0 0). Dragging a centre handle horizontally sets the percentage so R = 100 - pct, wiping the after layer in and out while a thin vertical divider and round handle track the split. Clamp to 0–100% and update on pointermove while pressed.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">spring fan-out</div>
+            <div class="demo-stack">
+              <div class="demo-stack-card">TOP</div>
+              <div class="demo-stack-card">MID</div>
+              <div class="demo-stack-card">BASE</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Depth Stack</div>
+                <div class="desc">Layered cards fan apart on hover</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.card { transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.card:nth-child(2) { transform: translateY(7px)  scale(0.93); }
+.card:nth-child(3) { transform: translateY(14px) scale(0.86); }
+.stack:hover .card:nth-child(1) { transform: translateY(-48px) rotate(-5deg); }
+.stack:hover .card:nth-child(3) { transform: translateY(48px)  rotate(5deg); }</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function DepthStack({ cards }) {
+  return (
+    &lt;div className=&quot;stack&quot;&gt;
+      {cards.map((c, i) =&gt; (
+        &lt;div key={i} className=&quot;card&quot; style={{ zIndex: cards.length - i }}&gt;
+          {c}
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+  // depth via translateY + scale; :hover fans them apart
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Build a stack of 3 overlapping cards that look like a deck — each lower card pushed down a few px and scaled slightly smaller, with descending z-index. On hover, fan them apart vertically: the top card lifts up and tilts left, the bottom drops and tilts right, the middle squares up to full size. Animate transforms with a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.55s.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">sine · 1.5s loop</div>
+            <div class="demo-textwave" aria-label="KINETICS">
+              <span style="animation-delay: 0s">K</span><span style="animation-delay: -0.09s">I</span><span style="animation-delay: -0.18s">N</span><span style="animation-delay: -0.27s">E</span><span style="animation-delay: -0.36s">T</span><span style="animation-delay: -0.45s">I</span><span style="animation-delay: -0.54s">C</span><span style="animation-delay: -0.63s">S</span>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="row">
+              <div>
+                <div class="name">Text Wave</div>
+                <div class="desc">A crest of motion travels across the letters</div>
+              </div>
+              <button class="view-code">View code</button>
+            </div>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs">
+              <button class="code-tab active" data-lang="css">CSS</button>
+              <button class="code-tab" data-lang="react">React</button>
+              <button class="code-tab" data-lang="prompt">Prompt</button>
+            </div>
+            <div class="code-body">
+              <button class="copy-btn">Copy</button>
+              <pre data-lang="css"><code>.wave span {
+  display: inline-block;
+  animation: bob 1.5s ease-in-out infinite;
+}
+/* phase each letter with a negative delay so the crest travels */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  28%      { transform: translateY(-13px); color: #ff8a00; }
+}</code></pre>
+              <pre
+                data-lang="react"
+                class="hidden"
+              ><code>function TextWave({ text }) {
+  return (
+    &lt;span className=&quot;wave&quot;&gt;
+      {[...text].map((ch, i) =&gt; (
+        &lt;span key={i} style={{ animationDelay: `${-i * 0.09}s` }}&gt;
+          {ch}
+        &lt;/span&gt;
+      ))}
+    &lt;/span&gt;
+  );
+}</code></pre>
+              <pre
+                data-lang="prompt"
+                class="hidden"
+              ><code>Animate a word so a wave of motion travels across its letters. Wrap each character in an inline-block span running the same ~1.5s ease-in-out loop that lifts it ~13px (and tints it the accent colour) at the crest, resting otherwise. Offset each letter with a negative animation-delay stepping by ~0.09s so the peak ripples smoothly left-to-right and never stops.</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -5384,7 +7006,7 @@ function useScramble(text) {
   <div class="wrap footer-grid">
     <div class="brand"><span class="dot"></span> Kinetics</div>
     <div class="dim mono" style="font-size: 12px">
-      54 motion patterns. CSS + React. MIT licensed.
+      99 motion patterns. CSS + React. MIT licensed.
     </div>
     <div class="footer-links mono">
       <a

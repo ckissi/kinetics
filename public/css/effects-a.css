@@ -1030,3 +1030,432 @@
   color: var(--amber);
   font-variant-numeric: tabular-nums;
 }
+
+/* 25. Expanding search */
+.demo-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 56px;
+  padding: 12px 14px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  overflow: hidden;
+  cursor: text;
+  transition:
+    width 0.4s var(--glide),
+    border-color 0.3s ease;
+}
+.demo-search:hover {
+  border-color: var(--bone-faint);
+}
+.demo-search:hover,
+.demo-search:focus-within {
+  width: 230px;
+}
+.demo-search:focus-within {
+  border-color: var(--amber);
+}
+.demo-search-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--bone-dim);
+}
+.demo-search-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--bone);
+  font-size: 14px;
+}
+.demo-search-input::placeholder {
+  color: var(--bone-faint);
+}
+
+/* 26. Squish button */
+.demo-squish-btn {
+  padding: 14px 26px;
+  min-height: 48px;
+  background: var(--amber);
+  color: var(--graphite);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  transition: transform 0.5s var(--spring);
+  will-change: transform;
+}
+.demo-squish-btn:active {
+  transform: scale(0.88);
+  transition: transform 0.08s ease-out;
+}
+
+/* 27. Toggle pills (radio) */
+.demo-radio-pills {
+  display: flex;
+  gap: 8px;
+}
+.demo-radio-pills label {
+  position: relative;
+  cursor: pointer;
+}
+.demo-radio-pills input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-radio-pills span {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 10px 16px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 13px;
+  color: var(--bone-dim);
+  transition:
+    transform 0.5s var(--spring),
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+.demo-radio-pills input:checked + span {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--graphite);
+  font-weight: 600;
+  transform: scale(1.06);
+}
+.demo-radio-pills input:focus-visible + span {
+  outline: 2px solid var(--wire);
+  outline-offset: 2px;
+}
+
+/* 28. Value scrubber */
+.demo-scrubber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+.demo-scrubber-val {
+  padding: 4px 18px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 1;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+  border-radius: var(--radius-sm);
+  cursor: ew-resize;
+  touch-action: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.4s var(--spring);
+}
+.demo-scrubber-val.scrubbing {
+  color: var(--amber);
+  background: var(--card-2);
+  transform: scale(1.06);
+}
+.demo-scrubber-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--bone-faint);
+}
+
+/* 29. Speed-dial FAB */
+.demo-speeddial {
+  position: relative;
+  width: 150px;
+  height: 156px;
+}
+.demo-speeddial input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-speeddial-main {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -27px;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  background: var(--amber);
+  color: var(--graphite);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 8px 20px -6px var(--amber-deep);
+  transition: transform 0.4s var(--spring);
+}
+.demo-speeddial-main svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.45s var(--spring);
+}
+.demo-speeddial input:checked ~ .demo-speeddial-main svg {
+  transform: rotate(135deg);
+}
+.demo-speeddial-item {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  margin-left: -20px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--bone);
+  opacity: 0;
+  transform: translate(0, 0) scale(0.4);
+  pointer-events: none;
+  transition:
+    transform 0.5s var(--spring),
+    opacity 0.3s ease;
+}
+.demo-speeddial-item svg {
+  width: 18px;
+  height: 18px;
+}
+.demo-speeddial input:checked ~ .demo-speeddial-item {
+  opacity: 1;
+  pointer-events: auto;
+}
+.demo-speeddial input:checked ~ .demo-speeddial-item:nth-of-type(1) {
+  transform: translate(-54px, -58px) scale(1);
+  transition-delay: 0.02s;
+}
+.demo-speeddial input:checked ~ .demo-speeddial-item:nth-of-type(2) {
+  transform: translate(0, -80px) scale(1);
+  transition-delay: 0.07s;
+}
+.demo-speeddial input:checked ~ .demo-speeddial-item:nth-of-type(3) {
+  transform: translate(54px, -58px) scale(1);
+  transition-delay: 0.12s;
+}
+
+/* 30. Swatch picker */
+.demo-swatch {
+  display: flex;
+  gap: 14px;
+}
+.demo-swatch label {
+  position: relative;
+  cursor: pointer;
+}
+.demo-swatch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-swatch span {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--c);
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 0 0 2px var(--graphite);
+  transition:
+    transform 0.5s var(--spring),
+    box-shadow 0.3s ease;
+}
+.demo-swatch span::after {
+  content: "✓";
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.2s ease, transform 0.4s var(--spring);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+.demo-swatch input:checked + span {
+  transform: scale(1.2);
+  box-shadow:
+    0 0 0 2px var(--graphite),
+    0 0 0 4px var(--c);
+}
+.demo-swatch input:checked + span::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.demo-swatch input:focus-visible + span {
+  box-shadow:
+    0 0 0 2px var(--graphite),
+    0 0 0 4px var(--wire);
+}
+
+/* 31. Slide to unlock */
+.demo-unlock {
+  position: relative;
+  width: 230px;
+  height: 52px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  overflow: hidden;
+  user-select: none;
+}
+.demo-unlock-fill {
+  position: absolute;
+  inset: 0;
+  width: 49px;
+  background: color-mix(in srgb, var(--ok) 26%, transparent);
+  transition: width 0.45s var(--spring);
+}
+.demo-unlock-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--bone-faint);
+  pointer-events: none;
+}
+.demo-unlock-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background: var(--amber);
+  color: var(--graphite);
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  transition:
+    left 0.45s var(--spring),
+    background 0.3s ease;
+}
+.demo-unlock-thumb svg {
+  width: 20px;
+  height: 20px;
+}
+.demo-unlock.dragging .demo-unlock-thumb {
+  transition: background 0.3s ease;
+  cursor: grabbing;
+}
+.demo-unlock.unlocked .demo-unlock-thumb {
+  background: var(--ok);
+}
+
+/* 32. Tag input */
+.demo-taginput {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  width: 240px;
+  min-height: 48px;
+  padding: 8px 10px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.25s ease;
+}
+.demo-taginput:focus-within {
+  border-color: var(--amber);
+}
+.demo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px 4px 11px;
+  background: var(--amber);
+  color: var(--graphite);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 100px;
+  animation: demo-tag-pop 0.4s var(--spring);
+}
+@keyframes demo-tag-pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.demo-tag.removing {
+  animation: demo-tag-out 0.24s ease forwards;
+}
+@keyframes demo-tag-out {
+  to {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+.demo-tag button {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--graphite);
+  font-size: 12px;
+  line-height: 1;
+}
+.demo-taginput-field {
+  flex: 1;
+  min-width: 64px;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--bone);
+  font-size: 13px;
+}
+.demo-taginput-field::placeholder {
+  color: var(--bone-faint);
+}
+
+/* 33. Keycap press */
+.demo-keycap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  border-radius: 13px;
+  background: linear-gradient(180deg, #2d2d31, #202023);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  box-shadow:
+    0 7px 0 0 #0c0c0e,
+    0 10px 16px -4px rgba(0, 0, 0, 0.6);
+  transform: translateY(0);
+  transition:
+    transform 0.09s ease-out,
+    box-shadow 0.09s ease-out;
+}
+.demo-keycap:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 1px 0 0 #0c0c0e,
+    0 2px 6px -2px rgba(0, 0, 0, 0.6);
+}

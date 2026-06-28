@@ -1001,3 +1001,369 @@
 .demo-split span.accent {
   color: var(--amber);
 }
+
+/* 25. Hover lift card */
+.demo-lift {
+  width: 200px;
+  padding: 20px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    transform 0.5s var(--spring),
+    box-shadow 0.5s var(--spring),
+    border-color 0.3s ease;
+}
+.demo-lift:hover {
+  transform: translateY(-10px);
+  border-color: var(--bone-faint);
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+}
+.demo-lift .demo-lift-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+.demo-lift .demo-lift-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--bone-dim);
+}
+
+/* 26. Sheen sweep */
+.demo-sheen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 210px;
+  height: 96px;
+  background: linear-gradient(135deg, var(--graphite-2), var(--card));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-weight: 700;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  color: var(--bone);
+  cursor: pointer;
+}
+.demo-sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.7s var(--glide);
+}
+.demo-sheen:hover::after {
+  left: 120%;
+}
+
+/* 27. Clip wipe reveal */
+.demo-wipe {
+  position: relative;
+  width: 210px;
+  height: 96px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--line);
+}
+.demo-wipe-base,
+.demo-wipe-over {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.03em;
+}
+.demo-wipe-base {
+  background: var(--card-2);
+  color: var(--bone-dim);
+}
+.demo-wipe-over {
+  background: var(--amber);
+  color: var(--graphite);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.5s var(--glide);
+}
+.demo-wipe:hover .demo-wipe-over {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 28. 3D cube rotate */
+.demo-cube-scene {
+  width: 112px;
+  height: 112px;
+  perspective: 620px;
+}
+.demo-cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateZ(-56px) rotateY(0deg);
+  transition: transform 0.7s var(--spring);
+  cursor: pointer;
+}
+.demo-cube-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: 0.05em;
+  color: var(--bone);
+}
+.demo-cube-face.front {
+  transform: rotateY(0deg) translateZ(56px);
+  color: var(--amber);
+}
+.demo-cube-face.right {
+  transform: rotateY(90deg) translateZ(56px);
+}
+.demo-cube-face.back {
+  transform: rotateY(180deg) translateZ(56px);
+}
+.demo-cube-face.left {
+  transform: rotateY(-90deg) translateZ(56px);
+}
+
+/* 29. Jelly wobble */
+.demo-jelly {
+  display: grid;
+  place-items: center;
+  width: 118px;
+  height: 118px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, var(--amber), var(--amber-deep));
+  color: var(--graphite);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  user-select: none;
+}
+.demo-jelly:hover {
+  animation: demo-jelly-wobble 0.8s var(--spring);
+}
+@keyframes demo-jelly-wobble {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.14, 0.86) translateY(2px);
+  }
+  45% {
+    transform: scale(0.9, 1.1) translateY(-3px);
+  }
+  65% {
+    transform: scale(1.05, 0.95);
+  }
+  82% {
+    transform: scale(0.98, 1.02);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+/* 30. Folding doors */
+.demo-fold {
+  position: relative;
+  width: 212px;
+  height: 112px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  perspective: 820px;
+  cursor: pointer;
+}
+.demo-fold-inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--amber), var(--amber-deep));
+  color: var(--graphite);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+.demo-fold-panel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--card-2);
+  color: var(--bone-dim);
+  font-size: 13px;
+  backface-visibility: hidden;
+  transition: transform 0.6s var(--glide);
+}
+.demo-fold-panel.left {
+  left: 0;
+  transform-origin: left center;
+  border-right: 1px solid var(--line);
+}
+.demo-fold-panel.right {
+  right: 0;
+  transform-origin: right center;
+}
+.demo-fold:hover .demo-fold-panel.left {
+  transform: rotateY(-108deg);
+}
+.demo-fold:hover .demo-fold-panel.right {
+  transform: rotateY(108deg);
+}
+
+/* 31. Before / after compare */
+.demo-compare {
+  position: relative;
+  width: 232px;
+  height: 122px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  cursor: ew-resize;
+}
+.demo-compare-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: 0.05em;
+}
+.demo-compare-before {
+  background: linear-gradient(135deg, var(--graphite-2), var(--card));
+  color: var(--bone-dim);
+}
+.demo-compare-after {
+  background: linear-gradient(135deg, var(--amber), var(--amber-deep));
+  color: var(--graphite);
+  clip-path: inset(0 50% 0 0);
+}
+.demo-compare-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--bone);
+  pointer-events: none;
+}
+.demo-compare-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  display: grid;
+  place-items: center;
+  background: var(--bone);
+  color: var(--graphite);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.5);
+  cursor: ew-resize;
+}
+.demo-compare-handle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 32. Depth stack */
+.demo-stack {
+  position: relative;
+  width: 152px;
+  height: 110px;
+  perspective: 720px;
+  cursor: pointer;
+}
+.demo-stack-card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card-2);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  color: var(--bone-dim);
+  transition: transform 0.55s var(--spring);
+}
+.demo-stack-card:nth-child(1) {
+  z-index: 3;
+  background: var(--card);
+  color: var(--amber);
+  transform: translateY(0) scale(1);
+}
+.demo-stack-card:nth-child(2) {
+  z-index: 2;
+  transform: translateY(7px) scale(0.93);
+}
+.demo-stack-card:nth-child(3) {
+  z-index: 1;
+  transform: translateY(14px) scale(0.86);
+}
+.demo-stack:hover .demo-stack-card:nth-child(1) {
+  transform: translateY(-48px) rotate(-5deg);
+}
+.demo-stack:hover .demo-stack-card:nth-child(2) {
+  transform: translateY(0) scale(1) rotate(0deg);
+}
+.demo-stack:hover .demo-stack-card:nth-child(3) {
+  transform: translateY(48px) rotate(5deg);
+}
+
+/* 33. Text wave */
+.demo-textwave {
+  display: flex;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 36px;
+  letter-spacing: 0.02em;
+  color: var(--bone);
+}
+.demo-textwave span {
+  display: inline-block;
+  animation: demo-textwave-bob 1.5s ease-in-out infinite;
+}
+@keyframes demo-textwave-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  28% {
+    transform: translateY(-13px);
+    color: var(--amber);
+  }
+}

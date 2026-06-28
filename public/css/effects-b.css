@@ -1064,3 +1064,386 @@
   background: var(--ok);
   flex-shrink: 0;
 }
+
+/* 25. Indeterminate bar */
+.demo-indeterminate {
+  position: relative;
+  width: 220px;
+  height: 6px;
+  background: var(--card-2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.demo-indeterminate::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--amber-deep), var(--amber));
+  animation: demo-indeterminate-slide 1.4s var(--glide) infinite;
+}
+@keyframes demo-indeterminate-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+/* 26. Pulse notification dot */
+.demo-pulse-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: var(--bone-dim);
+}
+.demo-pulse-dot svg {
+  width: 26px;
+  height: 26px;
+}
+.demo-pulse-dot::before,
+.demo-pulse-dot::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+.demo-pulse-dot::after {
+  animation: demo-pulse-ring 1.8s ease-out infinite;
+}
+@keyframes demo-pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* 27. Shimmer skeleton */
+.demo-shimmer {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  width: 230px;
+}
+.demo-shimmer-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--card-2) 0%,
+    var(--line) 20%,
+    var(--card-2) 40%
+  );
+  background-size: 280% 100%;
+  animation: demo-shimmer-sweep 1.5s linear infinite;
+}
+.demo-shimmer-line.short {
+  width: 60%;
+}
+@keyframes demo-shimmer-sweep {
+  0% {
+    background-position: 140% 0;
+  }
+  100% {
+    background-position: -140% 0;
+  }
+}
+
+/* 28. Typing indicator */
+.demo-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 16px 20px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 18px 18px 18px 5px;
+}
+.demo-typing span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bone-dim);
+  animation: demo-typing-bounce 1.2s ease-in-out infinite;
+}
+.demo-typing span:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.demo-typing span:nth-child(3) {
+  animation-delay: 0.32s;
+}
+@keyframes demo-typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+/* 29. Heartbeat monitor */
+.demo-ekg {
+  position: relative;
+  width: 230px;
+  height: 84px;
+}
+.demo-ekg svg {
+  position: absolute;
+  inset: 0;
+  width: 230px;
+  height: 84px;
+}
+.demo-ekg-line {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.demo-ekg-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 12px 2px var(--ok);
+  offset-path: path(
+    "M0,42 L58,42 L70,42 L80,18 L92,68 L104,42 L150,42 L162,42 L170,30 L178,54 L186,42 L230,42"
+  );
+  animation: demo-ekg-run 2.4s linear infinite;
+}
+@keyframes demo-ekg-run {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* 30. Battery charge */
+.demo-battery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.demo-battery-body {
+  position: relative;
+  width: 124px;
+  height: 58px;
+  padding: 5px;
+  border: 3px solid var(--bone-dim);
+  border-radius: 10px;
+}
+.demo-battery-body::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 22px;
+  border-radius: 0 3px 3px 0;
+  background: var(--bone-dim);
+}
+.demo-battery-fill {
+  height: 100%;
+  width: 14%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--ok), #74e2aa);
+  animation: demo-battery-charge 3.6s ease-in-out infinite;
+}
+@keyframes demo-battery-charge {
+  0% {
+    width: 14%;
+  }
+  85%,
+  100% {
+    width: 100%;
+  }
+}
+.demo-battery-bolt {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--graphite);
+  pointer-events: none;
+}
+.demo-battery-bolt svg {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  animation: demo-battery-bolt-pulse 1.6s ease-in-out infinite;
+}
+@keyframes demo-battery-bolt-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+.demo-battery-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ok);
+}
+
+/* 31. Signal bars */
+.demo-signal {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 56px;
+}
+.demo-signal span {
+  position: relative;
+  width: 14px;
+  border-radius: 4px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.demo-signal span:nth-child(1) { height: 32%; }
+.demo-signal span:nth-child(2) { height: 55%; }
+.demo-signal span:nth-child(3) { height: 78%; }
+.demo-signal span:nth-child(4) { height: 100%; }
+.demo-signal span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ok);
+  opacity: 0;
+  animation: demo-signal-fill 2.4s ease-in-out infinite;
+}
+.demo-signal span:nth-child(1)::after { animation-delay: 0s; }
+.demo-signal span:nth-child(2)::after { animation-delay: 0.18s; }
+.demo-signal span:nth-child(3)::after { animation-delay: 0.36s; }
+.demo-signal span:nth-child(4)::after { animation-delay: 0.54s; }
+@keyframes demo-signal-fill {
+  0% { opacity: 0; }
+  12% { opacity: 1; }
+  70% { opacity: 1; }
+  82%,
+  100% { opacity: 0; }
+}
+
+/* 32. Badge counter */
+.demo-cartbadge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--bone);
+  cursor: pointer;
+  transition: border-color 0.25s ease;
+}
+.demo-cartbadge:hover {
+  border-color: var(--bone-faint);
+}
+.demo-cartbadge svg {
+  width: 26px;
+  height: 26px;
+}
+.demo-cartbadge-count {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  display: grid;
+  place-items: center;
+  background: var(--amber);
+  color: var(--graphite);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 100px;
+  border: 2px solid var(--graphite);
+  transition: transform 0.3s var(--spring);
+}
+.demo-cartbadge-count.pop {
+  transform: scale(1.4);
+}
+
+/* 33. Bookmark toggle */
+.demo-bookmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.demo-bookmark input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-bookmark svg {
+  width: 44px;
+  height: 44px;
+  fill: transparent;
+  stroke: var(--bone-dim);
+  stroke-width: 1.8;
+  transition:
+    fill 0.3s ease,
+    stroke 0.3s ease;
+}
+.demo-bookmark input:checked + svg {
+  fill: var(--amber);
+  stroke: var(--amber);
+  animation: demo-bookmark-drop 0.55s var(--spring);
+}
+@keyframes demo-bookmark-drop {
+  0% {
+    transform: translateY(-9px) scale(0.9);
+  }
+  55% {
+    transform: translateY(3px) scale(1.14);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+.demo-bookmark-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--bone-faint);
+  transition: color 0.3s ease;
+}
+.demo-bookmark input:checked ~ .demo-bookmark-label {
+  color: var(--amber);
+}
