@@ -1143,6 +1143,68 @@
     });
   });
 
+  /* Mobile header menu */
+  const header = $('.site-header');
+  const menuToggle = $('.nav-toggle', header);
+  const mobileMenu = $('#mobile-nav', header);
+  let menuCloseTimer = null;
+
+  const closeMobileMenu = () => {
+    if (!header || !menuToggle || !mobileMenu) return;
+    clearTimeout(menuCloseTimer);
+    header.classList.remove('menu-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open menu');
+    mobileMenu.querySelectorAll('.nav-dropdown').forEach((drop) => {
+      drop.classList.remove('open');
+      const trigger = $('.nav-dropdown-trigger', drop);
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+    menuCloseTimer = setTimeout(() => {
+      if (!header.classList.contains('menu-open')) {
+        mobileMenu.hidden = true;
+      }
+    }, 300);
+  };
+
+  const openMobileMenu = () => {
+    if (!header || !menuToggle || !mobileMenu) return;
+    clearTimeout(menuCloseTimer);
+    mobileMenu.hidden = false;
+    requestAnimationFrame(() => header.classList.add('menu-open'));
+    menuToggle.setAttribute('aria-expanded', 'true');
+    menuToggle.setAttribute('aria-label', 'Close menu');
+  };
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (header.classList.contains('menu-open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target.closest('a')) {
+        closeMobileMenu();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!header.contains(e.target)) closeMobileMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.matchMedia('(min-width: 721px)').matches) closeMobileMenu();
+    });
+  }
+
   /* ---------------------------------------------------------
      36. Value scrubber — drag horizontally, 1px ≈ 1 unit
   --------------------------------------------------------- */
