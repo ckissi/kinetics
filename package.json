@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Kinetics — spring-physics motion patterns for web interfaces. CSS + React, copy-paste ready.",
+  "description": "Kinetics \u2014 spring-physics motion patterns for web interfaces. CSS + React, copy-paste ready.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -13,5 +13,6 @@
   },
   "dependencies": {
     "astro": "^4.16.18"
-  }
+  },
+  "license": "MIT"
 }
