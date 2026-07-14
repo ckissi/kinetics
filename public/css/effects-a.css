@@ -260,6 +260,19 @@
   }
 }
 
+/* 34–36. Contemporary interaction studies */
+.demo-orbit-menu { position: relative; width: 126px; height: 126px; display: grid; place-items: center; }
+.demo-orbit-core, .demo-orbit-action { position: absolute; display: grid; place-items: center; border-radius: 50%; }
+.demo-orbit-core { z-index: 2; width: 46px; height: 46px; background: var(--amber); color: var(--graphite); font-size: 27px; transition: transform .42s var(--spring); }
+.demo-orbit-action { width: 31px; height: 31px; background: var(--card-2); border: 1px solid var(--line); color: var(--bone-dim); font-size: 14px; opacity: 0; transition: transform .46s var(--spring), opacity .2s ease; }
+.demo-orbit-menu:hover .demo-orbit-core { transform: rotate(45deg) scale(.88); }
+.demo-orbit-menu:hover .action-n { transform: translateY(-48px); opacity: 1; }.demo-orbit-menu:hover .action-e { transform: translateX(48px); opacity: 1; }.demo-orbit-menu:hover .action-s { transform: translateY(48px); opacity: 1; }.demo-orbit-menu:hover .action-w { transform: translateX(-48px); opacity: 1; }
+.demo-dock { display: flex; align-items: flex-end; gap: 7px; padding: 13px 15px; background: color-mix(in srgb, var(--card-2) 80%, transparent); border: 1px solid var(--line); border-radius: 20px; }
+.demo-dock button { width: 31px; height: 31px; border-radius: 10px; background: var(--graphite-2); border: 1px solid var(--line); color: var(--bone-dim); transition: transform .3s var(--spring), color .2s ease, background .2s ease; }
+.demo-dock button:hover { transform: translateY(-14px) scale(1.34); color: var(--graphite); background: var(--amber); }.demo-dock button:has(+ button:hover), .demo-dock button:hover + button { transform: translateY(-7px) scale(1.13); }
+.demo-dial { position: relative; width: 106px; height: 106px; display: grid; place-items: center; border-radius: 50%; background: repeating-conic-gradient(from -4deg, var(--bone-faint) 0 2deg, transparent 2deg 12deg), var(--card-2); border: 1px solid var(--line); transition: transform .7s var(--spring); }
+.demo-dial::before { content: ""; position: absolute; inset: 13px; border-radius: 50%; background: var(--graphite); border: 1px solid var(--line); }.demo-dial:hover { transform: rotate(72deg); }.demo-dial-needle { position: absolute; z-index: 2; width: 3px; height: 32px; background: var(--amber); border-radius: 5px; transform: translateY(-15px); transform-origin: bottom; transition: transform .9s .08s var(--spring); }.demo-dial:hover .demo-dial-needle { transform: translateY(-15px) rotate(-42deg); }.demo-dial-readout { position: relative; z-index: 1; font: 600 13px var(--font-mono); color: var(--bone); }
+
 /* ───────────────────────────────────────────────
    Added interactions (9–12)
    ─────────────────────────────────────────────── */
@@ -1459,3 +1472,4 @@
     0 1px 0 0 #0c0c0e,
     0 2px 6px -2px rgba(0, 0, 0, 0.6);
 }
+.demo-lasso{position:relative;width:210px;height:112px;border:1px solid var(--line);border-radius:var(--radius);touch-action:none;cursor:crosshair}.demo-lasso>span{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--bone-faint);transition:.3s var(--spring)}.demo-lasso>span:nth-child(1){left:22px;top:24px}.demo-lasso>span:nth-child(2){left:78px;top:65px}.demo-lasso>span:nth-child(3){left:132px;top:29px}.demo-lasso>span:nth-child(4){left:174px;top:73px}.demo-lasso>span:nth-child(5){left:45px;top:83px}.demo-lasso>span.selected{background:var(--amber);transform:scale(1.45)}.demo-lasso i{position:absolute;display:none;border:1px solid var(--amber);background:rgba(255,138,0,.1);border-radius:5px}.demo-lasso.dragging i{display:block}.demo-intent{position:relative;width:132px;height:48px;overflow:hidden;border:1px solid var(--line);border-radius:100px;background:var(--card-2);color:var(--bone)}.demo-intent i{position:absolute;left:14px;right:14px;bottom:8px;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left}.demo-intent:hover i{transform:scaleX(1);transition:transform .7s linear}.demo-chord{position:relative;display:flex;align-items:center;gap:10px;padding-bottom:24px}.demo-chord button{width:48px;height:48px;border-radius:10px;background:var(--card-2);border:1px solid var(--line);box-shadow:0 5px 0 #09090b;color:var(--bone)}.demo-chord button.hit{transform:translateY(4px);color:var(--amber)}.demo-chord strong{position:absolute;bottom:0;left:0;right:0;text-align:center;color:var(--ok);opacity:0}.demo-chord.done strong{opacity:1}

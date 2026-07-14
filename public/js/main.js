@@ -1380,4 +1380,125 @@
     setPct(50);
   });
 
+  $$('.demo-lasso').forEach((zone) => { const box=$('i',zone),dots=$$(':scope > span',zone);let start=null;const draw=e=>{const r=zone.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,l=Math.min(start.x,x),t=Math.min(start.y,y),w=Math.abs(x-start.x),h=Math.abs(y-start.y);Object.assign(box.style,{left:l+'px',top:t+'px',width:w+'px',height:h+'px'});dots.forEach(d=>d.classList.toggle('selected',d.offsetLeft+6>=l&&d.offsetLeft+6<=l+w&&d.offsetTop+6>=t&&d.offsetTop+6<=t+h))};zone.addEventListener('pointerdown',e=>{const r=zone.getBoundingClientRect();start={x:e.clientX-r.left,y:e.clientY-r.top};zone.classList.add('dragging');zone.setPointerCapture(e.pointerId);draw(e)});zone.addEventListener('pointermove',e=>start&&draw(e));const end=()=>{start=null;zone.classList.remove('dragging')};zone.addEventListener('pointerup',end);zone.addEventListener('pointercancel',end)});
+  $$('.demo-chord').forEach(c=>{const keys=$$('button',c);let step=0,t;keys.forEach((k,i)=>k.addEventListener('click',()=>{clearTimeout(t);if(i!==step){keys.forEach(x=>x.classList.remove('hit'));c.classList.remove('done');step=0;return}k.classList.add('hit');if(++step===2)c.classList.add('done');t=setTimeout(()=>{keys.forEach(x=>x.classList.remove('hit'));c.classList.remove('done');step=0},1200)}))});
+
+  /* ---------------------------------------------------------
+     Library search — filters cards by name, description and
+     the keyword index in search-index.js. Each card gets its
+     keywords stamped onto data-keywords at init.
+  --------------------------------------------------------- */
+  (function librarySearch() {
+    const input = $('#effect-search');
+    if (!input) return;
+
+    const clearBtn = $('#search-clear');
+    const countEl = $('#search-count');
+    const emptyEl = $('#search-empty');
+    const emptyQ = $('#search-empty-q');
+    const keywords = window.KINETICS_KEYWORDS || {};
+
+    // Card name lives in .name, or (compact cards) as the first
+    // text of the row's first div.
+    const cardName = (card) => {
+      const n = $('.card-foot .name', card);
+      if (n) return n.textContent.trim();
+      const holder = $('.card-foot .row > div', card);
+      if (!holder) return '';
+      for (const node of holder.childNodes) {
+        const text = node.textContent.trim();
+        if (!text) continue;
+        if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('desc')) continue;
+        return text;
+      }
+      return '';
+    };
+
+    // Only sections that contain a gallery participate.
+    const sections = $$('.section').filter((s) => $('.gallery', s)).map((section) => {
+      const countSpan = $('.section-head .count', section);
+      const cards = $$('.gallery .card', section).map((card) => {
+        const name = cardName(card);
+        const desc = ($('.card-foot .desc', card) || {}).textContent || '';
+        const param = ($('.card-param', card) || {}).textContent || '';
+        const kw = (keywords[name] || []).join(' ');
+        card.dataset.keywords = kw;
+        return {
+          el: card,
+          haystack: (name + ' ' + desc + ' ' + param + ' ' + kw).toLowerCase(),
+        };
+      });
+      return {
+        el: section,
+        countSpan,
+        originalCount: countSpan ? countSpan.textContent : '',
+        cards,
+      };
+    });
+
+    const total = sections.reduce((n, s) => n + s.cards.length, 0);
+
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      const tokens = q.split(/\s+/).filter(Boolean);
+      const filtering = tokens.length > 0;
+      let visible = 0;
+
+      sections.forEach((section) => {
+        let sectionVisible = 0;
+        section.cards.forEach((card) => {
+          const hit = !filtering || tokens.every((t) => card.haystack.includes(t));
+          card.el.classList.toggle('search-hidden', !hit);
+          if (hit) sectionVisible++;
+        });
+        visible += sectionVisible;
+        section.el.classList.toggle('search-hidden', filtering && sectionVisible === 0);
+        if (section.countSpan) {
+          section.countSpan.textContent = filtering
+            ? sectionVisible + ' / ' + section.cards.length
+            : section.originalCount;
+        }
+      });
+
+      clearBtn.hidden = !filtering;
+      countEl.hidden = !filtering;
+      countEl.textContent = visible + ' / ' + total;
+      emptyEl.hidden = !(filtering && visible === 0);
+      if (emptyQ) emptyQ.textContent = input.value.trim();
+    };
+
+    input.addEventListener('input', apply);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && input.value) {
+        e.stopPropagation();
+        input.value = '';
+        apply();
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      apply();
+      input.focus();
+    });
+
+    $$('.search-suggestion').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        input.value = btn.dataset.q;
+        apply();
+        input.focus();
+      });
+    });
+
+    // "/" focuses the search from anywhere (unless already typing).
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target;
+      if (t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
+      e.preventDefault();
+      input.focus();
+      input.select();
+      input.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
+  })();
 })();

@@ -1,6 +1,6 @@
 # Kinetics
 
-A gallery of **99 spring-physics micro-interactions** for web interfaces. Each effect ships with a live demo, a physics-style parameter readout, and copy-paste **CSS** + **React** code.
+A gallery of **117 spring-physics micro-interactions** for web interfaces. Each effect ships with a live demo, a physics-style parameter readout, and copy-paste **CSS** + **React** code.
 
 ## Develop
 
@@ -16,7 +16,7 @@ npm run preview
 ```
 src/
   pages/index.astro      # page shell: <head>, fonts, CSS links, scripts
-  content/body.html      # all markup (header, 99 cards, physics, footer),
+  content/body.html      # all markup (header, 117 cards, physics, footer),
                          # imported raw so the embedded React snippets
                          # ({}, backticks, ${}) aren't parsed as Astro expressions
 public/
