@@ -1473,3 +1473,448 @@
     0 2px 6px -2px rgba(0, 0, 0, 0.6);
 }
 .demo-lasso{position:relative;width:210px;height:112px;border:1px solid var(--line);border-radius:var(--radius);touch-action:none;cursor:crosshair}.demo-lasso>span{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--bone-faint);transition:.3s var(--spring)}.demo-lasso>span:nth-child(1){left:22px;top:24px}.demo-lasso>span:nth-child(2){left:78px;top:65px}.demo-lasso>span:nth-child(3){left:132px;top:29px}.demo-lasso>span:nth-child(4){left:174px;top:73px}.demo-lasso>span:nth-child(5){left:45px;top:83px}.demo-lasso>span.selected{background:var(--amber);transform:scale(1.45)}.demo-lasso i{position:absolute;display:none;border:1px solid var(--amber);background:rgba(255,138,0,.1);border-radius:5px}.demo-lasso.dragging i{display:block}.demo-intent{position:relative;width:132px;height:48px;overflow:hidden;border:1px solid var(--line);border-radius:100px;background:var(--card-2);color:var(--bone)}.demo-intent i{position:absolute;left:14px;right:14px;bottom:8px;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left}.demo-intent:hover i{transform:scaleX(1);transition:transform .7s linear}.demo-chord{position:relative;display:flex;align-items:center;gap:10px;padding-bottom:24px}.demo-chord button{width:48px;height:48px;border-radius:10px;background:var(--card-2);border:1px solid var(--line);box-shadow:0 5px 0 #09090b;color:var(--bone)}.demo-chord button.hit{transform:translateY(4px);color:var(--amber)}.demo-chord strong{position:absolute;bottom:0;left:0;right:0;text-align:center;color:var(--ok);opacity:0}.demo-chord.done strong{opacity:1}
+
+/* ---- New: Liquid Glass Press ---- */
+.demo-liquid-glass {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 168px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--bone) 18%, transparent);
+  background: color-mix(in srgb, var(--card-2) 55%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  color: var(--bone);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  isolation: isolate;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bone) 22%, transparent),
+    0 10px 28px -12px rgba(0, 0, 0, 0.55);
+  transition:
+    transform 0.35s var(--spring),
+    box-shadow 0.35s ease,
+    border-color 0.25s ease;
+}
+.demo-liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--amber) 55%, transparent), transparent 42%),
+    radial-gradient(circle at 78% 80%, color-mix(in srgb, var(--wire) 45%, transparent), transparent 40%);
+  filter: blur(12px);
+  opacity: 0.55;
+  transition: transform 0.55s var(--glide), opacity 0.3s ease;
+}
+.demo-liquid-glass::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -30%;
+  width: 55%;
+  height: 160%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    color-mix(in srgb, var(--bone) 35%, transparent) 48%,
+    transparent 62%
+  );
+  transform: translateX(-120%) rotate(12deg);
+  transition: transform 0.65s var(--glide);
+  pointer-events: none;
+}
+.demo-liquid-glass:hover {
+  border-color: color-mix(in srgb, var(--bone) 35%, transparent);
+  transform: translateY(-2px) scale(1.02);
+}
+.demo-liquid-glass:hover::before {
+  transform: translate(8%, -6%) scale(1.15);
+  opacity: 0.85;
+}
+.demo-liquid-glass:hover::after {
+  transform: translateX(220%) rotate(12deg);
+}
+.demo-liquid-glass:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bone) 14%, transparent),
+    0 4px 14px -8px rgba(0, 0, 0, 0.55);
+}
+
+/* ---- New: Bento Expand ---- */
+.demo-bento {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 7px;
+  width: 196px;
+  height: 118px;
+}
+.demo-bento span {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--card-2);
+  color: var(--bone-faint);
+  font: 600 11px var(--font-mono);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    transform 0.45s var(--spring),
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    grid-column 0.45s var(--spring),
+    grid-row 0.45s var(--spring);
+}
+.demo-bento span:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.demo-bento span:hover {
+  z-index: 2;
+  color: var(--graphite);
+  background: var(--amber);
+  border-color: var(--amber);
+  transform: scale(1.04);
+  box-shadow: 0 12px 24px -14px color-mix(in srgb, var(--amber) 70%, transparent);
+}
+.demo-bento:has(span:hover) span:not(:hover) {
+  opacity: 0.45;
+  transform: scale(0.96);
+  filter: saturate(0.7);
+  transition:
+    transform 0.45s var(--spring),
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+
+/* ---- New: Snap Rail ---- */
+.demo-snap-rail {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 240px;
+  height: 44px;
+  padding: 4px;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--card-2);
+  /* sliding pill */
+  --snap-i: 0;
+}
+.demo-snap-rail::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  /* exactly one equal third of the inner track */
+  width: calc((100% - 8px) / 3);
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--amber) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--amber) 50%, transparent);
+  box-sizing: border-box;
+  transform: translateX(calc(var(--snap-i) * 100%));
+  transition: transform 0.45s var(--spring);
+  pointer-events: none;
+  z-index: 0;
+}
+.demo-snap-rail:has(button:nth-child(1):hover),
+.demo-snap-rail:not(:has(button:hover)) {
+  --snap-i: 0;
+}
+.demo-snap-rail:has(button:nth-child(2):hover) {
+  --snap-i: 1;
+}
+.demo-snap-rail:has(button:nth-child(3):hover) {
+  --snap-i: 2;
+}
+.demo-snap-rail button {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--bone-dim);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+.demo-snap-rail button:hover,
+.demo-snap-rail:not(:has(button:hover)) button:first-child {
+  color: var(--amber);
+}
+
+/* 43. Kinetic XY pad */
+.demo-xy-pad {
+  position: relative;
+  width: 214px;
+  height: 124px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 138, 0, 0.08), transparent 36%),
+    var(--card-2);
+  touch-action: none;
+  cursor: crosshair;
+}
+.demo-xy-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 0.5px), var(--wire) 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(transparent calc(50% - 0.5px), var(--wire) 50%, transparent calc(50% + 0.5px)),
+    radial-gradient(circle, var(--bone-faint) 0 1px, transparent 1.5px);
+  background-size: 100% 100%, 100% 100%, 18px 18px;
+}
+.demo-xy-puck {
+  --x: 0;
+  --y: 0;
+  position: absolute;
+  left: calc(50% - 13px);
+  top: calc(50% - 13px);
+  width: 26px;
+  height: 26px;
+  border: 1px solid color-mix(in srgb, var(--amber) 72%, white);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffd399, var(--amber) 42%, #9b5100 100%);
+  box-shadow:
+    0 0 0 7px rgba(255, 138, 0, 0.08),
+    0 0 30px rgba(255, 138, 0, 0.24);
+  translate: calc(var(--x) * 1px) calc(var(--y) * 1px);
+  transition:
+    translate 0.52s var(--spring),
+    box-shadow 0.25s ease,
+    scale 0.25s var(--spring);
+  will-change: translate;
+}
+.demo-xy-pad.dragging .demo-xy-puck {
+  scale: 1.12;
+  transition-duration: 70ms;
+  box-shadow:
+    0 0 0 12px rgba(255, 138, 0, 0.1),
+    0 0 38px rgba(255, 138, 0, 0.36);
+}
+.demo-xy-puck:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 4px;
+}
+.demo-xy-readout {
+  position: absolute;
+  right: 9px;
+  bottom: 7px;
+  font-size: 9px;
+  color: var(--bone-faint);
+  letter-spacing: 0.05em;
+}
+
+/* 44. Command palette bloom */
+.demo-command {
+  position: relative;
+  width: 220px;
+  height: 126px;
+}
+.demo-command-trigger {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 13px;
+  right: 13px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--card-2) 86%, transparent);
+  color: var(--bone);
+  font-size: 12px;
+  text-align: left;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+  transition:
+    border-color 0.25s ease,
+    transform 0.35s var(--spring);
+}
+.demo-command-trigger > span {
+  color: var(--amber);
+  font-size: 15px;
+}
+.demo-command-trigger kbd {
+  margin-left: auto;
+  padding: 2px 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--bone-faint);
+  font: 9px var(--font-mono);
+}
+.demo-command-trigger:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.demo-command.open .demo-command-trigger {
+  border-color: color-mix(in srgb, var(--amber) 50%, var(--line));
+  transform: translateY(-3px);
+}
+.demo-command-panel {
+  position: absolute;
+  inset: 36px 0 0;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  padding: 11px 8px 7px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--graphite-2) 88%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 34px -22px rgba(0, 0, 0, 0.9);
+  clip-path: inset(0 0 100% 0 round 15px);
+  opacity: 0;
+  transition:
+    clip-path 0.5s var(--glide),
+    opacity 0.24s ease;
+}
+.demo-command-panel button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 25px;
+  padding: 0 7px;
+  border-radius: 7px;
+  color: var(--bone-dim);
+  font-size: 10px;
+  opacity: 0;
+  transform: translateY(-7px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.4s var(--spring),
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.demo-command-panel button i {
+  width: 15px;
+  color: var(--amber);
+  font-style: normal;
+}
+.demo-command-panel button:hover,
+.demo-command-panel button:focus-visible {
+  color: var(--bone);
+  background: rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+.demo-command.open .demo-command-panel {
+  clip-path: inset(0 round 15px);
+  opacity: 1;
+}
+.demo-command.open .demo-command-panel button {
+  opacity: 1;
+  transform: translateY(0);
+}
+.demo-command.open .demo-command-panel button:nth-child(2) { transition-delay: 55ms; }
+.demo-command.open .demo-command-panel button:nth-child(3) { transition-delay: 110ms; }
+
+/* 45. Momentum picker */
+.demo-momentum-picker {
+  --picker-i: 1;
+  position: relative;
+  width: 208px;
+  height: 122px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card-2);
+  outline: none;
+}
+.demo-momentum-picker:focus-visible {
+  box-shadow: 0 0 0 2px var(--graphite), 0 0 0 4px var(--amber);
+}
+.demo-momentum-picker::before,
+.demo-momentum-picker::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  height: 35px;
+  pointer-events: none;
+}
+.demo-momentum-picker::before {
+  top: 0;
+  background: linear-gradient(var(--card-2), transparent);
+}
+.demo-momentum-picker::after {
+  bottom: 0;
+  background: linear-gradient(transparent, var(--card-2));
+}
+.demo-picker-focus {
+  position: absolute;
+  z-index: 0;
+  top: 37px;
+  left: 10px;
+  right: 10px;
+  height: 38px;
+  border: 1px solid color-mix(in srgb, var(--amber) 46%, transparent);
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--amber) 8%, transparent);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+}
+.demo-picker-track {
+  position: absolute;
+  z-index: 1;
+  top: 37px;
+  left: 10px;
+  right: 10px;
+  display: grid;
+  transform: translateY(calc(var(--picker-i) * -38px));
+  transition: transform 0.58s var(--spring);
+}
+.demo-picker-track button {
+  height: 38px;
+  color: var(--bone);
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    opacity 0.35s ease,
+    transform 0.5s var(--spring),
+    color 0.25s ease;
+}
+.demo-picker-track button:not(.active) {
+  opacity: 0.28;
+  transform: scale(0.88);
+}
+.demo-picker-track button.active {
+  color: var(--amber);
+}
+.demo-picker-value {
+  position: absolute;
+  z-index: 4;
+  right: 10px;
+  bottom: 5px;
+  color: var(--bone-faint);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+}

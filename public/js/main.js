@@ -1383,6 +1383,114 @@
   $$('.demo-lasso').forEach((zone) => { const box=$('i',zone),dots=$$(':scope > span',zone);let start=null;const draw=e=>{const r=zone.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,l=Math.min(start.x,x),t=Math.min(start.y,y),w=Math.abs(x-start.x),h=Math.abs(y-start.y);Object.assign(box.style,{left:l+'px',top:t+'px',width:w+'px',height:h+'px'});dots.forEach(d=>d.classList.toggle('selected',d.offsetLeft+6>=l&&d.offsetLeft+6<=l+w&&d.offsetTop+6>=t&&d.offsetTop+6<=t+h))};zone.addEventListener('pointerdown',e=>{const r=zone.getBoundingClientRect();start={x:e.clientX-r.left,y:e.clientY-r.top};zone.classList.add('dragging');zone.setPointerCapture(e.pointerId);draw(e)});zone.addEventListener('pointermove',e=>start&&draw(e));const end=()=>{start=null;zone.classList.remove('dragging')};zone.addEventListener('pointerup',end);zone.addEventListener('pointercancel',end)});
   $$('.demo-chord').forEach(c=>{const keys=$$('button',c);let step=0,t;keys.forEach((k,i)=>k.addEventListener('click',()=>{clearTimeout(t);if(i!==step){keys.forEach(x=>x.classList.remove('hit'));c.classList.remove('done');step=0;return}k.classList.add('hit');if(++step===2)c.classList.add('done');t=setTimeout(()=>{keys.forEach(x=>x.classList.remove('hit'));c.classList.remove('done');step=0},1200)}))});
 
+  /* Kinetic XY pad — direct manipulation with a spring-home release. */
+  $$('.demo-xy-pad').forEach((pad) => {
+    const puck = $('.demo-xy-puck', pad);
+    const readout = $('.demo-xy-readout', pad);
+    let dragging = false;
+
+    const setPosition = (clientX, clientY) => {
+      const rect = pad.getBoundingClientRect();
+      const x = Math.round(Math.max(-82, Math.min(82, clientX - rect.left - rect.width / 2)));
+      const y = Math.round(Math.max(-38, Math.min(38, clientY - rect.top - rect.height / 2)));
+      puck.style.setProperty('--x', x);
+      puck.style.setProperty('--y', y);
+      readout.textContent = (x >= 0 ? '+' : '') + x + ' · ' + (y >= 0 ? '+' : '') + y;
+    };
+    const reset = () => {
+      dragging = false;
+      pad.classList.remove('dragging');
+      puck.style.setProperty('--x', 0);
+      puck.style.setProperty('--y', 0);
+      readout.textContent = '0 · 0';
+    };
+
+    pad.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      pad.classList.add('dragging');
+      pad.setPointerCapture(e.pointerId);
+      setPosition(e.clientX, e.clientY);
+    });
+    pad.addEventListener('pointermove', (e) => {
+      if (dragging) setPosition(e.clientX, e.clientY);
+    });
+    pad.addEventListener('pointerup', reset);
+    pad.addEventListener('pointercancel', reset);
+    puck.addEventListener('keydown', (e) => {
+      const step = e.shiftKey ? 12 : 6;
+      const x = Number(puck.style.getPropertyValue('--x')) || 0;
+      const y = Number(puck.style.getPropertyValue('--y')) || 0;
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home'].includes(e.key)) return;
+      e.preventDefault();
+      if (e.key === 'Home') return reset();
+      const nextX = x + (e.key === 'ArrowLeft' ? -step : e.key === 'ArrowRight' ? step : 0);
+      const nextY = y + (e.key === 'ArrowUp' ? -step : e.key === 'ArrowDown' ? step : 0);
+      const clampedX = Math.max(-82, Math.min(82, nextX));
+      const clampedY = Math.max(-38, Math.min(38, nextY));
+      puck.style.setProperty('--x', clampedX);
+      puck.style.setProperty('--y', clampedY);
+      readout.textContent = clampedX + ' · ' + clampedY;
+    });
+  });
+
+  /* Command palette bloom. */
+  $$('.demo-command').forEach((command) => {
+    const trigger = $('.demo-command-trigger', command);
+    const panel = $('.demo-command-panel', command);
+    const setOpen = (open) => {
+      command.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', String(open));
+      panel.setAttribute('aria-hidden', String(!open));
+    };
+    trigger.addEventListener('click', () => setOpen(!command.classList.contains('open')));
+    $$('.demo-command-panel button', command).forEach((button) => {
+      button.addEventListener('click', () => {
+        setOpen(false);
+        trigger.focus();
+      });
+    });
+    document.addEventListener('pointerdown', (e) => {
+      if (!command.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && command.classList.contains('open')) {
+        setOpen(false);
+        trigger.focus();
+      }
+    });
+  });
+
+  /* Momentum picker — wheel, keyboard and direct selection share one state. */
+  $$('.demo-momentum-picker').forEach((picker) => {
+    const track = $('.demo-picker-track', picker);
+    const buttons = $$('button', track);
+    const output = $('.demo-picker-value', picker);
+    let index = 1;
+    let wheelLocked = false;
+    const select = (next) => {
+      index = Math.max(0, Math.min(buttons.length - 1, next));
+      picker.style.setProperty('--picker-i', index);
+      buttons.forEach((button, i) => button.classList.toggle('active', i === index));
+      output.textContent = buttons[index].textContent.toUpperCase() + ' · 0' + (index + 1);
+    };
+    buttons.forEach((button, i) => button.addEventListener('click', () => select(i)));
+    picker.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (wheelLocked || Math.abs(e.deltaY) < 2) return;
+      select(index + (e.deltaY > 0 ? 1 : -1));
+      wheelLocked = true;
+      window.setTimeout(() => { wheelLocked = false; }, 260);
+    }, { passive: false });
+    picker.addEventListener('keydown', (e) => {
+      if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      if (e.key === 'Home') select(0);
+      else if (e.key === 'End') select(buttons.length - 1);
+      else select(index + (e.key === 'ArrowDown' ? 1 : -1));
+    });
+    select(index);
+  });
+
   /* ---------------------------------------------------------
      Library search — filters cards by name, description and
      the keyword index in search-index.js. Each card gets its

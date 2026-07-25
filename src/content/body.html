@@ -247,7 +247,7 @@
 
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">// 117 spring-driven interactions</div>
+          <div class="eyebrow">// 135 spring-driven interactions</div>
           <h1 class="h-display">
             Motion that<br />has <span class="accent">weight.</span>
           </h1>
@@ -281,7 +281,7 @@
               <input
                 type="search"
                 id="effect-search"
-                placeholder="Search 117 effects&hellip;"
+                placeholder="Search 135 effects&hellip;"
                 aria-label="Search effects"
                 autocomplete="off"
                 spellcheck="false"
@@ -322,7 +322,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Interaction &amp; Input</h2>
-        <span class="count mono">39 / 117</span>
+        <span class="count mono">45 / 135</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -2806,6 +2806,129 @@
 
         <div class="card"><div class="card-stage"><div class="card-param mono">sequence · K → X</div><div class="demo-chord" data-step="0"><button>K</button><span>+</span><button>X</button><strong>ARMED</strong></div></div><div class="card-foot"><div class="row"><div><div class="name">Gesture Chord</div><div class="desc">Tap the keys in sequence to arm a shortcut</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Gesture+Chord">View code</button></div></div><div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.chord button.hit { transform: translateY(4px); color: #ff8a00; }
 .chord.done strong { opacity: 1; transform: translateY(0); }</code></pre><pre data-lang="prompt" class="hidden"><code>Make a two-key gesture chord. Tapping K then X depresses each physical keycap and reveals ARMED with a spring. A wrong order or a completed sequence resets after a short beat.</code></pre></div></div></div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">glass · press</div>
+            <button class="demo-liquid-glass" type="button">Liquid Glass</button>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Liquid Glass Press</div><div class="desc">Frosted glass liquefies under a specular press</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Liquid+Glass+Press">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.glass {
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
+}
+.glass::after { /* specular streak */
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent);
+  transition: transform .65s cubic-bezier(0.16,1,0.3,1);
+}
+.glass:hover::after { transform: translateX(220%); }
+.glass:active { transform: scale(0.97); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a modern liquid-glass CTA. Use a frosted translucent surface with backdrop-filter blur and saturation, an inset top highlight, and soft ambient shadow. On hover drift the inner colour pools and sweep a specular streak across the face; on press, scale slightly down so it feels tactile and refractive rather than flat material.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">:has() · bento</div>
+            <div class="demo-bento" aria-label="Bento expand grid"><span>HERO</span><span>A</span><span>B</span></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Bento Expand</div><div class="desc">Hover focuses one tile; the rest quietly recede</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Bento+Expand">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.bento { display: grid; grid-template-columns: 1.1fr .9fr; gap: 7px; }
+.bento span:hover {
+  background: var(--amber);
+  transform: scale(1.04);
+}
+.bento:has(span:hover) span:not(:hover) {
+  opacity: .45;
+  transform: scale(.96);
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Create a miniature bento grid where hovering a tile lifts it with a spring scale and amber fill while siblings dim and shrink slightly via :has(). Keep labels monospaced and the layout uneven (one tall hero cell) so it feels editorial rather than a uniform dashboard grid.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">snap · spring</div>
+            <div class="demo-snap-rail" aria-label="Snap rail"><button type="button">Day</button><button type="button">Week</button><button type="button">Month</button></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Snap Rail</div><div class="desc">A soft selection pill springs to the hovered option</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Snap+Rail">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.rail {
+  display: flex;
+  padding: 4px;
+  --i: 0;
+}
+.rail::before {
+  position: absolute;
+  top: 4px; bottom: 4px; left: 4px;
+  width: calc((100% - 8px) / 3); /* one equal third */
+  transform: translateX(calc(var(--i) * 100%));
+  transition: transform .45s cubic-bezier(0.34,1.56,0.64,1);
+}
+.rail:has(button:nth-child(2):hover) { --i: 1; }
+.rail:has(button:nth-child(3):hover) { --i: 2; }
+.rail button {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Build a segmented snap rail for Day / Week / Month. Use flex with three equal flex:1 buttons so labels stay horizontally centered in identical cells. A single pill pseudo-element is exactly calc((100% - padding) / 3) wide and slides with translateX(calc(var(--i) * 100%)) where --i is set via :has() on hover. Never size the pill to the text — always to the equal column.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">x/y · pointer spring</div>
+            <div class="demo-xy-pad" role="application" aria-label="Two-axis spring pad">
+              <span class="demo-xy-grid"></span>
+              <button class="demo-xy-puck" type="button" aria-label="Drag position"></button>
+              <output class="demo-xy-readout mono">0 · 0</output>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Kinetic XY Pad</div><div class="desc">A two-axis puck trails the pointer, then springs home</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Kinetic+XY+Pad">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.xy-puck {
+  translate: calc(var(--x) * 1px) calc(var(--y) * 1px);
+  transition: translate .52s cubic-bezier(.34,1.56,.64,1);
+}
+.xy-pad.dragging .xy-puck { transition-duration: 70ms; }</code></pre><pre data-lang="prompt" class="hidden"><code>Create a compact two-axis input pad with a luminous puck. While dragging, map pointer coordinates to clamped X and Y values and move the puck with a short trailing transition. On release, spring it back to dead centre and reset a monospaced coordinate readout.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">command · stagger</div>
+            <div class="demo-command">
+              <button class="demo-command-trigger" type="button" aria-expanded="false"><span>⌘</span> Open actions <kbd>K</kbd></button>
+              <div class="demo-command-panel" aria-hidden="true">
+                <button type="button"><i>↗</i><span>Share current view</span></button>
+                <button type="button"><i>◇</i><span>Duplicate canvas</span></button>
+                <button type="button"><i>⌁</i><span>Copy deep link</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Command Palette Bloom</div><div class="desc">A compact trigger unfolds into a staggered action lens</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Command+Palette+Bloom">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.command-panel {
+  clip-path: inset(0 0 100% 0 round 14px);
+  transition: clip-path .5s cubic-bezier(.16,1,.3,1);
+}
+.command.open .command-panel { clip-path: inset(0 round 14px); }
+.command.open .command-panel button { opacity: 1; transform: translateY(0); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a miniature command palette that blooms downward from a compact keyboard-shortcut trigger. Reveal a frosted action lens with a rounded clip-path wipe, then stagger three rows upward by a few pixels. Let Escape and outside clicks close it, and expose the expanded state to assistive technology.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">wheel · weighted snap</div>
+            <div class="demo-momentum-picker" tabindex="0" aria-label="Density picker">
+              <span class="demo-picker-focus"></span>
+              <div class="demo-picker-track">
+                <button type="button" data-value="0">Airy</button>
+                <button type="button" data-value="1" class="active">Balanced</button>
+                <button type="button" data-value="2">Dense</button>
+              </div>
+              <output class="demo-picker-value mono">BALANCED · 02</output>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Momentum Picker</div><div class="desc">Wheel input rolls a weighted selector into its next detent</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Momentum+Picker">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.picker-track {
+  transform: translateY(calc(var(--i) * -38px));
+  transition: transform .58s cubic-bezier(.34,1.56,.64,1);
+}
+.picker-track button:not(.active) { opacity: .32; transform: scale(.88); }</code></pre><pre data-lang="prompt" class="hidden"><code>Create a tactile vertical picker with three density options. Mouse-wheel, arrow keys, and taps should move one detent at a time; the list overshoots slightly while the focused row stays aligned behind a fixed highlight. Dim and scale peripheral rows to imply cylindrical depth.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -2814,7 +2937,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Feedback &amp; State</h2>
-        <span class="count mono">39 / 117</span>
+        <span class="count mono">45 / 135</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -5059,6 +5182,117 @@ function Heartbeat() {
 
         <div class="card"><div class="card-stage"><div class="card-param mono">braille · 6 phase</div><div class="demo-signal-braille"><span></span><span></span><span></span><span></span><span></span><span></span><b>READY</b></div></div><div class="card-foot"><div class="row"><div><div class="name">Signal Braille</div><div class="desc">A tactile dot matrix encodes live system phases</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Signal+Braille">View code</button></div></div><div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.braille span { animation: cell 2.1s steps(1) infinite; }
 .braille span:nth-child(2n) { animation-delay: -.7s; }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a six-dot status matrix inspired by Braille. Different dots illuminate in discrete timed phases to encode changing machine state, with a quiet READY label beneath. Avoid spinner and equalizer conventions.</code></pre></div></div></div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">stream · 3.6s</div>
+            <div class="demo-token-stream" aria-label="Streaming tokens"><span>const</span><span>motion</span><span>=</span><span>spring</span><span>(</span><span>320</span><span>,</span><span>24</span></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Token Stream</div><div class="desc">Tokens cascade in like a live model response</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Token+Stream">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.token {
+  opacity: 0;
+  transform: translateY(10px) scale(.92);
+  animation: token-in 3.6s cubic-bezier(0.34,1.56,0.64,1) infinite;
+}
+.token:nth-child(n) { animation-delay: calc((n - 1) * 0.22s); }
+@keyframes token-in {
+  12%, 72% { opacity: 1; transform: none; }
+  88%, 100% { opacity: 0; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Design an AI token-stream indicator. Render monospaced chips that pop in one after another with a spring, hold briefly as a completed phrase, then fade upward before looping. Highlight a mid-stream token in accent colour so it reads as generative output, not a generic loader.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">presence · ping</div>
+            <div class="demo-presence" aria-label="Live presence stack"><span></span><span></span><span></span><span>+3</span></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Presence Stack</div><div class="desc">Avatars fan out with a live online pulse</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Presence+Stack">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.presence span { margin-left: -12px; border-radius: 50%; border: 2px solid #0e0e10; }
+.presence span.live::after {
+  content: "";
+  position: absolute; right: 1px; bottom: 1px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #4cd08a;
+  animation: ping 1.8s ease-out infinite;
+}
+.presence:hover span { transform: translateY(-6px) scale(1.06); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a collaborative presence stack: overlapping circular avatars with a green online dot that soft-pings, plus a +N overflow chip. On hover the stack fans slightly apart with staggered lifts so the group feels alive and multiplayer.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">settle · 2.8s</div>
+            <div class="demo-confidence" aria-label="Confidence meter"><div class="demo-confidence-track"><div class="demo-confidence-fill"></div></div><div class="demo-confidence-meta"><span>CONFIDENCE</span><b></b></div></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Confidence Settle</div><div class="desc">A score overshoots, then settles on the true value</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Confidence+Settle">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.fill {
+  background: linear-gradient(90deg, #5b8def, #4cd08a);
+  animation: settle 2.8s cubic-bezier(0.34,1.56,0.64,1) infinite;
+}
+@keyframes settle {
+  0% { width: 0; }
+  55% { width: 96%; }
+  72%, 100% { width: 87%; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Create a confidence meter for AI or ranking UIs. Animate a gradient fill that races past the target, then eases back to the final percentage with a spring. Update a tabular mono readout in lockstep so the number feels measured, not gimmicky.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">optimistic · rollback</div>
+            <div class="demo-optimistic" aria-label="Optimistic update rolling back">
+              <div class="demo-optimistic-row"><span class="demo-optimistic-toggle"></span><b>Auto-publish</b></div>
+              <div class="demo-optimistic-state mono"><span>APPLIED</span><span>SYNCING</span><span>RESTORED</span></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Optimistic Rollback</div><div class="desc">An instant local update gracefully retracts after rejection</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Optimistic+Rollback">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.optimistic-toggle {
+  animation: optimistic-toggle 4s cubic-bezier(.34,1.56,.64,1) infinite;
+}
+@keyframes optimistic-toggle {
+  0%, 12% { transform: translateX(0); }
+  24%, 62% { transform: translateX(26px); }
+  76%, 100% { transform: translateX(0); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Visualize an optimistic UI update: a setting turns on immediately, reports APPLIED, waits in SYNCING, then softly rolls back to RESTORED when the server rejects it. Use restrained status colour, spring the toggle both ways, and avoid an aggressive error shake.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">local ↔ edge</div>
+            <div class="demo-reconcile" aria-label="Values reconciling">
+              <div class="demo-reconcile-source"><span>LOCAL <b>48</b></span><span>EDGE <b>51</b></span></div>
+              <i></i>
+              <strong class="mono">SYNCED · 51</strong>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Reconciliation Merge</div><div class="desc">Competing values converge into one authoritative state</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Reconciliation+Merge">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.sources span { animation: reconcile-in 3.4s var(--spring) infinite; }
+.reconcile strong { animation: authority-in 3.4s var(--spring) infinite; }
+@keyframes authority-in {
+  0%, 42% { opacity: 0; transform: scale(.82); }
+  58%, 84% { opacity: 1; transform: scale(1); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Show local-first data reconciliation. Two compact value chips approach from opposite sides, pause while a bridge scans between them, then dissolve into one authoritative SYNCED value. Keep the merge spatial and calm so it reads as data resolution rather than a generic success state.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">live · compacting</div>
+            <div class="demo-ledger" aria-label="Live activity ledger">
+              <div><time>NOW</time><span>Branch indexed</span><i></i></div>
+              <div><time>-04s</time><span>Preview ready</span><i></i></div>
+              <div><time>-11s</time><span>Tokens cached</span><i></i></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Activity Ledger</div><div class="desc">Fresh events arrive sharply while older entries compact</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Activity+Ledger">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.ledger div {
+  animation: ledger-age 4.6s cubic-bezier(.16,1,.3,1) infinite;
+}
+.ledger div:nth-child(2) { animation-delay: -.9s; }
+.ledger div:nth-child(3) { animation-delay: -1.8s; }
+@keyframes ledger-age {
+  0% { opacity: 0; transform: translateY(-10px) scale(1.03); }
+  18%, 58% { opacity: 1; transform: none; }
+  100% { opacity: .22; transform: translateY(5px) scale(.95); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Design a live activity ledger where each incoming event lands crisply at the top, holds, then becomes quieter and slightly denser as it ages. Stagger three rows in one continuous cycle and use a moving edge dot to distinguish event freshness from a normal static timeline.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -5067,7 +5301,7 @@ function Heartbeat() {
     <div class="wrap">
       <div class="section-head">
         <h2>Surface &amp; Motion</h2>
-        <span class="count mono">39 / 117</span>
+        <span class="count mono">45 / 135</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -7180,6 +7414,97 @@ function Heartbeat() {
 
         <div class="card"><div class="card-stage"><div class="card-param mono">metaball · 4.8s</div><div class="demo-metaballs"><span></span><span></span><i></i></div></div><div class="card-foot"><div class="row"><div><div class="name">Metaball Bridge</div><div class="desc">Two particles trade mass through a liquid neck</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Metaball+Bridge">View code</button></div></div><div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.metaballs { filter: blur(7px) contrast(18); }
 .metaballs span { animation: exchange 4.8s ease-in-out infinite; }</code></pre><pre data-lang="prompt" class="hidden"><code>Create two glowing particles that repeatedly merge, form a liquid neck, and separate while trading apparent mass. Use blur-plus-contrast metaball compositing inside a clipped dark field; this should read as fluid topology, not a single morphing blob.</code></pre></div></div></div>
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">weight · 200→800</div>
+            <div class="demo-var-weight">MORPH</div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Variable Weight</div><div class="desc">Type densifies from thin to black on hover</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Variable+Weight">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.word {
+  font-weight: 200;
+  letter-spacing: .04em;
+  transition: font-weight .55s cubic-bezier(0.16,1,0.3,1),
+              letter-spacing .55s cubic-bezier(0.16,1,0.3,1);
+}
+.word:hover {
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--amber);
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Animate a display word using variable font weight. Idle at weight 200 with open tracking; on hover glide to weight 800 with tighter letter-spacing and a soft amber glow. Prefer a long ease-out curve so the densification feels typographic, not bouncy.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">specular · 4.2s</div>
+            <div class="demo-specular"><span>SURFACE</span></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Specular Orbit</div><div class="desc">A soft highlight circles a brushed dark surface</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Specular+Orbit">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.surface::before {
+  width: 86px; height: 86px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.45), transparent 70%);
+  animation: orbit 4.2s linear infinite;
+}
+@keyframes orbit {
+  to { transform: rotate(360deg) translateX(46px) rotate(-360deg); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Design a premium product surface with a slowly orbiting specular highlight. Use a dark brushed panel, a soft radial light that circles with rotate+translate, and a quiet label. Speed up slightly on hover so it feels like the light is responding to attention.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">noise · dissolve</div>
+            <div class="demo-noise-dissolve"><b>REVEAL</b></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Noise Dissolve</div><div class="desc">Film grain peels back to uncover a colour field</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Noise+Dissolve">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.panel::after {
+  background-image: url("data:image/svg+xml,...feTurbulence...");
+  animation: noise .35s steps(3) infinite;
+  mix-blend-mode: overlay;
+}
+.panel:hover::before { opacity: 1; /* colour field */ }
+.panel:hover::after { opacity: .12; }</code></pre><pre data-lang="prompt" class="hidden"><code>Create a noise-dissolve reveal panel. Idle state shows restless film grain over a dark surface; on hover the grain softens while a warm gradient blooms underneath, with a monospaced REVEAL label sitting in difference blend so it stays legible through the transition.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">ordered dither · 12fps</div>
+            <div class="demo-dither-bloom" aria-label="Dither bloom"><span></span><b>DITHER</b></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Dither Bloom</div><div class="desc">A low-bit dot field grows into a soft spectral bloom</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Dither+Bloom">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.dither::before {
+  background: radial-gradient(circle, #ff8a00 0 1px, transparent 1.5px);
+  background-size: 7px 7px;
+  mask-image: radial-gradient(circle at var(--x) var(--y), #000, transparent 62%);
+  animation: dither-drift 6s steps(12) infinite;
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Create a refined ordered-dither surface from a tiny repeating dot grid, not random film grain. Move a soft radial mask across the grid in stepped frames so sparse amber pixels accumulate into a dense spectral bloom, then disperse. Preserve hard pixel edges inside a softly lit panel.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">ferrofluid · 18 spikes</div>
+            <div class="demo-ferrofluid" aria-label="Ferrofluid crown"><i></i><span>FIELD</span></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Ferrofluid Crown</div><div class="desc">A magnetic core raises a ring of liquid-metal spikes</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Ferrofluid+Crown">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.ferrofluid::before {
+  clip-path: polygon(50% 0%, 56% 30%, 72% 7%, 70% 34%, 94% 20%, 76% 42%, 100% 50%, 76% 58%, 94% 80%, 70% 66%, 72% 93%, 56% 70%, 50% 100%, 44% 70%, 28% 93%, 30% 66%, 6% 80%, 24% 58%, 0 50%, 24% 42%, 6% 20%, 30% 34%, 28% 7%, 44% 30%);
+  animation: ferro-pull 3.8s ease-in-out infinite;
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Make a dark ferrofluid crown: a glossy circular core surrounded by irregular magnetic spikes that lengthen and rotate as if a field is passing around them. Use one clipped polygon with layered specular highlights; avoid ordinary blob morphing or a simple radial pulse.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">lenticular · hover</div>
+            <div class="demo-lenticular" aria-label="Lenticular shift"><span data-a="MATTER" data-b="MOTION"></span><i></i></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Lenticular Shift</div><div class="desc">Micro-ridges swap one word for another as the angle changes</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Lenticular+Shift">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.lenticular span::before,
+.lenticular span::after { position: absolute; content: attr(data-a); }
+.lenticular span::after {
+  content: attr(data-b);
+  mask: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 12px);
+}
+.lenticular:hover span { transform: skewY(-5deg) translateX(3px); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a lenticular type panel that alternates between MATTER and MOTION through fine vertical ridges. Interleave the second word with narrow mask strips, then shift the layers in opposite directions on hover so the perceived label changes with viewing angle rather than crossfading.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -7273,7 +7598,7 @@ function Heartbeat() {
   <div class="wrap footer-grid">
     <div class="brand"><span class="dot"></span> Kinetics</div>
     <div class="dim mono" style="font-size: 12px">
-      117 motion patterns. CSS + React. MIT licensed.
+      135 motion patterns. CSS + React. MIT licensed.
     </div>
     <div class="footer-links mono">
       <a

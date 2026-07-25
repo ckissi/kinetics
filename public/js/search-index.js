@@ -47,6 +47,12 @@ window.KINETICS_KEYWORDS = {
   'Elastic Lasso': ['selection', 'marquee', 'drag select', 'multi select', 'box select', 'canvas', 'desktop', 'files', 'area', 'rubber band', 'group', 'click drag'],
   'Hover Intent Gate': ['hover delay', 'intent', 'deliberate', 'unlock', 'guard', 'accidental', 'menu', 'dropdown', 'dwell', 'patience', 'timer', 'gate'],
   'Gesture Chord': ['keyboard shortcut', 'sequence', 'combo', 'hotkey', 'konami', 'chord', 'arm', 'two step', 'command', 'cheat code', 'secret', 'trigger'],
+  'Liquid Glass Press': ['liquid glass', 'frosted', 'glassmorphism', 'specular', 'apple glass', 'refraction', 'backdrop filter', 'cta', 'press', 'blur', 'translucent', 'modern'],
+  'Bento Expand': ['bento', 'grid', 'dashboard', 'tiles', 'hover focus', 'editorial layout', 'cards', 'asymmetric', 'recede', 'spotlight', 'layout', 'apple'],
+  'Snap Rail': ['segmented control', 'pill', 'snap', 'day week month', 'filter', 'toggle group', 'magnetic', 'selection', 'tabs', 'spring', 'options', 'range'],
+  'Kinetic XY Pad': ['xy pad', 'two axis', 'pointer', 'drag', 'joystick', 'coordinates', 'position', 'spring home', 'puck', 'spatial input', 'control surface', 'touch'],
+  'Command Palette Bloom': ['command palette', 'actions', 'keyboard', 'shortcut', 'menu', 'stagger', 'clip reveal', 'launcher', 'spotlight', 'cmd k', 'quick access', 'popover'],
+  'Momentum Picker': ['wheel', 'picker', 'detent', 'vertical select', 'weighted', 'snap', 'density', 'scroll', 'options', 'dial', 'input', 'cylindrical'],
 
   /* ---- Feedback & State ---- */
   'Scramble Reveal': ['text effect', 'decode', 'matrix', 'hacker', 'glyphs', 'randomize', 'terminal', 'reveal', 'cipher', 'decrypt', 'headline', 'typing'],
@@ -87,6 +93,12 @@ window.KINETICS_KEYWORDS = {
   'Echo Receipt': ['read receipt', 'delivered', 'acknowledgement', 'sent', 'checkmarks', 'whatsapp ticks', 'message status', 'confirmation', 'layers', 'ripple', 'trust', 'receipt'],
   'State Diff': ['diff', 'git', 'version', 'change', 'before after', 'old new', 'compare', 'commit', 'update', 'replace', 'transition', 'values'],
   'Signal Braille': ['dots', 'matrix', 'status grid', 'phases', 'system state', 'encode', 'tactile', 'cells', 'blink', 'pattern', 'telemetry', 'indicator'],
+  'Token Stream': ['ai', 'llm', 'streaming', 'tokens', 'generative', 'chatgpt', 'response', 'type out', 'cascade', 'chips', 'model output', 'agent'],
+  'Presence Stack': ['avatars', 'online', 'collaborators', 'multiplayer', 'live', 'presence', 'stack', 'ping', 'users', 'team', 'status', 'realtime'],
+  'Confidence Settle': ['confidence', 'score', 'ai certainty', 'meter', 'overshoot', 'settle', 'percentage', 'ranking', 'probability', 'gauge', 'metric', 'trust'],
+  'Optimistic Rollback': ['optimistic ui', 'rollback', 'server rejection', 'local first', 'toggle', 'syncing', 'restore', 'failure', 'revert', 'async state', 'latency', 'settings'],
+  'Reconciliation Merge': ['reconcile', 'local first', 'edge', 'conflict', 'merge', 'authoritative state', 'sync', 'offline data', 'values', 'resolution', 'distributed', 'database'],
+  'Activity Ledger': ['activity', 'events', 'ledger', 'timeline', 'live updates', 'audit trail', 'freshness', 'compacting', 'event log', 'stream', 'realtime', 'history'],
 
   /* ---- Surface & Motion ---- */
   'Error Shake': ['validation error', 'wrong password', 'invalid input', 'form error', 'shake', 'wiggle', 'reject', 'deny', 'headshake', 'login failed', 'feedback', 'email'],
@@ -128,4 +140,10 @@ window.KINETICS_KEYWORDS = {
   'Moiré Lens': ['moire', 'interference', 'pattern', 'optical illusion', 'lines', 'depth illusion', 'hypnotic', 'spin', 'op art', 'texture', 'rings', 'trippy'],
   'Polarized Foil': ['foil', 'holographic', 'iridescent', 'spectrum', 'angle', 'shimmer', 'card finish', 'metallic', 'rainbow', 'premium', 'trading card', 'gloss'],
   'Metaball Bridge': ['metaball', 'gooey', 'liquid', 'merge', 'blob', 'fluid', 'particles', 'connect', 'droplet', 'organic', 'surface tension', 'lava lamp'],
+  'Variable Weight': ['variable font', 'font weight', 'typography', 'morph', 'letter spacing', 'display type', 'hover text', 'headline', 'kinetic type', 'weight axis', 'editorial', 'type'],
+  'Specular Orbit': ['specular', 'highlight', 'product surface', 'light orbit', 'premium', 'brushed metal', 'sheen', '3d light', 'material', 'showcase', 'reflection', 'glow'],
+  'Noise Dissolve': ['noise', 'film grain', 'dissolve', 'reveal', 'texture', 'grain', 'hover reveal', 'glitch grain', 'turbulence', 'overlay', 'transition', 'cinematic'],
+  'Dither Bloom': ['dither', 'ordered dots', 'pixel', 'low bit', 'halftone', 'bloom', 'retro modern', 'mask', 'dot matrix', 'spectral', 'stepped', 'shader'],
+  'Ferrofluid Crown': ['ferrofluid', 'magnetic', 'liquid metal', 'spikes', 'field', 'crown', 'fluid simulation', 'chrome', 'black liquid', 'magnetism', 'core', 'material'],
+  'Lenticular Shift': ['lenticular', 'ridges', 'angle', 'interleave', 'word swap', 'optical', 'type', 'hover', 'parallax print', 'mask stripes', 'matter motion', 'perspective'],
 };
