@@ -1491,6 +1491,202 @@
     select(index);
   });
 
+  /* Prompt composer — auto-grow, focus bloom, send/settle cycle. */
+  $$('.demo-composer').forEach((composer) => {
+    const input = $('.demo-composer-input', composer);
+    const send = $('.demo-composer-send', composer);
+    const count = $('.demo-composer-count', composer);
+    let timer = null;
+
+    const grow = () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 74) + 'px';
+      composer.classList.toggle('ready', input.value.trim().length > 0);
+      count.textContent = input.value.length;
+    };
+    const run = () => {
+      if (!composer.classList.contains('ready') || composer.classList.contains('sending')) return;
+      composer.classList.add('sending');
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        composer.classList.remove('sending');
+        input.value = '';
+        grow();
+      }, 1500);
+    };
+
+    input.addEventListener('input', grow);
+    input.addEventListener('focus', () => composer.classList.add('focused'));
+    input.addEventListener('blur', () => composer.classList.remove('focused'));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        run();
+      }
+    });
+    send.addEventListener('click', run);
+    grow();
+  });
+
+  /* Filmstrip scrubber — playhead tracks the pointer, snaps on release. */
+  $$('.demo-filmstrip').forEach((strip) => {
+    const track = $('.demo-filmstrip-track', strip);
+    const frames = $$('button', track);
+    const time = $('.demo-filmstrip-time', strip);
+    const last = frames.length - 1;
+    let index = 0;
+
+    const stamp = (i) => {
+      const seconds = i * 4;
+      time.textContent =
+        '00:' + String(seconds).padStart(2, '0') + ' · f' + (i + 1);
+    };
+    // Playhead position is measured, never assumed from a step size.
+    const head = (clientX) => {
+      const rect = strip.getBoundingClientRect();
+      strip.style.setProperty('--head', Math.round(clientX - rect.left));
+    };
+    const select = (next) => {
+      index = Math.max(0, Math.min(last, next));
+      frames.forEach((f, i) => f.classList.toggle('active', i === index));
+      const rect = frames[index].getBoundingClientRect();
+      head(rect.left + rect.width / 2);
+      stamp(index);
+    };
+    // Distance-weighted swell, same ratio the playhead uses.
+    const proximity = (clientX) => {
+      frames.forEach((frame) => {
+        const rect = frame.getBoundingClientRect();
+        const d = Math.abs(clientX - (rect.left + rect.width / 2));
+        frame.style.setProperty('--near', Math.max(0, 1 - d / 70).toFixed(3));
+      });
+    };
+    const nearest = (clientX) => {
+      const rect = track.getBoundingClientRect();
+      const ratio = (clientX - rect.left) / rect.width;
+      return Math.round(ratio * last);
+    };
+
+    // While scrubbing the head follows the raw pointer; on release it
+    // springs to the centre of the frame it landed on.
+    const drag = (clientX) => {
+      const rect = track.getBoundingClientRect();
+      head(Math.max(rect.left, Math.min(rect.right, clientX)));
+      const next = Math.max(0, Math.min(last, nearest(clientX)));
+      if (next !== index) {
+        index = next;
+        frames.forEach((f, i) => f.classList.toggle('active', i === index));
+        stamp(index);
+      }
+    };
+    const release = () => {
+      if (!strip.classList.contains('scrubbing')) return;
+      strip.classList.remove('scrubbing');
+      select(index);
+    };
+
+    track.addEventListener('pointerdown', (e) => {
+      strip.classList.add('scrubbing');
+      track.setPointerCapture(e.pointerId);
+      drag(e.clientX);
+    });
+    track.addEventListener('pointermove', (e) => {
+      proximity(e.clientX);
+      if (strip.classList.contains('scrubbing')) drag(e.clientX);
+    });
+    track.addEventListener('pointerup', release);
+    track.addEventListener('pointercancel', release);
+    track.addEventListener('pointerleave', () => {
+      release();
+      frames.forEach((f) => f.style.setProperty('--near', 0));
+    });
+    frames.forEach((frame, i) => {
+      frame.addEventListener('click', () => select(i));
+      frame.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        select(index + (e.key === 'ArrowRight' ? 1 : -1));
+        frames[index].focus();
+      });
+    });
+    select(0);
+  });
+
+  /* Drag stack — press anywhere on the row to gather every item. */
+  $$('.demo-dragstack').forEach((stack) => {
+    const items = $$('.demo-dragstack-row button', stack);
+    let dragging = false;
+    // Resting slots, stored relative to the stack so a mid-flight
+    // transform can never contaminate the measurement.
+    let homes = [];
+
+    const measure = () => {
+      const host = stack.getBoundingClientRect();
+      homes = items.map((item) => {
+        const r = item.getBoundingClientRect();
+        const dx = Number(item.style.getPropertyValue('--dx')) || 0;
+        const dy = Number(item.style.getPropertyValue('--dy')) || 0;
+        return {
+          x: r.left + r.width / 2 - dx - host.left,
+          y: r.top + r.height / 2 - dy - host.top,
+        };
+      });
+    };
+
+    const gather = (rawX, rawY) => {
+      const host = stack.getBoundingClientRect();
+      // Keep the whole pile — and its badge — inside the stage.
+      const cx = host.left + host.width / 2;
+      const cy = host.top + host.height / 2;
+      const clientX = Math.max(cx - 52, Math.min(cx + 46, rawX));
+      const clientY = Math.max(cy - 36, Math.min(cy + 30, rawY));
+      stack.style.setProperty('--px', Math.round(clientX - cx));
+      stack.style.setProperty('--py', Math.round(clientY - cy));
+      items.forEach((item, i) => {
+        item.style.setProperty('--dx', Math.round(clientX - host.left - homes[i].x));
+        item.style.setProperty('--dy', Math.round(clientY - host.top - homes[i].y));
+      });
+    };
+    const release = () => {
+      if (!dragging) return;
+      dragging = false;
+      stack.classList.remove('gathered');
+      items.forEach((item) => {
+        item.style.setProperty('--dx', 0);
+        item.style.setProperty('--dy', 0);
+      });
+    };
+
+    items.forEach((item) => {
+      item.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        dragging = true;
+        item.setPointerCapture(e.pointerId);
+        stack.classList.add('gathered');
+        gather(e.clientX, e.clientY);
+      });
+      item.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        const host = stack.getBoundingClientRect();
+        dragging = true;
+        stack.classList.add('gathered');
+        gather(host.left + host.width / 2, host.top + host.height / 2);
+        window.setTimeout(release, 900);
+      });
+      item.addEventListener('pointermove', (e) => {
+        if (dragging) gather(e.clientX, e.clientY);
+      });
+      item.addEventListener('pointerup', release);
+      item.addEventListener('pointercancel', release);
+    });
+
+    measure();
+    window.addEventListener('resize', () => {
+      if (!dragging) measure();
+    });
+  });
+
   /* ---------------------------------------------------------
      Library search — filters cards by name, description and
      the keyword index in search-index.js. Each card gets its

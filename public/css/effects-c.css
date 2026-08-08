@@ -1705,3 +1705,172 @@
 .demo-lenticular:hover > i {
   transform: translateX(90%);
 }
+
+/* 46. Volumetric shaft */
+.demo-volumetric {
+  position: relative;
+  width: 200px;
+  height: 128px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: radial-gradient(120% 80% at 50% -10%, #1a1a20, #0b0b0d 70%);
+}
+.demo-volumetric span {
+  position: absolute;
+  inset: -20% -30%;
+  background: repeating-linear-gradient(
+    97deg,
+    transparent 0 13px,
+    rgba(255, 178, 92, 0.17) 14px 23px
+  );
+  -webkit-mask: radial-gradient(62% 96% at 50% 0%, #000 8%, transparent 74%);
+  mask: radial-gradient(62% 96% at 50% 0%, #000 8%, transparent 74%);
+  filter: blur(1.6px);
+  animation: shaft-rake 9s ease-in-out infinite alternate;
+}
+.demo-volumetric i {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1.6px 1.6px at 22% 30%, rgba(255, 226, 190, 0.85), transparent),
+    radial-gradient(1.4px 1.4px at 58% 52%, rgba(255, 226, 190, 0.7), transparent),
+    radial-gradient(1.2px 1.2px at 74% 24%, rgba(255, 226, 190, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255, 226, 190, 0.55), transparent),
+    radial-gradient(1.1px 1.1px at 86% 62%, rgba(255, 226, 190, 0.5), transparent);
+  animation: dust-drift 14s linear infinite;
+}
+.demo-volumetric b {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -22px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 168, 74, 0.34), transparent 76%);
+  filter: blur(6px);
+  animation: pool-breathe 9s ease-in-out infinite alternate;
+}
+@keyframes shaft-rake {
+  from { transform: skewX(-9deg) translateX(-15px); opacity: 0.5; }
+  to { transform: skewX(4deg) translateX(15px); opacity: 1; }
+}
+@keyframes dust-drift {
+  from { transform: translate3d(-8px, 6px, 0); }
+  to { transform: translate3d(10px, -10px, 0); }
+}
+@keyframes pool-breathe {
+  from { transform: translateX(-14px) scaleX(0.86); opacity: 0.6; }
+  to { transform: translateX(14px) scaleX(1.08); opacity: 1; }
+}
+
+/* 47. Letterpress emboss */
+.demo-letterpress {
+  --lx: 1;
+  --ly: 1;
+  display: grid;
+  place-items: center;
+  width: 200px;
+  height: 112px;
+  border-radius: var(--radius);
+  background:
+    repeating-linear-gradient(63deg, rgba(120, 96, 64, 0.045) 0 2px, transparent 2px 4px),
+    linear-gradient(160deg, #efe9dd, #ded5c4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: box-shadow 0.5s ease;
+}
+.demo-letterpress span {
+  color: rgba(90, 74, 52, 0.14);
+  font: 800 40px var(--font-display);
+  letter-spacing: 0.06em;
+  text-shadow:
+    calc(var(--lx) * 1px) calc(var(--ly) * 1px) 1px rgba(255, 255, 255, 0.9),
+    calc(var(--lx) * -1px) calc(var(--ly) * -1px) 2px rgba(74, 54, 28, 0.45);
+  animation: press-light 7s ease-in-out infinite alternate;
+  transition:
+    scale 0.45s var(--glide),
+    filter 0.45s ease;
+}
+@keyframes press-light {
+  0% { --lx: 1; --ly: 1; text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.92), -1px -1px 2px rgba(74, 54, 28, 0.45); }
+  50% { text-shadow: 1.5px -1px 1px rgba(255, 255, 255, 0.75), -1.5px 1px 2px rgba(74, 54, 28, 0.5); }
+  100% { text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.6), 1px 1px 2px rgba(74, 54, 28, 0.55); }
+}
+.demo-letterpress:hover span {
+  scale: 0.99;
+  filter: contrast(1.18);
+}
+.demo-letterpress:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 26px rgba(74, 54, 28, 0.16);
+}
+
+/* 48. Rack focus */
+.demo-rackfocus {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 206px;
+  height: 128px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #17171b, #0d0d10);
+}
+.demo-rackfocus em {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 160, 60, 0.5), rgba(255, 160, 60, 0.05) 78%, transparent);
+  animation: bokeh-bloom 7.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.demo-rackfocus em:nth-of-type(1) { left: 18px; top: 20px; }
+.demo-rackfocus em:nth-of-type(2) { right: 22px; top: 34px; animation-delay: 0.35s; }
+.demo-rackfocus em:nth-of-type(3) { right: 54px; bottom: 16px; animation-delay: 0.7s; }
+.demo-rack-far,
+.demo-rack-near {
+  position: absolute;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  will-change: filter, transform;
+}
+.demo-rack-far {
+  top: 32px;
+  color: var(--bone-dim);
+  font-size: 15px;
+  font-weight: 600;
+  animation: pull-far 7.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.demo-rack-near {
+  bottom: 30px;
+  color: var(--bone);
+  font-size: 23px;
+  font-weight: 800;
+  animation: pull-near 7.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.demo-rackfocus b {
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  color: var(--bone-faint);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+@keyframes pull-near {
+  0%, 30% { filter: blur(0); opacity: 1; transform: scale(1); }
+  50%, 82% { filter: blur(6px); opacity: 0.4; transform: scale(1.04); }
+  100% { filter: blur(0); opacity: 1; transform: scale(1); }
+}
+@keyframes pull-far {
+  0%, 30% { filter: blur(5px); opacity: 0.4; transform: scale(1.05); }
+  50%, 82% { filter: blur(0); opacity: 1; transform: scale(1); }
+  100% { filter: blur(5px); opacity: 0.4; transform: scale(1.05); }
+}
+@keyframes bokeh-bloom {
+  0%, 30% { transform: scale(1.15); opacity: 0.75; filter: blur(4px); }
+  50%, 82% { transform: scale(0.7); opacity: 0.25; filter: blur(1px); }
+  100% { transform: scale(1.15); opacity: 0.75; filter: blur(4px); }
+}

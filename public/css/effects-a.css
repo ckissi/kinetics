@@ -1918,3 +1918,306 @@
   font-size: 8px;
   letter-spacing: 0.05em;
 }
+
+/* 46. Prompt composer */
+.demo-composer {
+  width: 236px;
+  display: grid;
+  gap: 7px;
+}
+.demo-composer-field {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: end;
+  gap: 8px;
+  padding: 10px 10px 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card-2);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.4s ease;
+}
+.demo-composer.focused .demo-composer-field {
+  border-color: color-mix(in srgb, var(--amber) 45%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 9%, transparent);
+}
+.demo-composer-halo {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  overflow: hidden;
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.demo-composer-halo::before {
+  content: "";
+  position: absolute;
+  inset: -70%;
+  background: conic-gradient(
+    transparent,
+    var(--amber),
+    transparent 38%,
+    var(--wire),
+    transparent 72%
+  );
+  animation: composer-halo 4.2s linear infinite;
+}
+.demo-composer.focused .demo-composer-halo {
+  opacity: 0.9;
+}
+@keyframes composer-halo {
+  to { transform: rotate(1turn); }
+}
+.demo-composer-input {
+  height: 20px;
+  max-height: 74px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--bone);
+  font: 400 12px/20px var(--font-body);
+  resize: none;
+  transition: height 0.34s var(--glide);
+}
+.demo-composer-input::placeholder {
+  color: var(--bone-faint);
+}
+.demo-composer-send {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  transform: scale(0.78);
+  opacity: 0.4;
+  transition:
+    transform 0.42s var(--spring),
+    opacity 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+.demo-composer-send::before,
+.demo-composer-send::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transition:
+    opacity 0.22s ease,
+    transform 0.4s var(--spring);
+}
+.demo-composer-send::before {
+  width: 7px;
+  height: 7px;
+  margin: -1px 0 0 -4px;
+  border-top: 1.6px solid currentColor;
+  border-right: 1.6px solid currentColor;
+  color: var(--bone-dim);
+  transform: translate(0, -50%) rotate(-45deg);
+}
+.demo-composer-send::after {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 2px;
+  background: var(--graphite);
+  transform: scale(0);
+}
+.demo-composer.ready .demo-composer-send {
+  transform: scale(1);
+  opacity: 1;
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.demo-composer.ready .demo-composer-send::before {
+  color: var(--graphite);
+}
+.demo-composer.sending .demo-composer-send::before {
+  opacity: 0;
+  transform: translate(0, -50%) rotate(-45deg) scale(0.4);
+}
+.demo-composer.sending .demo-composer-send::after {
+  transform: scale(1);
+}
+.demo-composer.sending .demo-composer-field::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  animation: composer-run 1.15s var(--glide) infinite;
+}
+@keyframes composer-run {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+.demo-composer-meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  color: var(--bone-faint);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+.demo-composer.ready .demo-composer-count {
+  color: var(--amber);
+}
+
+/* 47. Filmstrip scrubber */
+.demo-filmstrip {
+  --head: 28;
+  position: relative;
+  width: 224px;
+  padding: 16px 12px 26px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-2);
+  touch-action: none;
+}
+.demo-filmstrip-track {
+  display: flex;
+  gap: 4px;
+  height: 44px;
+}
+.demo-filmstrip-track button {
+  --near: 0;
+  flex: 1;
+  border-radius: 4px;
+  background: linear-gradient(160deg, #2f2f35, #1c1c20);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transform: scaleY(calc(1 + var(--near) * 0.16));
+  transition:
+    transform 0.32s var(--spring),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.demo-filmstrip-track button.active {
+  background: linear-gradient(160deg, #4a3418, #23201d);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--amber) 40%, transparent);
+}
+.demo-filmstrip-head {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 2px;
+  height: 56px;
+  border-radius: 2px;
+  background: var(--amber);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--amber) 65%, transparent);
+  translate: calc(var(--head) * 1px - 1px) 0;
+  transition: translate 0.48s var(--spring);
+}
+.demo-filmstrip-head::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--amber);
+}
+.demo-filmstrip.scrubbing .demo-filmstrip-head {
+  transition-duration: 90ms;
+}
+.demo-filmstrip-time {
+  position: absolute;
+  left: 12px;
+  bottom: 8px;
+  color: var(--bone-faint);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+.demo-filmstrip.scrubbing .demo-filmstrip-time {
+  color: var(--amber);
+}
+
+/* 48. Drag stack collect */
+.demo-dragstack {
+  --px: 0;
+  --py: 0;
+  position: relative;
+  width: 226px;
+  height: 132px;
+  display: grid;
+  place-items: center;
+  touch-action: none;
+}
+.demo-dragstack-row {
+  display: flex;
+  gap: 8px;
+}
+.demo-dragstack-row button {
+  --dx: 0;
+  --dy: 0;
+  --i: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--card-2);
+  color: var(--bone-dim);
+  font: 500 10px var(--font-mono);
+  white-space: nowrap;
+  cursor: grab;
+  translate: 0 0;
+  transition:
+    translate 0.55s var(--spring),
+    rotate 0.55s var(--spring),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+.demo-dragstack-row button:nth-child(2) { --i: 1; transition-delay: 30ms; }
+.demo-dragstack-row button:nth-child(3) { --i: 2; transition-delay: 60ms; }
+.demo-dragstack.gathered .demo-dragstack-row button {
+  translate: calc(var(--dx) * 1px) calc(var(--dy) * 1px);
+  rotate: calc(var(--i) * 6deg - 6deg);
+  border-color: color-mix(in srgb, var(--amber) 40%, transparent);
+  color: var(--bone);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+  transition-duration: 130ms;
+  transition-delay: 0s;
+  cursor: grabbing;
+}
+.demo-dragstack-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin: -10px -10px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--graphite);
+  font-size: 9px;
+  font-weight: 700;
+  translate: calc(var(--px) * 1px + 26px) calc(var(--py) * 1px - 22px);
+  transform: scale(0);
+  transition: transform 0.4s var(--spring);
+  pointer-events: none;
+}
+.demo-dragstack.gathered .demo-dragstack-badge {
+  transform: scale(1);
+}
+.demo-dragstack-hint {
+  position: absolute;
+  bottom: 4px;
+  color: var(--bone-faint);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  transition: opacity 0.3s ease;
+}
+.demo-dragstack.gathered .demo-dragstack-hint {
+  opacity: 0;
+}

@@ -247,7 +247,7 @@
 
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">// 135 spring-driven interactions</div>
+          <div class="eyebrow">// 144 spring-driven interactions</div>
           <h1 class="h-display">
             Motion that<br />has <span class="accent">weight.</span>
           </h1>
@@ -281,7 +281,7 @@
               <input
                 type="search"
                 id="effect-search"
-                placeholder="Search 135 effects&hellip;"
+                placeholder="Search 144 effects&hellip;"
                 aria-label="Search effects"
                 autocomplete="off"
                 spellcheck="false"
@@ -322,7 +322,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Interaction &amp; Input</h2>
-        <span class="count mono">45 / 135</span>
+        <span class="count mono">48 / 144</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -2929,6 +2929,83 @@
 .picker-track button:not(.active) { opacity: .32; transform: scale(.88); }</code></pre><pre data-lang="prompt" class="hidden"><code>Create a tactile vertical picker with three density options. Mouse-wheel, arrow keys, and taps should move one detent at a time; the list overshoots slightly while the focused row stays aligned behind a fixed highlight. Dim and scale peripheral rows to imply cylindrical depth.</code></pre></div></div>
         </div>
 
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">compose · grow + bloom</div>
+            <div class="demo-composer">
+              <div class="demo-composer-field">
+                <span class="demo-composer-halo"></span>
+                <textarea class="demo-composer-input" rows="1" placeholder="Ask anything…" aria-label="Prompt"></textarea>
+                <button class="demo-composer-send" type="button" aria-label="Send prompt"></button>
+              </div>
+              <div class="demo-composer-meta mono"><span>⏎ to send</span><output class="demo-composer-count">0</output></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Prompt Composer</div><div class="desc">An AI input grows with the thought, then commits to a run</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Prompt+Composer">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.composer-field {
+  transition: height .34s cubic-bezier(.16,1,.3,1), border-color .3s ease;
+}
+.composer-halo { opacity: 0; transition: opacity .45s ease; }
+.composer.focused .composer-halo { opacity: 1; animation: halo-spin 4s linear infinite; }
+.composer-send { transform: scale(.7); opacity: .35; }
+.composer.ready .composer-send { transform: scale(1); opacity: 1; }
+.composer.sending .composer-send::before { opacity: 0; }   /* arrow out */
+.composer.sending .composer-send::after  { transform: scale(1); } /* stop square in */</code></pre><pre data-lang="prompt" class="hidden"><code>Build an AI prompt composer that feels alive as you type. The field auto-grows to its content with a glide easing instead of jumping line by line, a slow conic halo rotates behind the border only while focused, and the send button springs from a dim disabled dot to a full accent circle the moment there is text. On submit, morph the arrow into a stop square, run a determinate sweep across the field, then settle back to empty — no spinners, no layout shift.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">scrub · snap(0.48s)</div>
+            <div class="demo-filmstrip" role="group" aria-label="Timeline scrubber">
+              <div class="demo-filmstrip-track">
+                <button type="button" aria-label="Frame 1"></button>
+                <button type="button" aria-label="Frame 2"></button>
+                <button type="button" aria-label="Frame 3"></button>
+                <button type="button" aria-label="Frame 4"></button>
+                <button type="button" aria-label="Frame 5"></button>
+                <button type="button" aria-label="Frame 6"></button>
+              </div>
+              <span class="demo-filmstrip-head"></span>
+              <output class="demo-filmstrip-time mono">00:00 · f1</output>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Filmstrip Scrubber</div><div class="desc">A playhead snaps to the frame nearest the pointer</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Filmstrip+Scrubber">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.filmstrip-head {
+  translate: calc(var(--head) * 1px) 0;   /* --head is measured, not stepped */
+  transition: translate .48s cubic-bezier(.34,1.56,.64,1);
+}
+.filmstrip.scrubbing .filmstrip-head { transition-duration: 90ms; }
+.filmstrip-track button {
+  transform: scaleY(calc(1 + var(--near) * .34));
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .25s ease;
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Create a video-style filmstrip scrubber. While the pointer moves across the strip, the playhead tracks it almost instantly and each frame swells based on how close it is to the cursor. On release or click, the playhead springs to the centre of the nearest frame and a monospaced timecode updates to that frame. Arrow keys should step frame by frame with the same spring, and the whole thing must stay one row with no reflow.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">gather(3) · fan 5°</div>
+            <div class="demo-dragstack" aria-label="Press and drag to collect">
+              <div class="demo-dragstack-row">
+                <button type="button">Brief.pdf</button>
+                <button type="button">Frame.png</button>
+                <button type="button">Notes.md</button>
+              </div>
+              <span class="demo-dragstack-badge mono">3</span>
+              <p class="demo-dragstack-hint mono">press &amp; drag</p>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Drag Stack Collect</div><div class="desc">Loose items gather into a fanned pile under the pointer</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Drag+Stack+Collect">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.dragstack-row button {
+  transition: translate .5s cubic-bezier(.34,1.56,.64,1), rotate .5s var(--spring);
+}
+.dragstack.gathered button {
+  translate: calc(var(--dx) * 1px) calc(var(--dy) * 1px);
+  rotate: calc(var(--i) * 5deg - 5deg);
+  transition-duration: 120ms;              /* tight while dragging */
+}
+.dragstack.gathered .dragstack-badge { transform: scale(1); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a Finder-style drag collection. Press on any item in a row and every item converges into a single fanned pile that follows the pointer, each card rotated a few degrees and stacked with a slight z-offset, with a count badge popping in beside them. Track the pointer with a short transition while dragging, and on release let all items spring back to their original slots on a stagger. Never reflow the row — the movement is transform-only.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -2937,7 +3014,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Feedback &amp; State</h2>
-        <span class="count mono">45 / 135</span>
+        <span class="count mono">48 / 144</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -5293,6 +5370,78 @@ function Heartbeat() {
 }</code></pre><pre data-lang="prompt" class="hidden"><code>Design a live activity ledger where each incoming event lands crisply at the top, holds, then becomes quieter and slightly denser as it ages. Stagger three rows in one continuous cycle and use a moving edge dot to distinguish event freshness from a normal static timeline.</code></pre></div></div>
         </div>
 
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">handoff · 5.2s cycle</div>
+            <div class="demo-handoff" aria-label="Agent handoff">
+              <div class="demo-handoff-node"><span>PLAN</span><i></i></div>
+              <div class="demo-handoff-wire"><b></b></div>
+              <div class="demo-handoff-node"><span>EXEC</span><i></i></div>
+              <em class="demo-handoff-ctx mono">context · 4.2k</em>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Agent Handoff</div><div class="desc">One agent hands the live context to the next along a trace</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Agent+Handoff">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.handoff-wire b { animation: baton 5.2s cubic-bezier(.65,0,.35,1) infinite; }
+.handoff-node:first-child i { animation: node-hot 5.2s ease-in-out infinite; }
+.handoff-node:last-child  i { animation: node-hot 5.2s ease-in-out infinite 2.1s; }
+@keyframes baton {
+  0%, 14%  { offset-distance: 0%;   transform: scale(.4); opacity: 0; }
+  22%      { transform: scale(1);   opacity: 1; }
+  62%      { offset-distance: 100%; opacity: 1; }
+  74%, 100%{ offset-distance: 100%; transform: scale(.4); opacity: 0; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Visualise a multi-agent handoff: two labelled nodes joined by a thin trace. A context packet detaches from the first node, accelerates along the wire with an in-out curve, and lands in the second, which only heats up on arrival while the sender cools. Light the trace behind the packet like a charge and keep a monospaced context-size label that ticks over at the moment of transfer. One continuous loop, no spinners.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">bucket(5) · refill 1.1s</div>
+            <div class="demo-ratelimit" aria-label="Rate limit cooldown">
+              <div class="demo-ratelimit-tokens"><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="demo-ratelimit-arc"><span></span></div>
+              <div class="demo-ratelimit-state mono"><b>200 · ok</b><em>429 · cooling</em></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Rate Limit Cooldown</div><div class="desc">A token bucket empties fast, then refills on a slow drip</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Rate+Limit+Cooldown">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.ratelimit-tokens i { animation: token-cycle 6.4s linear infinite; }
+.ratelimit-tokens i:nth-child(2) { animation-delay: .16s; }  /* spend: fast */
+.ratelimit-tokens i:nth-child(5) { animation-delay: .64s; }
+@keyframes token-cycle {
+  0%, 6%   { opacity: 1; transform: scale(1); }
+  12%      { opacity: .1; transform: scale(.55); }  /* spent */
+  55%      { opacity: .1; transform: scale(.55); }  /* throttled */
+  70%      { opacity: 1; transform: scale(1.18); }  /* refilled */
+  78%, 100%{ opacity: 1; transform: scale(1); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Show a token-bucket rate limiter as a state animation. Five pips are spent left to right in quick succession, the status flips from a calm 200 to a warning 429, and a cooldown arc sweeps once. Then the pips return one at a time on a slow, uneven drip with a small overshoot as each is credited. The asymmetry is the point: spending is instant, recovery is patient.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">top-k(3) · cosine</div>
+            <div class="demo-vector" aria-label="Vector recall">
+              <span class="demo-vector-q"></span>
+              <i style="--x: -62px; --y: -30px"></i>
+              <i style="--x: 54px; --y: -34px"></i>
+              <i style="--x: -46px; --y: 28px"></i>
+              <i class="hit" style="--x: -30px; --y: -18px"></i>
+              <i class="hit" style="--x: 34px; --y: 14px"></i>
+              <i class="hit" style="--x: 8px; --y: -34px"></i>
+              <i style="--x: 66px; --y: 24px"></i>
+              <div class="demo-vector-score mono"><b>querying…</b><em>0.94 · match</em></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Vector Recall</div><div class="desc">Nearest embeddings drift in as a query ring sweeps the space</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Vector+Recall">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.vector i {
+  translate: var(--x) var(--y);
+  transition: translate .6s cubic-bezier(.16,1,.3,1);
+}
+.vector i.hit { animation: recall 5.6s cubic-bezier(.16,1,.3,1) infinite; }
+@keyframes recall {
+  0%, 30%  { translate: var(--x) var(--y); opacity: .35; }
+  52%, 78% { translate: calc(var(--x) * .34) calc(var(--y) * .34); opacity: 1; }
+  100%     { translate: var(--x) var(--y); opacity: .35; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Illustrate semantic search over an embedding space. Scatter faint points around a bright query node, then expand a thin ring outward; the three nearest points brighten and drift a third of the way toward the query while the rest stay dim and still. Cross-fade a status readout from "querying" to a cosine score at the moment the matches land. Positions come from custom properties so the same rule animates every point.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -5301,7 +5450,7 @@ function Heartbeat() {
     <div class="wrap">
       <div class="section-head">
         <h2>Surface &amp; Motion</h2>
-        <span class="count mono">45 / 135</span>
+        <span class="count mono">48 / 144</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -7505,6 +7654,64 @@ function Heartbeat() {
 .lenticular:hover span { transform: skewY(-5deg) translateX(3px); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a lenticular type panel that alternates between MATTER and MOTION through fine vertical ridges. Interleave the second word with narrow mask strips, then shift the layers in opposite directions on hover so the perceived label changes with viewing angle rather than crossfading.</code></pre></div></div>
         </div>
 
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">volumetric · 9s drift</div>
+            <div class="demo-volumetric" aria-label="Volumetric light"><span></span><i></i><b></b></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Volumetric Shaft</div><div class="desc">Light rakes through a slot and pools in drifting dust</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Volumetric+Shaft">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.volumetric span {
+  background: repeating-linear-gradient(97deg,
+    transparent 0 12px, rgba(255,180,90,.16) 13px 22px);
+  -webkit-mask: radial-gradient(60% 90% at 50% 0%, #000, transparent 72%);
+  filter: blur(1.5px);
+  animation: shaft-rake 9s ease-in-out infinite alternate;
+}
+@keyframes shaft-rake {
+  from { transform: skewX(-9deg) translateX(-14px); opacity: .55; }
+  to   { transform: skewX(3deg)  translateX(14px);  opacity: 1; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Render god rays falling through an unseen window into a dark room. Build the shafts from a repeating angled gradient, soften them with a small blur, and mask them so they fade out before they reach the floor. Slowly rake the whole bundle back and forth as if the sun were moving, drift a few dust motes across at a different speed, and let a warm pool brighten on the floor exactly where the shafts land.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">deboss · light 7s</div>
+            <div class="demo-letterpress" aria-label="Letterpress emboss"><span>PRESS</span></div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Letterpress Emboss</div><div class="desc">Type sits in the paper and reads by the light angle alone</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Letterpress+Emboss">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.letterpress span {
+  color: transparent;
+  background: linear-gradient(#00000012, #00000004);
+  -webkit-background-clip: text;
+  text-shadow:
+    calc(var(--lx) * 1px) calc(var(--ly) * 1px) 1px rgba(255,255,255,.85),
+    calc(var(--lx) * -1px) calc(var(--ly) * -1px) 2px rgba(60,40,20,.42);
+  animation: press-light 7s ease-in-out infinite alternate;
+}
+.letterpress:hover span { scale: .992; filter: contrast(1.15); }</code></pre><pre data-lang="prompt" class="hidden"><code>Make type look physically stamped into warm paper. The glyphs themselves are nearly transparent — legibility comes only from a pale highlight on one side and a warm shadow on the other. Rotate that light source slowly so the relief reverses direction, and on hover deepen the impression by pressing the letters a fraction smaller with stronger contrast. Add a fine paper grain, no drop shadows on the panel.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">f/1.8 · focus pull</div>
+            <div class="demo-rackfocus" aria-label="Focus pull">
+              <em></em><em></em><em></em>
+              <span class="demo-rack-far">HORIZON</span>
+              <span class="demo-rack-near">FOREGROUND</span>
+              <b class="mono">f/1.8 · 35mm</b>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Rack Focus</div><div class="desc">Depth of field pulls between two planes, bokeh blooming</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Rack+Focus">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.rack-near { animation: pull-near 7.4s cubic-bezier(.65,0,.35,1) infinite; }
+.rack-far  { animation: pull-far  7.4s cubic-bezier(.65,0,.35,1) infinite; }
+@keyframes pull-near {
+  0%, 34%   { filter: blur(0);   opacity: 1;   scale: 1; }
+  50%, 84%  { filter: blur(6px); opacity: .42; scale: 1.03; }
+  100%      { filter: blur(0);   opacity: 1;   scale: 1; }
+}
+@keyframes pull-far { /* exact inverse — only one plane is ever sharp */ }</code></pre><pre data-lang="prompt" class="hidden"><code>Simulate a cinematic focus pull between two depth planes. Only one plane is ever sharp: as the near label resolves, the far label blurs, dims and grows fractionally, then they trade with an in-out curve on a slow loop. Bokeh circles behind them should swell and brighten exactly when their plane goes soft. Use blur, opacity and scale together — a plain crossfade will not read as a lens.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -7598,7 +7805,7 @@ function Heartbeat() {
   <div class="wrap footer-grid">
     <div class="brand"><span class="dot"></span> Kinetics</div>
     <div class="dim mono" style="font-size: 12px">
-      135 motion patterns. CSS + React. MIT licensed.
+      144 motion patterns. CSS + React. MIT licensed.
     </div>
     <div class="footer-links mono">
       <a

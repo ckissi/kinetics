@@ -53,6 +53,9 @@ window.KINETICS_KEYWORDS = {
   'Kinetic XY Pad': ['xy pad', 'two axis', 'pointer', 'drag', 'joystick', 'coordinates', 'position', 'spring home', 'puck', 'spatial input', 'control surface', 'touch'],
   'Command Palette Bloom': ['command palette', 'actions', 'keyboard', 'shortcut', 'menu', 'stagger', 'clip reveal', 'launcher', 'spotlight', 'cmd k', 'quick access', 'popover'],
   'Momentum Picker': ['wheel', 'picker', 'detent', 'vertical select', 'weighted', 'snap', 'density', 'scroll', 'options', 'dial', 'input', 'cylindrical'],
+  'Prompt Composer': ['ai', 'chat input', 'textarea', 'autogrow', 'auto resize', 'prompt', 'send button', 'chatbot', 'llm', 'message box', 'compose', 'assistant', 'submit', 'focus glow', 'copilot'],
+  'Filmstrip Scrubber': ['video', 'timeline', 'scrub', 'playhead', 'frames', 'seek', 'preview', 'editor', 'media player', 'trim', 'thumbnails', 'timecode', 'drag', 'audio'],
+  'Drag Stack Collect': ['drag and drop', 'multi select', 'files', 'finder', 'gather', 'pile', 'stack', 'batch', 'move items', 'collect', 'fan', 'desktop', 'upload', 'bulk action'],
 
   /* ---- Feedback & State ---- */
   'Scramble Reveal': ['text effect', 'decode', 'matrix', 'hacker', 'glyphs', 'randomize', 'terminal', 'reveal', 'cipher', 'decrypt', 'headline', 'typing'],
@@ -99,6 +102,9 @@ window.KINETICS_KEYWORDS = {
   'Optimistic Rollback': ['optimistic ui', 'rollback', 'server rejection', 'local first', 'toggle', 'syncing', 'restore', 'failure', 'revert', 'async state', 'latency', 'settings'],
   'Reconciliation Merge': ['reconcile', 'local first', 'edge', 'conflict', 'merge', 'authoritative state', 'sync', 'offline data', 'values', 'resolution', 'distributed', 'database'],
   'Activity Ledger': ['activity', 'events', 'ledger', 'timeline', 'live updates', 'audit trail', 'freshness', 'compacting', 'event log', 'stream', 'realtime', 'history'],
+  'Agent Handoff': ['agent', 'ai', 'multi agent', 'handoff', 'orchestration', 'pipeline', 'workflow', 'delegate', 'context transfer', 'llm', 'node graph', 'baton', 'trace', 'automation'],
+  'Rate Limit Cooldown': ['rate limit', 'throttle', '429', 'quota', 'api limit', 'token bucket', 'cooldown', 'backoff', 'credits', 'usage', 'retry after', 'budget', 'requests', 'capacity'],
+  'Vector Recall': ['vector search', 'embedding', 'semantic search', 'rag', 'similarity', 'cosine', 'nearest neighbor', 'top k', 'retrieval', 'ai search', 'match', 'index', 'knn', 'query'],
 
   /* ---- Surface & Motion ---- */
   'Error Shake': ['validation error', 'wrong password', 'invalid input', 'form error', 'shake', 'wiggle', 'reject', 'deny', 'headshake', 'login failed', 'feedback', 'email'],
@@ -146,4 +152,7 @@ window.KINETICS_KEYWORDS = {
   'Dither Bloom': ['dither', 'ordered dots', 'pixel', 'low bit', 'halftone', 'bloom', 'retro modern', 'mask', 'dot matrix', 'spectral', 'stepped', 'shader'],
   'Ferrofluid Crown': ['ferrofluid', 'magnetic', 'liquid metal', 'spikes', 'field', 'crown', 'fluid simulation', 'chrome', 'black liquid', 'magnetism', 'core', 'material'],
   'Lenticular Shift': ['lenticular', 'ridges', 'angle', 'interleave', 'word swap', 'optical', 'type', 'hover', 'parallax print', 'mask stripes', 'matter motion', 'perspective'],
+  'Volumetric Shaft': ['god rays', 'volumetric', 'light shaft', 'sunbeam', 'atmosphere', 'dust', 'haze', 'cinematic', 'window light', 'glow', 'ambience', 'hero background', 'fog', 'rays'],
+  'Letterpress Emboss': ['letterpress', 'emboss', 'deboss', 'paper', 'print', 'tactile', 'stamped', 'relief', 'skeuomorphic', 'texture', 'engraved', 'typography', 'craft', 'physical'],
+  'Rack Focus': ['depth of field', 'focus pull', 'rack focus', 'bokeh', 'blur', 'cinematic', 'camera', 'lens', 'layers', 'foreground background', 'film', 'aperture', 'defocus', 'photography'],
 };

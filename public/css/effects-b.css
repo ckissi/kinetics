@@ -1821,3 +1821,306 @@
   78% { opacity: 0.5; transform: translateY(3px) scale(0.97); }
   100% { opacity: 0; transform: translateY(7px) scale(0.93); }
 }
+
+/* 46. Agent handoff */
+.demo-handoff {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 226px;
+  padding: 18px 14px 26px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-2);
+}
+.demo-handoff-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--card);
+}
+.demo-handoff-node span {
+  position: relative;
+  z-index: 1;
+  color: var(--bone-dim);
+  font: 600 8px var(--font-mono);
+  letter-spacing: 0.12em;
+}
+.demo-handoff-node i {
+  position: absolute;
+  inset: -1px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--amber) 65%, transparent);
+  background: color-mix(in srgb, var(--amber) 10%, transparent);
+  opacity: 0;
+  animation: node-hot 5.2s ease-in-out infinite;
+}
+.demo-handoff-node:last-of-type i {
+  animation-delay: 2.6s;
+}
+.demo-handoff-wire {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.demo-handoff-wire::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--amber), transparent);
+  transform-origin: left;
+  animation: wire-charge 5.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.demo-handoff-wire b {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  margin-left: -5px;
+  border-radius: 3px;
+  background: var(--amber);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--amber) 70%, transparent);
+  animation: handoff-baton 5.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.demo-handoff-ctx {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  color: var(--bone-faint);
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  animation: ctx-tick 5.2s ease-in-out infinite;
+}
+@keyframes handoff-baton {
+  0%, 12% { left: 0; transform: scale(0.3) rotate(0deg); opacity: 0; }
+  22% { transform: scale(1) rotate(45deg); opacity: 1; }
+  58% { left: 100%; transform: scale(1) rotate(135deg); opacity: 1; }
+  70%, 100% { left: 100%; transform: scale(0.3) rotate(180deg); opacity: 0; }
+}
+@keyframes wire-charge {
+  0%, 12% { transform: scaleX(0); opacity: 0; }
+  22% { opacity: 0.7; }
+  58% { transform: scaleX(1); opacity: 0.7; }
+  76%, 100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes node-hot {
+  0%, 8% { opacity: 0; }
+  16%, 44% { opacity: 1; }
+  58%, 100% { opacity: 0; }
+}
+@keyframes ctx-tick {
+  0%, 54% { color: var(--bone-faint); transform: none; }
+  62% { color: var(--amber); transform: translateY(-2px); }
+  76%, 100% { color: var(--bone-faint); transform: none; }
+}
+
+/* 47. Rate limit cooldown */
+.demo-ratelimit {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  width: 214px;
+  padding: 20px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-2);
+}
+.demo-ratelimit-tokens {
+  display: flex;
+  gap: 8px;
+}
+.demo-ratelimit-tokens i {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--amber) 45%, transparent);
+  animation: token-cycle 6.4s linear infinite;
+}
+.demo-ratelimit-tokens i:nth-child(2) { animation-delay: 0.14s; }
+.demo-ratelimit-tokens i:nth-child(3) { animation-delay: 0.28s; }
+.demo-ratelimit-tokens i:nth-child(4) { animation-delay: 0.42s; }
+.demo-ratelimit-tokens i:nth-child(5) { animation-delay: 0.56s; }
+@keyframes token-cycle {
+  0%, 4% { opacity: 1; transform: scale(1); }
+  9% { opacity: 0.12; transform: scale(0.5); box-shadow: none; }
+  52% { opacity: 0.12; transform: scale(0.5); box-shadow: none; }
+  /* refill is slow and staggered wide by the per-pip delay */
+  62% { opacity: 1; transform: scale(1.22); }
+  70%, 100% { opacity: 1; transform: scale(1); }
+}
+.demo-ratelimit-arc {
+  position: relative;
+  width: 148px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--card);
+}
+.demo-ratelimit-arc span {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--danger), var(--amber));
+  transform-origin: left;
+  animation: cooldown-sweep 6.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes cooldown-sweep {
+  0%, 8% { transform: scaleX(1); opacity: 0.9; }
+  62% { transform: scaleX(0); opacity: 0.9; }
+  64%, 100% { transform: scaleX(0); opacity: 0; }
+}
+.demo-ratelimit-state {
+  position: relative;
+  height: 12px;
+  width: 100%;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.demo-ratelimit-state b,
+.demo-ratelimit-state em {
+  position: absolute;
+  inset: 0;
+  font-style: normal;
+  font-weight: 500;
+}
+.demo-ratelimit-state b {
+  color: var(--ok);
+  animation: state-ok 6.4s ease-in-out infinite;
+}
+.demo-ratelimit-state em {
+  color: var(--danger);
+  animation: state-throttled 6.4s ease-in-out infinite;
+}
+@keyframes state-ok {
+  0%, 5% { opacity: 1; }
+  10%, 62% { opacity: 0; }
+  70%, 100% { opacity: 1; }
+}
+@keyframes state-throttled {
+  0%, 5% { opacity: 0; }
+  10%, 62% { opacity: 1; }
+  70%, 100% { opacity: 0; }
+}
+
+/* 48. Vector recall */
+.demo-vector {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 214px;
+  height: 132px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background:
+    radial-gradient(70% 90% at 50% 50%, #1b1b1f, var(--card-2));
+}
+.demo-vector-q {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bone);
+  box-shadow: 0 0 14px rgba(237, 233, 224, 0.55);
+}
+/* Width/height, not scale — a scaled ring thickens its own border. */
+.demo-vector-q::before,
+.demo-vector-q::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--amber) 60%, transparent);
+  transform: translate(-50%, -50%);
+  animation: recall-ring 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.demo-vector-q::after {
+  animation-delay: 0.55s;
+}
+@keyframes recall-ring {
+  0% { width: 8px; height: 8px; opacity: 0; }
+  12% { opacity: 0.75; }
+  46% { width: 104px; height: 104px; opacity: 0; }
+  100% { width: 104px; height: 104px; opacity: 0; }
+}
+.demo-vector i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bone-faint);
+  opacity: 0.35;
+  translate: var(--x) var(--y);
+}
+.demo-vector i.hit {
+  background: var(--amber);
+  animation: recall-pull 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.demo-vector i.hit:nth-of-type(5) { animation-delay: 0.1s; }
+.demo-vector i.hit:nth-of-type(6) { animation-delay: 0.2s; }
+@keyframes recall-pull {
+  0%, 24% {
+    translate: var(--x) var(--y);
+    opacity: 0.35;
+    box-shadow: none;
+  }
+  48%, 76% {
+    translate: calc(var(--x) * 0.34) calc(var(--y) * 0.34);
+    opacity: 1;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--amber) 65%, transparent);
+  }
+  100% {
+    translate: var(--x) var(--y);
+    opacity: 0.35;
+    box-shadow: none;
+  }
+}
+.demo-vector-score {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 11px;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+.demo-vector-score b,
+.demo-vector-score em {
+  position: absolute;
+  inset: 0;
+  font-style: normal;
+  font-weight: 500;
+}
+.demo-vector-score b {
+  color: var(--bone-faint);
+  animation: score-query 5.6s ease-in-out infinite;
+}
+.demo-vector-score em {
+  color: var(--amber);
+  animation: score-match 5.6s ease-in-out infinite;
+}
+@keyframes score-query {
+  0%, 38% { opacity: 1; }
+  48%, 80% { opacity: 0; }
+  92%, 100% { opacity: 1; }
+}
+@keyframes score-match {
+  0%, 38% { opacity: 0; transform: translateY(3px); }
+  48%, 80% { opacity: 1; transform: none; }
+  92%, 100% { opacity: 0; transform: translateY(3px); }
+}
