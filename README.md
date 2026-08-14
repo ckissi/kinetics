@@ -69,10 +69,16 @@ With `KINETICS_PRO_PATH` unset the command is a no-op, so this repository runs
 on its own — the gallery simply has no prompts. Anyone with the private content
 can run the same command to fill them in.
 
-Prompts render only for viewers who hold Pro access. Everyone else sees the
-Prompt tab with a short notice in place of the text, so the tab still shows what
-a subscription buys. That decision lives in one place, the `view-pro-content`
-gate in `AppServiceProvider`, which defers to `User::hasProAccess()`.
+Prompts render in full only for viewers who hold Pro access. Everyone else gets
+the opening of the prompt — around 40% of it — faded out, above a note that the
+rest is part of Pro. Showing real writing rather than a locked box is the point:
+it is the argument for buying.
+
+The excerpt is cut on the server by `EffectPrompt::teaser()`, so the remainder
+is never in the markup and cannot be read out of the page. That, and the
+decision about who may see what, live in one place each: the teaser on the
+model, and the `view-pro-content` gate in `AppServiceProvider`, which defers to
+`User::hasProAccess()`.
 
 ## Editing effects
 

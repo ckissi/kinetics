@@ -4,15 +4,21 @@
     // entirely rather than rendered empty.
     $prompt = $effect->prompts->firstWhere('type', 'general');
 
-    // Prompts are Pro content. The tab still shows for everyone, because
-    // hiding it entirely would hide what the subscription is for, but the
-    // text itself is only rendered for those who may read it.
+    // Prompts are Pro content. Visitors without access get the opening of the
+    // prompt, faded out, rather than a bare notice — seeing what the writing
+    // is actually like is the argument for buying it. Only that excerpt is
+    // rendered; the rest never reaches the page.
     $promptLocked = $prompt && ! Gate::allows('view-pro-content');
 
     $panes = collect([
         ['lang' => 'css', 'label' => 'CSS', 'content' => $effect->snippets->firstWhere('type', 'css')?->content],
         ['lang' => 'react', 'label' => 'React', 'content' => $effect->snippets->firstWhere('type', 'react')?->content],
-        ['lang' => 'prompt', 'label' => 'Prompt', 'content' => $prompt?->content, 'locked' => $promptLocked],
+        [
+            'lang' => 'prompt',
+            'label' => 'Prompt',
+            'content' => $promptLocked ? $prompt->teaser() : $prompt?->content,
+            'locked' => $promptLocked,
+        ],
     ])->filter(fn($pane) => filled($pane['content']))->values();
 @endphp
 
@@ -42,7 +48,9 @@
       <button class="copy-btn">Copy</button>
       @foreach ($panes as $pane)
         @if ($pane['locked'] ?? false)
-          <pre data-lang="{{ $pane['lang'] }}" @class(['pro-locked', 'hidden' => ! $loop->first])><code>{{ __('This prompt is part of Kinetics Pro.') }}</code></pre>
+          {{-- The upsell sits inside the <pre> because main.js toggles panes by
+               that element; a sibling would stay visible on every tab. --}}
+          <pre data-lang="{{ $pane['lang'] }}" @class(['pro-locked', 'hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code><span class="pro-upsell"><span class="pro-upsell-lock" aria-hidden="true">🔒</span> {{ __('Full prompt is part of Kinetics Pro') }}</span></pre>
         @else
           <pre data-lang="{{ $pane['lang'] }}" @class(['hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code></pre>
         @endif

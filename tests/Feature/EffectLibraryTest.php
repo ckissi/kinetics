@@ -60,23 +60,25 @@ class EffectLibraryTest extends TestCase
         $this->assertSame(99, substr_count($html, '<button class="code-tab" data-lang="react"'));
     }
 
-    public function test_prompt_text_never_reaches_a_visitor_without_pro(): void
+    public function test_a_visitor_without_pro_gets_the_opening_but_never_the_rest(): void
     {
-        $secret = 'PROMPT-BODY-THAT-MUST-NOT-LEAK';
+        $opening = 'Build a button that leans toward the pointer as it approaches, then settles back.';
+        $tail = 'SECRET-TAIL-THAT-MUST-NOT-LEAK';
 
         Effect::where('slug', 'magnetic-button')->firstOrFail()->prompts()->create([
             'type' => 'general',
-            'content' => $secret,
+            'content' => $opening . ' ' . str_repeat('padding words here. ', 8) . $tail,
             'access_level' => \App\Enums\AccessLevel::Pro,
         ]);
 
         $html = $this->get('/')->getContent();
 
-        $this->assertStringNotContainsString($secret, $html);
+        // The teaser is deliberately visible; everything past the cut is not.
+        $this->assertStringContainsString('Build a button that leans toward the pointer', $html);
+        $this->assertStringNotContainsString($tail, $html);
 
-        // The tab still advertises that a prompt exists.
-        $this->assertStringContainsString('data-lang="prompt"', $html);
         $this->assertStringContainsString('pro-locked', $html);
+        $this->assertStringContainsString('pro-upsell', $html);
     }
 
     public function test_the_duplicated_pulse_badge_keeps_both_cards(): void

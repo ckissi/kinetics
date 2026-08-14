@@ -199,17 +199,42 @@
 .code-body pre[data-lang="prompt"] code {
   color: #ddd6c6;
 }
-/* Prompt withheld from visitors without Pro — reads as a state, not an error */
+/* Prompt withheld from visitors without Pro: show the opening, fade the cut.
+   Only the excerpt is in the markup — the fade is a signal, not the lock. */
 .code-body pre.pro-locked {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 96px;
-  text-align: center;
+  position: relative;
+  padding-bottom: 0;
 }
 .code-body pre.pro-locked code {
-  color: var(--muted, #8a8a93);
-  font-style: italic;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.15) 100%);
+  mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.15) 100%);
+}
+.pro-upsell {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  padding-top: 0.85em;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: var(--amber);
+  white-space: normal;
+}
+.pro-upsell-lock {
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+/* The fade costs contrast, so drop it when the reader has asked for more. */
+@media (prefers-contrast: more) {
+  .code-body pre.pro-locked code {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 .code-body pre::-webkit-scrollbar {
   height: 8px;
