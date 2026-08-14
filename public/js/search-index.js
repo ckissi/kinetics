@@ -56,6 +56,9 @@ window.KINETICS_KEYWORDS = {
   'Prompt Composer': ['ai', 'chat input', 'textarea', 'autogrow', 'auto resize', 'prompt', 'send button', 'chatbot', 'llm', 'message box', 'compose', 'assistant', 'submit', 'focus glow', 'copilot'],
   'Filmstrip Scrubber': ['video', 'timeline', 'scrub', 'playhead', 'frames', 'seek', 'preview', 'editor', 'media player', 'trim', 'thumbnails', 'timecode', 'drag', 'audio'],
   'Drag Stack Collect': ['drag and drop', 'multi select', 'files', 'finder', 'gather', 'pile', 'stack', 'batch', 'move items', 'collect', 'fan', 'desktop', 'upload', 'bulk action'],
+  'Focus Relay': ['focus ring', 'shared outline', 'morph', 'leap', 'form fields', 'input focus', 'relay', 'linear', 'apple focus', 'keyboard', 'active field', 'outline'],
+  'Hold to Talk': ['voice', 'microphone', 'waveform', 'hold', 'record', 'audio', 'speech', 'whisper', 'voice note', 'press and hold', 'talk', 'dictation', 'capture'],
+  'Lattice Snap': ['grid', 'snap', 'magnet', 'tile', 'drag', 'cells', 'lattice', 'align', 'figma', 'board', 'drop', 'spring snap'],
 
   /* ---- Feedback & State ---- */
   'Scramble Reveal': ['text effect', 'decode', 'matrix', 'hacker', 'glyphs', 'randomize', 'terminal', 'reveal', 'cipher', 'decrypt', 'headline', 'typing'],
@@ -105,6 +108,9 @@ window.KINETICS_KEYWORDS = {
   'Agent Handoff': ['agent', 'ai', 'multi agent', 'handoff', 'orchestration', 'pipeline', 'workflow', 'delegate', 'context transfer', 'llm', 'node graph', 'baton', 'trace', 'automation'],
   'Rate Limit Cooldown': ['rate limit', 'throttle', '429', 'quota', 'api limit', 'token bucket', 'cooldown', 'backoff', 'credits', 'usage', 'retry after', 'budget', 'requests', 'capacity'],
   'Vector Recall': ['vector search', 'embedding', 'semantic search', 'rag', 'similarity', 'cosine', 'nearest neighbor', 'top k', 'retrieval', 'ai search', 'match', 'index', 'knn', 'query'],
+  'Stale While Revalidate': ['swr', 'cache', 'stale', 'revalidate', 'fresh', 'react query', 'tanstack', 'next.js', 'local first', 'ghost value', 'fetch', 'http cache'],
+  'Circuit Breaker': ['resilience', 'fault', 'trip', 'open closed', 'half open', 'probe', 'failure', 'hystrix', 'retry', 'outage', 'switch', 'protect'],
+  'Trace Flame': ['flamegraph', 'distributed trace', 'spans', 'observability', 'opentelemetry', 'jaeger', 'waterfall', 'latency', 'request', 'profiling', 'apm', 'timing'],
 
   /* ---- Surface & Motion ---- */
   'Error Shake': ['validation error', 'wrong password', 'invalid input', 'form error', 'shake', 'wiggle', 'reject', 'deny', 'headshake', 'login failed', 'feedback', 'email'],
@@ -155,4 +161,7 @@ window.KINETICS_KEYWORDS = {
   'Volumetric Shaft': ['god rays', 'volumetric', 'light shaft', 'sunbeam', 'atmosphere', 'dust', 'haze', 'cinematic', 'window light', 'glow', 'ambience', 'hero background', 'fog', 'rays'],
   'Letterpress Emboss': ['letterpress', 'emboss', 'deboss', 'paper', 'print', 'tactile', 'stamped', 'relief', 'skeuomorphic', 'texture', 'engraved', 'typography', 'craft', 'physical'],
   'Rack Focus': ['depth of field', 'focus pull', 'rack focus', 'bokeh', 'blur', 'cinematic', 'camera', 'lens', 'layers', 'foreground background', 'film', 'aperture', 'defocus', 'photography'],
+  'E-ink Refresh': ['eink', 'e-ink', 'electrophoretic', 'kindle', 'paper', 'flash', 'ghosting', 'remarkable', 'daylight', 'reader', 'inverse', 'settle'],
+  'Anamorphic Flare': ['anamorphic', 'lens flare', 'cinematic', 'streak', 'jj abrams', 'horizontal flare', 'film', 'optics', 'highlight', 'widescreen', 'artifact', 'bloom'],
+  'LiDAR Sweep': ['lidar', 'point cloud', 'depth map', 'scan', 'apple roomplan', 'mesh', 'spatial', '3d scan', 'plane', 'terrain', 'sensor', 'mapping'],
 };

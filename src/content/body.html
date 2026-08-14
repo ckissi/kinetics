@@ -247,7 +247,7 @@
 
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">// 144 spring-driven interactions</div>
+          <div class="eyebrow">// 153 spring-driven interactions</div>
           <h1 class="h-display">
             Motion that<br />has <span class="accent">weight.</span>
           </h1>
@@ -281,7 +281,7 @@
               <input
                 type="search"
                 id="effect-search"
-                placeholder="Search 144 effects&hellip;"
+                placeholder="Search 153 effects&hellip;"
                 aria-label="Search effects"
                 autocomplete="off"
                 spellcheck="false"
@@ -322,7 +322,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Interaction &amp; Input</h2>
-        <span class="count mono">48 / 144</span>
+        <span class="count mono">51 / 153</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -3006,6 +3006,74 @@
 .dragstack.gathered .dragstack-badge { transform: scale(1); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a Finder-style drag collection. Press on any item in a row and every item converges into a single fanned pile that follows the pointer, each card rotated a few degrees and stacked with a slight z-offset, with a count badge popping in beside them. Track the pointer with a short transition while dragging, and on release let all items spring back to their original slots on a stagger. Never reflow the row — the movement is transform-only.</code></pre></div></div>
         </div>
 
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">focus · morph 0.48s</div>
+            <div class="demo-focus-relay" aria-label="Focus relay">
+              <i class="demo-focus-ring" aria-hidden="true"></i>
+              <button type="button">Email</button>
+              <button type="button">Handle</button>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Focus Relay</div><div class="desc">A shared focus ring leaps between fields with a spring morph</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Focus+Relay">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.focus-ring {
+  position: absolute;
+  width: var(--w); height: var(--h);
+  translate: var(--x) var(--y);
+  border: 1.5px solid var(--amber);
+  transition: translate .48s cubic-bezier(.34,1.56,.64,1),
+              width .48s cubic-bezier(.34,1.56,.64,1),
+              height .48s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Build a shared focus ring that is a single absolutely positioned element, not a per-field outline. Measure the active field and write --x --y --w --h onto the host. The ring springs to the new box with a cubic-bezier overshoot so the leap reads as one object relocating, not two outlines fading. Hover and keyboard focus must share the same path. Never reflow the fields.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">hold · waveform</div>
+            <div class="demo-talk" aria-label="Hold to talk">
+              <div class="demo-talk-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <button type="button" class="demo-talk-btn">hold to talk</button>
+              <span class="demo-talk-status mono">SENT</span>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Hold to Talk</div><div class="desc">A live waveform blooms while you hold, then commits on release</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Hold+to+Talk">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.talk-wave i {
+  transform: scaleY(0.12);
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.talk.live .talk-wave i {
+  animation: talk-bar .42s ease-in-out infinite alternate;
+}
+.talk.live .talk-wave i:nth-child(3) { animation-duration: .28s; }
+@keyframes talk-bar {
+  from { transform: scaleY(0.18); }
+  to   { transform: scaleY(1); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Create a hold-to-talk control. Idle bars sit almost flat. On press they spring up into a staggered live waveform and a ring blooms around the button. On release the bars collapse with a spring, the button flashes SENT for a beat, then everything returns to rest. This is a voice capture, not a confirm-hold ring — the waveform is the state.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">lattice · snap 0.5s</div>
+            <div class="demo-lattice" aria-label="Lattice snap">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+              <b class="demo-lattice-tile" tabindex="0" role="button" aria-label="Drag tile onto a cell"></b>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Lattice Snap</div><div class="desc">A tile follows the pointer, then springs onto the nearest cell</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Lattice+Snap">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.lattice-tile {
+  translate: calc(var(--c) * (100% + 8px))
+             calc(var(--r) * (100% + 8px));
+  transition: translate .5s cubic-bezier(.34,1.56,.64,1);
+}
+.lattice.dragging .lattice-tile {
+  translate: calc(var(--tx) * 1px) calc(var(--ty) * 1px);
+  transition-duration: 80ms;
+}
+.lattice span.hot { border-color: var(--amber); background: rgba(255,138,0,.08); }</code></pre><pre data-lang="prompt" class="hidden"><code>Build a 3 by 2 magnetic lattice. While dragging, the tile tracks the pointer with a short trail and the cell under it lights. On release it springs to that cell using column and row custom properties — 100% of the tile size plus the gap — so the same rule works for every slot. Arrow keys should step one cell. Never reflow the grid.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -3014,7 +3082,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Feedback &amp; State</h2>
-        <span class="count mono">48 / 144</span>
+        <span class="count mono">51 / 153</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -5442,6 +5510,76 @@ function Heartbeat() {
 }</code></pre><pre data-lang="prompt" class="hidden"><code>Illustrate semantic search over an embedding space. Scatter faint points around a bright query node, then expand a thin ring outward; the three nearest points brighten and drift a third of the way toward the query while the rest stay dim and still. Cross-fade a status readout from "querying" to a cosine score at the moment the matches land. Positions come from custom properties so the same rule animates every point.</code></pre></div></div>
         </div>
 
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">swr · 4.8s</div>
+            <div class="demo-swr" aria-label="Stale while revalidate">
+              <div class="demo-swr-values"><span>48</span><strong>51</strong></div>
+              <div class="demo-swr-state mono"><b>STALE</b><em>FETCH</em><i>FRESH</i></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Stale While Revalidate</div><div class="desc">The old value ghosts as the fresh one springs into place</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Stale+While+Revalidate">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.swr span { animation: stale-ghost 4.8s cubic-bezier(.16,1,.3,1) infinite; }
+.swr strong { animation: fresh-in 4.8s cubic-bezier(.34,1.56,.64,1) infinite; }
+@keyframes stale-ghost {
+  0%, 18% { opacity: 1; filter: none; }
+  38%, 72% { opacity: .22; filter: blur(1.5px); transform: translateX(-10px) scale(.92); }
+  88%, 100% { opacity: 1; filter: none; }
+}
+@keyframes fresh-in {
+  0%, 28% { opacity: 0; transform: translateX(14px) scale(.86); }
+  46%, 78% { opacity: 1; transform: none; }
+  92%, 100% { opacity: 0; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Show a stale-while-revalidate cycle. The current number stays on screen as STALE, then ghosts left and blurs while FETCH is active. The new number springs in from the right and a FRESH chip lights. Keep both values in the same slot so it reads as one datum being replaced, not two counters. Loop calmly — this is cache policy, not an error.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">breaker · 6.8s</div>
+            <div class="demo-breaker" aria-label="Circuit breaker">
+              <div class="demo-breaker-leds"><i></i><i></i><i></i></div>
+              <div class="demo-breaker-arm"><b></b></div>
+              <div class="demo-breaker-state mono"><b>CLOSED</b><em>OPEN</em><i>HALF</i></div>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Circuit Breaker</div><div class="desc">A physical arm throws closed, open, then half-open to probe</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Circuit+Breaker">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.breaker-arm {
+  transform-origin: 8px 50%;
+  animation: throw 6.8s cubic-bezier(.34,1.56,.64,1) infinite;
+}
+@keyframes throw {
+  0%, 18%  { rotate: 0deg; }    /* closed */
+  28%, 48% { rotate: 78deg; }   /* open */
+  58%, 74% { rotate: 38deg; }   /* half-open probe */
+  86%, 100%{ rotate: 0deg; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Visualise a circuit breaker as a physical throw switch, not a spinner. Three LEDs (closed / open / half-open) light in lockstep with a pivoted arm that slams open, rests at a half-open probe angle, then springs closed again. Status copy swaps CLOSED, OPEN, HALF. The overshoot on the throw is the point — it should feel like a breaker, not a toggle.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">flame · 5.4s</div>
+            <div class="demo-flame" aria-label="Trace flamegraph">
+              <div class="demo-flame-row" style="--w:100%"><span>gateway</span><i></i></div>
+              <div class="demo-flame-row" style="--w:72%"><span>worker</span><i></i></div>
+              <div class="demo-flame-row" style="--w:38%"><span>db</span><i></i></div>
+              <output class="demo-flame-ms mono">69ms</output>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Trace Flame</div><div class="desc">A request paints as stacked spans filling left to right</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Trace+Flame">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.flame-row { width: var(--w); }
+.flame-row i {
+  transform-origin: left center;
+  animation: span-fill 5.4s cubic-bezier(.16,1,.3,1) infinite;
+}
+.flame-row:nth-child(2) i { animation-delay: .28s; }
+.flame-row:nth-child(3) i { animation-delay: .56s; }
+@keyframes span-fill {
+  0%, 8%  { transform: scaleX(0); }
+  28%, 72%{ transform: scaleX(1); }
+  88%, 100%{ transform: scaleX(0); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Draw a tiny distributed-trace flamegraph. Three nested spans (gateway, worker, db) of decreasing width fill from the left in sequence, each a different heat colour. A monospaced duration ticks to 69ms when the last span lands. This is a waterfall of work, not a progress bar — keep the rows stacked and left-aligned so parent and child are obvious.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -5450,7 +5588,7 @@ function Heartbeat() {
     <div class="wrap">
       <div class="section-head">
         <h2>Surface &amp; Motion</h2>
-        <span class="count mono">48 / 144</span>
+        <span class="count mono">51 / 153</span>
       </div>
       <div class="gallery">
         <div class="card">
@@ -7712,6 +7850,76 @@ function Heartbeat() {
 @keyframes pull-far { /* exact inverse — only one plane is ever sharp */ }</code></pre><pre data-lang="prompt" class="hidden"><code>Simulate a cinematic focus pull between two depth planes. Only one plane is ever sharp: as the near label resolves, the far label blurs, dims and grows fractionally, then they trade with an in-out curve on a slow loop. Bokeh circles behind them should swell and brighten exactly when their plane goes soft. Use blur, opacity and scale together — a plain crossfade will not read as a lens.</code></pre></div></div>
         </div>
 
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">eink · flash 5.2s</div>
+            <div class="demo-eink" aria-label="E-ink refresh">
+              <span>KINETICS</span>
+              <i></i>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">E-ink Refresh</div><div class="desc">A full inverse flash, then the type settles into the paper</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=E-ink+Refresh">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.eink i { animation: eink-flash 5.2s steps(1) infinite; }
+.eink span { animation: eink-settle 5.2s ease-out infinite; }
+@keyframes eink-flash {
+  0%, 8%   { opacity: 0; }
+  10%, 18% { opacity: 1; }   /* black frame */
+  20%, 100%{ opacity: 0; }
+}
+@keyframes eink-settle {
+  0%, 18% { opacity: 0; letter-spacing: .22em; filter: contrast(3); }
+  24%     { opacity: 1; transform: translate(1px,-1px); }
+  36%,100%{ opacity: 1; transform: none; letter-spacing: .08em; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Simulate an electrophoretic e-ink refresh. The paper goes fully black for a beat (the classic inverse flash), then the word appears slightly offset and high-contrast before settling into the grain. Add a fine dither on the paper. This is not a fade-in — the flash is what makes it read as e-ink.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">anamorphic · 6.4s</div>
+            <div class="demo-flare" aria-label="Anamorphic flare">
+              <b></b><i></i><em></em>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">Anamorphic Flare</div><div class="desc">A point source rakes the frame and blooms horizontal streaks</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=Anamorphic+Flare">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.flare b { animation: flare-travel 6.4s cubic-bezier(.65,0,.35,1) infinite; }
+.flare i,
+.flare em { animation: flare-bloom 6.4s ease-in-out infinite; }
+@keyframes flare-travel {
+  0%   { translate: -80px 0; }
+  100% { translate:  80px 0; }
+}
+@keyframes flare-bloom {
+  0%, 100% { opacity: .15; transform: scaleX(.4); }
+  50%      { opacity: 1;   transform: scaleX(1); }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Build a cinematic anamorphic lens flare. A small white point travels across a black frame. As it crosses centre, a long horizontal streak blooms — cool blue one side, warm amber the other — plus two faint oval artifacts offset on the same axis. Soften with a 1px blur. This is a lens, not a shine sweep or a god-ray shaft.</code></pre></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-stage">
+            <div class="card-param mono">lidar · plane 6s</div>
+            <div class="demo-lidar" aria-label="LiDAR sweep">
+              <div class="demo-lidar-field" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i>
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <span class="demo-lidar-plane"></span>
+              <b class="mono">SCAN</b>
+            </div>
+          </div>
+          <div class="card-foot"><div class="row"><div><div class="name">LiDAR Sweep</div><div class="desc">A scan plane lights a point field into a depth map</div></div><button class="view-code plausible-event-name=View+Code plausible-event-effect=LiDAR+Sweep">View code</button></div></div>
+          <div class="code-panel"><div class="code-tabs"><button class="code-tab active" data-lang="css">CSS</button><button class="code-tab" data-lang="prompt">Prompt</button></div><div class="code-body"><button class="copy-btn">Copy</button><pre data-lang="css"><code>.lidar-plane { animation: lidar-plane 6s cubic-bezier(.65,0,.35,1) infinite; }
+.lidar-field i { animation: lidar-hit 6s cubic-bezier(.16,1,.3,1) infinite; }
+.lidar-field i:nth-child(n+6)  { animation-delay: .42s; }
+.lidar-field i:nth-child(n+11) { animation-delay: .84s; }
+@keyframes lidar-hit {
+  0%, 12% { opacity: .18; transform: translateY(0) scale(.7); }
+  22%, 70%{ opacity: 1;   transform: translateY(var(--lift, -6px)) scale(1); }
+  88%,100%{ opacity: .18; transform: none; }
+}</code></pre><pre data-lang="prompt" class="hidden"><code>Render a LiDAR sweep over a 5 by 4 point field. A thin cool scan plane travels top to bottom. Each row of points ignites as the plane crosses it — they lift a few pixels to imply depth, glow, then dim after the plane has passed. Vary the lift per column so the field reads as terrain, not a flat grid. This is a depth scan, not a radar ping.</code></pre></div></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -7805,7 +8013,7 @@ function Heartbeat() {
   <div class="wrap footer-grid">
     <div class="brand"><span class="dot"></span> Kinetics</div>
     <div class="dim mono" style="font-size: 12px">
-      144 motion patterns. CSS + React. MIT licensed.
+      153 motion patterns. CSS + React. MIT licensed.
     </div>
     <div class="footer-links mono">
       <a

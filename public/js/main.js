@@ -1687,6 +1687,138 @@
     });
   });
 
+  /* Focus relay — one ring morphs between fields. */
+  $$('.demo-focus-relay').forEach((relay) => {
+    const fields = $$('button', relay);
+    const place = (el) => {
+      const host = relay.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      relay.style.setProperty('--x', Math.round(r.left - host.left) + 'px');
+      relay.style.setProperty('--y', Math.round(r.top - host.top) + 'px');
+      relay.style.setProperty('--w', Math.round(r.width) + 'px');
+      relay.style.setProperty('--h', Math.round(r.height) + 'px');
+      fields.forEach((f) => f.classList.toggle('active', f === el));
+    };
+    fields.forEach((field) => {
+      field.addEventListener('pointerenter', () => place(field));
+      field.addEventListener('focus', () => place(field));
+    });
+    if (fields[0]) place(fields[0]);
+    window.addEventListener('resize', () => {
+      const active = fields.find((f) => f.classList.contains('active')) || fields[0];
+      if (active) place(active);
+    });
+  });
+
+  /* Hold to talk — waveform lives only while pressed. */
+  $$('.demo-talk').forEach((talk) => {
+    const btn = $('.demo-talk-btn', talk);
+    let timer = null;
+    let live = false;
+    const start = (e) => {
+      if (e.cancelable) e.preventDefault();
+      live = true;
+      talk.classList.remove('sent');
+      talk.classList.add('live');
+      if (e.pointerId != null) btn.setPointerCapture(e.pointerId);
+    };
+    const end = () => {
+      if (!live) return;
+      live = false;
+      talk.classList.remove('live');
+      talk.classList.add('sent');
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => talk.classList.remove('sent'), 900);
+    };
+    btn.addEventListener('pointerdown', start);
+    btn.addEventListener('pointerup', end);
+    btn.addEventListener('pointercancel', end);
+    btn.addEventListener('keydown', (e) => {
+      if (e.key !== ' ' && e.key !== 'Enter') return;
+      if (e.repeat) return;
+      start(e);
+    });
+    btn.addEventListener('keyup', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') end();
+    });
+  });
+
+  /* Lattice snap — tile trails the pointer, then springs to a cell. */
+  $$('.demo-lattice').forEach((lattice) => {
+    const tile = $('.demo-lattice-tile', lattice);
+    const cells = $$(':scope > span', lattice);
+    const cols = 3;
+    const rows = 2;
+    let dragging = false;
+    let col = 0;
+    let row = 0;
+
+    const snap = (c, r) => {
+      col = Math.max(0, Math.min(cols - 1, c));
+      row = Math.max(0, Math.min(rows - 1, r));
+      lattice.style.setProperty('--c', col);
+      lattice.style.setProperty('--r', row);
+    };
+    const cellAt = (clientX, clientY) => {
+      const rect = lattice.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width;
+      const y = (clientY - rect.top) / rect.height;
+      return [
+        Math.max(0, Math.min(cols - 1, Math.floor(x * cols))),
+        Math.max(0, Math.min(rows - 1, Math.floor(y * rows))),
+      ];
+    };
+    const heat = (c, r) => {
+      cells.forEach((cell, i) => cell.classList.toggle('hot', i === r * cols + c));
+    };
+    const follow = (clientX, clientY) => {
+      const rect = lattice.getBoundingClientRect();
+      const tw = tile.offsetWidth;
+      const th = tile.offsetHeight;
+      const x = Math.max(0, Math.min(rect.width - tw, clientX - rect.left - tw / 2));
+      const y = Math.max(0, Math.min(rect.height - th, clientY - rect.top - th / 2));
+      lattice.style.setProperty('--tx', Math.round(x));
+      lattice.style.setProperty('--ty', Math.round(y));
+      const next = cellAt(clientX, clientY);
+      heat(next[0], next[1]);
+    };
+
+    tile.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      dragging = true;
+      lattice.classList.add('dragging');
+      tile.setPointerCapture(e.pointerId);
+      follow(e.clientX, e.clientY);
+    });
+    tile.addEventListener('pointermove', (e) => {
+      if (dragging) follow(e.clientX, e.clientY);
+    });
+    const release = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      lattice.classList.remove('dragging');
+      const next = cellAt(e.clientX, e.clientY);
+      snap(next[0], next[1]);
+      cells.forEach((cell) => cell.classList.remove('hot'));
+    };
+    tile.addEventListener('pointerup', release);
+    tile.addEventListener('pointercancel', release);
+    tile.addEventListener('keydown', (e) => {
+      const map = {
+        ArrowLeft: [-1, 0],
+        ArrowRight: [1, 0],
+        ArrowUp: [0, -1],
+        ArrowDown: [0, 1],
+        Home: [-cols, -rows],
+      };
+      if (!map[e.key]) return;
+      e.preventDefault();
+      if (e.key === 'Home') snap(0, 0);
+      else snap(col + map[e.key][0], row + map[e.key][1]);
+    });
+    snap(0, 0);
+  });
+
   /* ---------------------------------------------------------
      Library search — filters cards by name, description and
      the keyword index in search-index.js. Each card gets its

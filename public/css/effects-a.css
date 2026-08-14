@@ -2221,3 +2221,214 @@
 .demo-dragstack.gathered .demo-dragstack-hint {
   opacity: 0;
 }
+
+/* 49. Focus relay */
+.demo-focus-relay {
+  --x: 0px;
+  --y: 0px;
+  --w: 214px;
+  --h: 40px;
+  position: relative;
+  display: grid;
+  gap: 8px;
+  width: 214px;
+}
+.demo-focus-relay button {
+  position: relative;
+  z-index: 1;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--card-2);
+  color: var(--bone-dim);
+  font: 500 13px var(--font-body);
+  text-align: left;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.demo-focus-relay button.active {
+  color: var(--bone);
+  border-color: transparent;
+}
+.demo-focus-ring {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: var(--w);
+  height: var(--h);
+  translate: var(--x) var(--y);
+  border: 1.5px solid var(--amber);
+  border-radius: 11px;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--amber) 16%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--amber) 20%, transparent);
+  pointer-events: none;
+  transition:
+    translate 0.48s var(--spring),
+    width 0.48s var(--spring),
+    height 0.48s var(--spring);
+}
+.demo-focus-relay button:focus-visible {
+  outline: none;
+}
+
+/* 50. Hold to talk */
+.demo-talk {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 200px;
+}
+.demo-talk-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 42px;
+}
+.demo-talk-wave i {
+  display: block;
+  width: 4px;
+  height: 36px;
+  border-radius: 4px;
+  background: var(--amber);
+  transform: scaleY(0.12);
+  transform-origin: center;
+  transition: transform 0.4s var(--spring), background 0.3s ease;
+}
+.demo-talk.live .demo-talk-wave i {
+  animation: talk-bar 0.42s ease-in-out infinite alternate;
+}
+.demo-talk.live .demo-talk-wave i:nth-child(1),
+.demo-talk.live .demo-talk-wave i:nth-child(7) { animation-duration: 0.52s; }
+.demo-talk.live .demo-talk-wave i:nth-child(2),
+.demo-talk.live .demo-talk-wave i:nth-child(6) { animation-duration: 0.34s; }
+.demo-talk.live .demo-talk-wave i:nth-child(3),
+.demo-talk.live .demo-talk-wave i:nth-child(5) { animation-duration: 0.26s; }
+.demo-talk.live .demo-talk-wave i:nth-child(4) { animation-duration: 0.2s; }
+@keyframes talk-bar {
+  from { transform: scaleY(0.18); }
+  to { transform: scaleY(1); }
+}
+.demo-talk.sent .demo-talk-wave i {
+  background: var(--ok);
+  transform: scaleY(0.18);
+}
+.demo-talk-btn {
+  position: relative;
+  min-width: 132px;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: 100px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  color: var(--bone);
+  font: 600 12px var(--font-body);
+  letter-spacing: 0.02em;
+  touch-action: none;
+  user-select: none;
+  transition:
+    transform 0.35s var(--spring),
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+.demo-talk-btn::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1.5px solid color-mix(in srgb, var(--amber) 70%, transparent);
+  opacity: 0;
+  transform: scale(0.86);
+  transition: opacity 0.35s ease, transform 0.45s var(--spring);
+}
+.demo-talk.live .demo-talk-btn {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--graphite);
+  transform: scale(0.96);
+}
+.demo-talk.live .demo-talk-btn::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.demo-talk.sent .demo-talk-btn {
+  border-color: color-mix(in srgb, var(--ok) 55%, transparent);
+  color: var(--ok);
+}
+.demo-talk-status {
+  height: 12px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--ok);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.4s var(--spring);
+}
+.demo-talk.sent .demo-talk-status {
+  opacity: 1;
+  transform: none;
+}
+
+/* 51. Lattice snap */
+.demo-lattice {
+  --c: 0;
+  --r: 0;
+  --tx: 0;
+  --ty: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  width: 200px;
+  height: 118px;
+  touch-action: none;
+}
+.demo-lattice > span {
+  border: 1px dashed color-mix(in srgb, var(--line) 90%, var(--bone-faint));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--card-2) 55%, transparent);
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.demo-lattice > span.hot {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--amber) 55%, transparent);
+  background: color-mix(in srgb, var(--amber) 8%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--amber) 12%, transparent);
+}
+.demo-lattice-tile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: calc((100% - 16px) / 3);
+  height: calc((100% - 8px) / 2);
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 80% at 30% 20%, #ffd08a, var(--amber) 46%, #b36200);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  cursor: grab;
+  translate: calc(var(--c) * (100% + 8px)) calc(var(--r) * (100% + 8px));
+  transition: translate 0.5s var(--spring), scale 0.3s var(--spring);
+}
+.demo-lattice.dragging .demo-lattice-tile {
+  cursor: grabbing;
+  scale: 1.06;
+  translate: calc(var(--tx) * 1px) calc(var(--ty) * 1px);
+  transition-duration: 80ms;
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.45),
+    0 0 0 4px color-mix(in srgb, var(--amber) 18%, transparent);
+}
+.demo-lattice-tile:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+}

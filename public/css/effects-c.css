@@ -1874,3 +1874,230 @@
   50%, 82% { transform: scale(0.7); opacity: 0.25; filter: blur(1px); }
   100% { transform: scale(1.15); opacity: 0.75; filter: blur(4px); }
 }
+
+/* 49. E-ink refresh */
+.demo-eink {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 200px;
+  height: 118px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background:
+    repeating-linear-gradient(0deg, rgba(30, 28, 22, 0.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(30, 28, 22, 0.03) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #efe9db, #d9d1bf);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+.demo-eink span {
+  position: relative;
+  z-index: 1;
+  color: #1c1a16;
+  font: 800 22px var(--font-display);
+  letter-spacing: 0.08em;
+  animation: eink-settle 5.2s ease-out infinite;
+}
+.demo-eink i {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #141310;
+  pointer-events: none;
+  animation: eink-flash 5.2s steps(1) infinite;
+}
+@keyframes eink-flash {
+  0%, 8% { opacity: 0; }
+  10%, 18% { opacity: 1; }
+  20%, 100% { opacity: 0; }
+}
+@keyframes eink-settle {
+  0%, 18% {
+    opacity: 0;
+    letter-spacing: 0.22em;
+    filter: contrast(3);
+    transform: none;
+  }
+  24% {
+    opacity: 1;
+    letter-spacing: 0.1em;
+    filter: contrast(1.8);
+    transform: translate(1px, -1px);
+  }
+  36%, 100% {
+    opacity: 1;
+    letter-spacing: 0.08em;
+    filter: none;
+    transform: none;
+  }
+}
+
+/* 50. Anamorphic flare */
+.demo-flare {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 214px;
+  height: 118px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(80% 60% at 50% 50%, #141418, #070709 72%);
+}
+.demo-flare b {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 10px #fff,
+    0 0 22px rgba(180, 210, 255, 0.7);
+  animation: flare-travel 6.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.demo-flare i,
+.demo-flare em {
+  position: absolute;
+  left: -40%;
+  right: -40%;
+  height: 2px;
+  pointer-events: none;
+  animation: flare-bloom 6.4s ease-in-out infinite;
+}
+.demo-flare i {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(110, 170, 255, 0.15) 22%,
+    rgba(190, 220, 255, 0.95) 48%,
+    #fff 50%,
+    rgba(255, 176, 90, 0.95) 52%,
+    rgba(255, 138, 0, 0.2) 78%,
+    transparent 100%
+  );
+  filter: blur(1.1px);
+}
+.demo-flare em {
+  height: 14px;
+  background: linear-gradient(
+    90deg,
+    transparent 30%,
+    rgba(140, 190, 255, 0.18) 46%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 160, 70, 0.18) 54%,
+    transparent 70%
+  );
+  filter: blur(5px);
+}
+.demo-flare em::before,
+.demo-flare em::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(180, 210, 255, 0.35);
+  filter: blur(1px);
+  transform: translateY(-50%);
+}
+.demo-flare em::before { left: 28%; }
+.demo-flare em::after {
+  right: 26%;
+  width: 12px;
+  height: 5px;
+  background: rgba(255, 170, 80, 0.4);
+}
+@keyframes flare-travel {
+  0% { translate: -86px 0; }
+  100% { translate: 86px 0; }
+}
+@keyframes flare-bloom {
+  0%, 100% { opacity: 0.12; transform: scaleX(0.38); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+/* 51. LiDAR sweep */
+.demo-lidar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 214px;
+  height: 128px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(70% 80% at 50% 40%, #15181e, #0b0c10 74%);
+}
+.demo-lidar-field {
+  display: grid;
+  grid-template-columns: repeat(5, 12px);
+  grid-template-rows: repeat(4, 16px);
+  gap: 10px 14px;
+}
+.demo-lidar-field i {
+  --lift: -5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wire);
+  opacity: 0.18;
+  box-shadow: none;
+  animation: lidar-hit 6s var(--glide) infinite;
+}
+.demo-lidar-field i:nth-child(5n + 2) { --lift: -9px; }
+.demo-lidar-field i:nth-child(5n + 3) { --lift: -14px; }
+.demo-lidar-field i:nth-child(5n + 4) { --lift: -8px; }
+.demo-lidar-field i:nth-child(n + 6) { animation-delay: 0.42s; }
+.demo-lidar-field i:nth-child(n + 11) { animation-delay: 0.84s; }
+.demo-lidar-field i:nth-child(n + 16) { animation-delay: 1.26s; }
+@keyframes lidar-hit {
+  0%, 10% {
+    opacity: 0.16;
+    transform: translateY(0) scale(0.7);
+    box-shadow: none;
+  }
+  20%, 68% {
+    opacity: 1;
+    transform: translateY(var(--lift)) scale(1);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--wire) 70%, transparent);
+  }
+  86%, 100% {
+    opacity: 0.16;
+    transform: translateY(0) scale(0.7);
+    box-shadow: none;
+  }
+}
+.demo-lidar-plane {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--wire), transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--wire) 80%, transparent);
+  animation: lidar-plane 6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes lidar-plane {
+  0% { transform: translateY(0); opacity: 0; }
+  8% { opacity: 1; }
+  86% { transform: translateY(92px); opacity: 1; }
+  100% { transform: translateY(98px); opacity: 0; }
+}
+.demo-lidar b {
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  color: var(--wire);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  animation: lidar-label 6s ease-in-out infinite;
+}
+@keyframes lidar-label {
+  0%, 8% { opacity: 0.35; }
+  16%, 80% { opacity: 1; }
+  92%, 100% { opacity: 0.35; }
+}
