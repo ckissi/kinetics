@@ -203,7 +203,6 @@
    Only the excerpt is in the markup — the fade is a signal, not the lock. */
 .code-body pre.pro-locked {
   position: relative;
-  padding-bottom: 0;
 }
 .code-body pre.pro-locked code {
   display: block;
