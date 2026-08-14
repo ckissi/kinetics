@@ -3699,7 +3699,20 @@
             "prompts": {
                 "general": "Build a Newton's cradle, pure CSS: a row of five balls hanging from a bar. Give each ball a top-center transform-origin. Animate only the leftmost ball swinging out and back (rotate to ~48deg in the first quarter) and the rightmost ball swinging out and back (rotate to ~-48deg in the third quarter) on the same ease-in-out infinite loop (~1.2s), so the impact reads as momentum passing through the three still middle balls."
             },
-            "keywords": []
+            "keywords": [
+                "pendulum",
+                "physics",
+                "momentum",
+                "balls",
+                "desk toy",
+                "swing",
+                "collision",
+                "energy",
+                "classic",
+                "loader",
+                "kinetic",
+                "balance"
+            ]
         },
         {
             "category": "surface-and-motion",

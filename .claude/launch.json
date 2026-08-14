@@ -3,10 +3,9 @@
   "configurations": [
     {
       "name": "kinetics",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 4321,
-      "autoPort": true
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["artisan", "serve", "--port=8000"],
+      "port": 8000
     }
   ]
 }
