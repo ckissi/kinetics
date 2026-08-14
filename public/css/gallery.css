@@ -210,23 +210,110 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.15) 100%);
   mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.15) 100%);
 }
-.pro-upsell {
+/* Nothing to copy from a withheld prompt, and the button overlapped the text */
+.code-body:has(pre.pro-locked:not(.hidden)) .copy-btn {
+  display: none;
+}
+
+.pro-gate {
   display: flex;
   align-items: center;
-  gap: 0.5em;
-  margin-top: 0.5em;
-  padding-top: 0.85em;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-style: normal;
-  letter-spacing: 0.02em;
-  color: var(--amber);
   white-space: normal;
+  font-family: var(--font-body);
+  font-style: normal;
 }
-.pro-upsell-lock {
-  font-size: 0.9em;
-  line-height: 1;
+.pro-gate-copy {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+.pro-gate-icon {
+  flex: none;
+  margin-top: 1px;
+  color: var(--amber);
+}
+.pro-gate-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.pro-gate-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--bone);
+}
+.pro-gate-note {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--bone-faint);
+}
+.pro-gate-cta {
+  flex: none;
+  padding: 10px 18px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+@media (max-width: 560px) {
+  .pro-gate {
+    align-items: stretch;
+  }
+  .pro-gate-cta {
+    width: 100%;
+  }
+}
+
+/* The Pro page */
+.pro-pitch {
+  max-width: 640px;
+}
+.pro-pitch-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+.pro-pitch-list {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pro-pitch-list li {
+  position: relative;
+  padding-left: 26px;
+  line-height: 1.5;
+  color: var(--bone);
+}
+.pro-pitch-list li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+.pro-pitch-note {
+  margin: 24px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--graphite-2);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--bone-faint);
 }
 
 /* The fade costs contrast, so drop it when the reader has asked for more. */

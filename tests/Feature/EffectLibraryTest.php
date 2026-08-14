@@ -78,7 +78,18 @@ class EffectLibraryTest extends TestCase
         $this->assertStringNotContainsString($tail, $html);
 
         $this->assertStringContainsString('pro-locked', $html);
-        $this->assertStringContainsString('pro-upsell', $html);
+
+        // The gate has to offer a way out, not just say no.
+        $this->assertStringContainsString('pro-gate', $html);
+        $this->assertStringContainsString('href="' . config('kinetics.pro_url') . '"', $html);
+    }
+
+    public function test_the_pro_page_responds(): void
+    {
+        $this->get('/pro')
+            ->assertOk()
+            ->assertSee('Kinetics Pro')
+            ->assertSee('153 prompts');
     }
 
     public function test_the_duplicated_pulse_badge_keeps_both_cards(): void

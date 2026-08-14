@@ -18,4 +18,17 @@ return [
 
     'pro_path' => env('KINETICS_PRO_PATH'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Where the Pro call to action points
+    |--------------------------------------------------------------------------
+    |
+    | Every "unlock" button in the interface links here. It is configurable so
+    | that pointing at a real checkout later is one change rather than a hunt
+    | through the views.
+    |
+    */
+
+    'pro_url' => env('KINETICS_PRO_URL', '/pro'),
+
 ];

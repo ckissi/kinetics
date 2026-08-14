@@ -48,9 +48,10 @@
       <button class="copy-btn">Copy</button>
       @foreach ($panes as $pane)
         @if ($pane['locked'] ?? false)
-          {{-- The upsell sits inside the <pre> because main.js toggles panes by
-               that element; a sibling would stay visible on every tab. --}}
-          <pre data-lang="{{ $pane['lang'] }}" @class(['pro-locked', 'hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code><span class="pro-upsell"><span class="pro-upsell-lock" aria-hidden="true">🔒</span> {{ __('Full prompt is part of Kinetics Pro') }}</span></pre>
+          {{-- The gate sits inside the <pre> because main.js toggles panes by
+               that element; a sibling would stay visible on every tab. It is
+               written on one line because <pre> preserves whitespace. --}}
+          <pre data-lang="{{ $pane['lang'] }}" @class(['pro-locked', 'hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code><span class="pro-gate"><span class="pro-gate-copy">@include('partials.icon-lock')<span class="pro-gate-text"><span class="pro-gate-title">{{ __('The rest of this prompt is Pro') }}</span><span class="pro-gate-note">{{ __('All :count prompts, tuned for Cursor and Claude.', ['count' => $libraryTotal ?? \App\Models\Effect::count()]) }}</span></span></span><a class="btn-primary pro-gate-cta" href="{{ config('kinetics.pro_url') }}">{{ __('Unlock prompts') }}</a></span></pre>
         @else
           <pre data-lang="{{ $pane['lang'] }}" @class(['hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code></pre>
         @endif

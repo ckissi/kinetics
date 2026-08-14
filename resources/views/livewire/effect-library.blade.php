@@ -8,7 +8,7 @@
         </div>
         <div class="gallery">
           @foreach ($category->effects as $effect)
-            @include('partials.effect-card', ['effect' => $effect])
+            @include('partials.effect-card', ['effect' => $effect, 'libraryTotal' => $total])
           @endforeach
         </div>
       </div>
