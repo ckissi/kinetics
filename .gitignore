@@ -1,81 +1,27 @@
-# ---------------------------------------------------------
-# Dependencies
-# ---------------------------------------------------------
-node_modules/
-.pnp/
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# ---------------------------------------------------------
-# Build output / generated
-# ---------------------------------------------------------
-dist/
-build/
-.output/
-.vercel/
-.netlify/
-.astro/
-
-# ---------------------------------------------------------
-# Caches
-# ---------------------------------------------------------
-.cache/
-.temp/
-.tmp/
-*.tsbuildinfo
-.eslintcache
-.stylelintcache
-
-# ---------------------------------------------------------
-# Logs
-# ---------------------------------------------------------
-logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# ---------------------------------------------------------
-# Environment / secrets
-# ---------------------------------------------------------
-.env
-.env.*
-!.env.example
-*.pem
-
-# ---------------------------------------------------------
-# Editor / IDE
-# ---------------------------------------------------------
-.vscode/*
-!.vscode/extensions.json
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# ---------------------------------------------------------
-# AI assistant / tooling (kept out of the published repo)
-# ---------------------------------------------------------
-.claude/
-CLAUDE.md
-.cursor/
-.aider*
-
-# ---------------------------------------------------------
-# OS files
-# ---------------------------------------------------------
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.codex
+/.cursor/
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+_ide_helper.php
+Homestead.json
+Homestead.yaml
 Thumbs.db
-desktop.ini
