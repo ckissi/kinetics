@@ -91,6 +91,12 @@
     if (copyBtn) {
       const visible = $$('pre[data-lang]', modalContent).find((p) => !p.classList.contains('hidden'));
       if (!visible) return;
+      // Withheld Pro content holds a placeholder, not something worth copying.
+      if (visible.classList.contains('pro-locked')) {
+        copyBtn.textContent = 'Pro only';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1400);
+        return;
+      }
       try {
         await navigator.clipboard.writeText(visible.innerText);
       } catch (_) {

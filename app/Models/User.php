@@ -29,4 +29,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Whether this user may read Pro content.
+     *
+     * Kinetics Pro is sold two ways, an ongoing subscription and a one-time
+     * lifetime purchase, and either grants access. Neither exists yet: billing
+     * arrives in its own milestone, and until the subscriptions and purchases
+     * tables are here there is no way to hold access. Everything that gates Pro
+     * content already routes through this method, so switching it on is a
+     * single change rather than a hunt through the views.
+     */
+    public function hasProAccess(): bool
+    {
+        return false;
+    }
 }

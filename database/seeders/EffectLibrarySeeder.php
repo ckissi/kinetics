@@ -13,8 +13,11 @@ use RuntimeException;
  * Seeds the free effect library from database/seeders/data/effects.json.
  *
  * That file was extracted once from the Astro site's body.html and is now the
- * source of truth for free content. Pro effects never live here; they arrive
- * separately from the private content repository.
+ * source of truth for free content: the effects, their demo markup, their CSS
+ * and React snippets and their search keywords.
+ *
+ * Prompts are deliberately absent. They are Pro content, they live in the
+ * private kinetics-pro repository, and kinetics:sync-pro imports them.
  */
 class EffectLibrarySeeder extends Seeder
 {
@@ -65,12 +68,8 @@ class EffectLibrarySeeder extends Seeder
                     );
                 }
 
-                foreach (array_filter($row['prompts']) as $type => $content) {
-                    $effect->prompts()->updateOrCreate(
-                        ['type' => $type],
-                        ['content' => $content, 'access_level' => AccessLevel::Free],
-                    );
-                }
+                // Prompts are Pro content and live in the private repository.
+                // kinetics:sync-pro imports them; nothing here touches them.
 
                 $effect->keywords()->delete();
                 $effect->keywords()->createMany(

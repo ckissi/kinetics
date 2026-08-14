@@ -2,10 +2,17 @@
     // CSS, React, Prompt — in the order the tabs have always appeared.
     // React is absent for the 54 CSS-only effects, so its tab is skipped
     // entirely rather than rendered empty.
+    $prompt = $effect->prompts->firstWhere('type', 'general');
+
+    // Prompts are Pro content. The tab still shows for everyone, because
+    // hiding it entirely would hide what the subscription is for, but the
+    // text itself is only rendered for those who may read it.
+    $promptLocked = $prompt && ! Gate::allows('view-pro-content');
+
     $panes = collect([
         ['lang' => 'css', 'label' => 'CSS', 'content' => $effect->snippets->firstWhere('type', 'css')?->content],
         ['lang' => 'react', 'label' => 'React', 'content' => $effect->snippets->firstWhere('type', 'react')?->content],
-        ['lang' => 'prompt', 'label' => 'Prompt', 'content' => $effect->prompts->firstWhere('type', 'general')?->content],
+        ['lang' => 'prompt', 'label' => 'Prompt', 'content' => $prompt?->content, 'locked' => $promptLocked],
     ])->filter(fn($pane) => filled($pane['content']))->values();
 @endphp
 
@@ -34,7 +41,11 @@
     <div class="code-body">
       <button class="copy-btn">Copy</button>
       @foreach ($panes as $pane)
-        <pre data-lang="{{ $pane['lang'] }}" @class(['hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code></pre>
+        @if ($pane['locked'] ?? false)
+          <pre data-lang="{{ $pane['lang'] }}" @class(['pro-locked', 'hidden' => ! $loop->first])><code>{{ __('This prompt is part of Kinetics Pro.') }}</code></pre>
+        @else
+          <pre data-lang="{{ $pane['lang'] }}" @class(['hidden' => ! $loop->first])><code>{{ $pane['content'] }}</code></pre>
+        @endif
       @endforeach
     </div>
   </div>

@@ -199,6 +199,18 @@
 .code-body pre[data-lang="prompt"] code {
   color: #ddd6c6;
 }
+/* Prompt withheld from visitors without Pro — reads as a state, not an error */
+.code-body pre.pro-locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  text-align: center;
+}
+.code-body pre.pro-locked code {
+  color: var(--muted, #8a8a93);
+  font-style: italic;
+}
 .code-body pre::-webkit-scrollbar {
   height: 8px;
   width: 8px;

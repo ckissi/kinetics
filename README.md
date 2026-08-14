@@ -28,6 +28,8 @@ app/
   Enums/AccessLevel.php    # free vs pro, used by effects, snippets and prompts
   Livewire/EffectLibrary   # renders the three category galleries
   Models/                  # Category, Effect, EffectSnippet, EffectPrompt, EffectKeyword
+app/Console/Commands/
+  SyncProContent.php       # kinetics:sync-pro — imports prompts from the private repo
 database/
   migrations/              # the effect catalog schema
   seeders/
@@ -48,19 +50,43 @@ The gallery deliberately does not go through Vite. The stylesheets are hand-tune
 around a critical/deferred split and are linked directly, so Tailwind's preflight
 never touches them.
 
+## Free and Pro content
+
+The effects, their demo markup, their CSS and React snippets and their search
+keywords are free, and all of it lives in this repository.
+
+The AI prompts are Pro content. They are kept in a separate private repository
+and are never committed here. Point `KINETICS_PRO_PATH` at a checkout of it and
+import them:
+
+```bash
+php artisan kinetics:sync-pro --dry-run   # report what would change
+php artisan kinetics:sync-pro             # import
+php artisan kinetics:sync-pro --prune     # also drop prompts whose files are gone
+```
+
+With `KINETICS_PRO_PATH` unset the command is a no-op, so this repository runs
+on its own — the gallery simply has no prompts. Anyone with the private content
+can run the same command to fill them in.
+
+Prompts render only for viewers who hold Pro access. Everyone else sees the
+Prompt tab with a short notice in place of the text, so the tab still shows what
+a subscription buys. That decision lives in one place, the `view-pro-content`
+gate in `AppServiceProvider`, which defers to `User::hasProAccess()`.
+
 ## Editing effects
 
 Effects live in the database. `database/seeders/data/effects.json` is the source
 of truth for free content: each entry carries its demo markup, its CSS and React
-snippets, its prompt and its search keywords. Edit that file and re-run
-`php artisan db:seed`, which updates rows in place rather than replacing them.
+snippets and its search keywords. Edit that file and re-run `php artisan db:seed`,
+which updates rows in place rather than replacing them.
 
 Demo behaviour is still wired by class name in `public/js/main.js`, and styling
 for each demo lives in the matching `public/css/effects-*.css`, so a new effect
 needs a demo block in the JSON plus its CSS.
 
-Not every effect has all three samples — 99 of the 153 ship a React snippet, and
-the rest are CSS plus prompt. Tabs render only for the samples that exist.
+Not every effect has all three samples — 99 of the 153 ship a React snippet.
+Tabs render only for the samples that exist.
 
 Fonts (Archivo, Inter, JetBrains Mono) load from Google Fonts — self-host for
 zero external requests.

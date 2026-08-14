@@ -29,9 +29,6 @@
                 "css": ".card {\n  height: 64px;\n  overflow: hidden;\n  transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.card.expanded {\n  height: 120px;\n}",
                 "react": "function SpringCard() {\n  const [open, setOpen] = useState(false);\n  return (\n    <div\n      onClick={() => setOpen(!open)}\n      style={{\n        height: open ? 120 : 64,\n        overflow: 'hidden',\n        transition: 'height 0.5s cubic-bezier(0.34,1.56,0.64,1)',\n      }}\n    >\n      <p>Tap to expand</p>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a card that expands and collapses its height when clicked. Animate only the height with a single spring-like cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.5s so it gently overshoots before settling, and fade in secondary text with a small delay once expanded. Pure CSS transitions — no JS height measurement, no max-height hacks."
-            },
             "keywords": [
                 "expand",
                 "collapse",
@@ -59,9 +56,6 @@
                 "css": ".magnet-btn {\n  transition: transform 0.15s ease-out;\n}\n/* JS computes offset from pointer to center,\n   multiplies by a pull factor, applies translate */",
                 "react": "function MagneticButton() {\n  const ref = useRef(null);\n  const onMove = (e) => {\n    const r = ref.current.getBoundingClientRect();\n    const x = e.clientX - r.left - r.width / 2;\n    const y = e.clientY - r.top - r.height / 2;\n    ref.current.style.transform =\n      `translate(${x * 0.35}px, ${y * 0.35}px)`;\n  };\n  const onLeave = () => {\n    ref.current.style.transform = 'translate(0,0)';\n  };\n  return (\n    <div onMouseMove={onMove} onMouseLeave={onLeave}>\n      <button ref={ref} style={{ transition: 'transform .15s ease-out' }}>\n        Hover near me\n      </button>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a button that is magnetically pulled toward the cursor while the pointer is inside its surrounding zone. On mousemove, translate the button toward the pointer by ~35% of the offset from its center; reset to translate(0,0) on mouseleave. Use a short transform transition (~0.15s ease-out) so it glides rather than snaps."
-            },
             "keywords": [
                 "magnet",
                 "hover",
@@ -88,9 +82,6 @@
             "snippets": {
                 "css": ".digit {\n  display: inline-block;\n  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.digit.bump {\n  transform: scale(1.25) translateY(-6px);\n}",
                 "react": "function ElasticCounter() {\n  const [val, setVal] = useState(12);\n  const [bump, setBump] = useState(false);\n\n  const increment = () => {\n    setVal(v => v + 1);\n    setBump(true);\n    setTimeout(() => setBump(false), 400);\n  };\n\n  return (\n    <span\n      onClick={increment}\n      style={{\n        display: 'inline-block',\n        transform: bump ? 'scale(1.25) translateY(-6px)' : 'none',\n        transition: 'transform 0.4s cubic-bezier(.34,1.56,.64,1)',\n      }}\n    >\n      {val}\n    </span>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a number that increments on click and bumps elastically each time. On each increment briefly apply scale(1.22) translateY(-6px), then settle back with a spring cubic-bezier(0.34,1.56,0.64,1) over ~0.4s. Restart the animation cleanly on rapid clicks by forcing a reflow."
             },
             "keywords": [
                 "count",
@@ -121,9 +112,6 @@
                 "css": ".toast {\n  transform: translate(-50%, 140%) scale(0.9);\n  opacity: 0;\n  transition: transform 0.55s cubic-bezier(0.18, 1.25, 0.4, 1),\n              opacity 0.3s;\n}\n.toast.show {\n  transform: translate(-50%, 0) scale(1);\n  opacity: 1;\n}",
                 "react": "function Toast({ message, show }) {\n  return (\n    <div\n      style={{\n        position: 'absolute',\n        left: '50%',\n        transform: show\n          ? 'translate(-50%, 0) scale(1)'\n          : 'translate(-50%, 140%) scale(0.9)',\n        opacity: show ? 1 : 0,\n        transition:\n          'transform .55s cubic-bezier(.18,1.25,.4,1), opacity .3s',\n      }}\n    >\n      {message}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a toast that slides up from the bottom, overshoots its rest position, then settles. Transition transform from translateY(140%) scale(0.9) to translateY(0) scale(1) with cubic-bezier(0.18,1.25,0.4,1) over ~0.55s while opacity fades in. Auto-hide after a couple seconds."
-            },
             "keywords": [
                 "notification",
                 "alert",
@@ -150,9 +138,6 @@
             "snippets": {
                 "css": ".pill {\n  position: absolute;\n  transition: left 0.4s cubic-bezier(0.65, 0, 0.35, 1),\n              width 0.4s cubic-bezier(0.65, 0, 0.35, 1);\n}\n/* JS sets pill.style.left/width to the active\n   button's offsetLeft/offsetWidth on click */",
                 "react": "function GlidingTabs({ tabs }) {\n  const [active, setActive] = useState(0);\n  const refs = useRef([]);\n  const [style, setStyle] = useState({});\n\n  useEffect(() => {\n    const el = refs.current[active];\n    if (el) setStyle({ left: el.offsetLeft, width: el.offsetWidth });\n  }, [active]);\n\n  return (\n    <div style={{ position: 'relative' }}>\n      <span\n        style={{\n          position: 'absolute',\n          ...style,\n          transition: 'left .4s cubic-bezier(.65,0,.35,1), width .4s cubic-bezier(.65,0,.35,1)',\n        }}\n      />\n      {tabs.map((t, i) => (\n        <button key={t} ref={el => (refs.current[i] = el)} onClick={() => setActive(i)}>\n          {t}\n        </button>\n      ))}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a segmented tab control where a highlighted pill slides between tabs. On click, read the target button's offsetLeft and offsetWidth and animate the pill's left and width to match with cubic-bezier(0.65,0,0.35,1) over ~0.4s; the active label color crossfades as the pill arrives."
             },
             "keywords": [
                 "tabs",
@@ -181,9 +166,6 @@
                 "css": ".acc-body {\n  max-height: 0;\n  overflow: hidden;\n  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.acc-item.open .acc-body {\n  max-height: 100px;\n}\n.chev {\n  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.acc-item.open .chev {\n  transform: rotate(180deg);\n}",
                 "react": "function AccordionItem({ title, children }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div>\n      <button onClick={() => setOpen(!open)}>\n        {title}\n        <span style={{ transform: open ? 'rotate(180deg)' : 'none',\n          transition: 'transform .35s cubic-bezier(.34,1.56,.64,1)' }}>⌄</span>\n      </button>\n      <div style={{\n        maxHeight: open ? 100 : 0,\n        overflow: 'hidden',\n        transition: 'max-height .45s cubic-bezier(.16,1,.3,1)',\n      }}>\n        {children}\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build an accordion whose panels open with a springy feel and a rotating chevron. Animate max-height (0 to content height) with cubic-bezier(0.16,1,0.3,1) and rotate the chevron 180deg with a springy cubic-bezier(0.34,1.56,0.64,1). Pure CSS toggled by an .open class."
-            },
             "keywords": [
                 "faq",
                 "collapse",
@@ -210,9 +192,6 @@
             "snippets": {
                 "css": ".drag-card {\n  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),\n              opacity 0.35s;\n  touch-action: none;\n}\n.drag-card.snap-back {\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n/* JS tracks pointerdown/move/up, applies translate\n   proportional to drag distance, checks threshold on release */",
                 "react": "function DraggableCard({ onDismiss, children }) {\n  const [x, setX] = useState(0);\n  const start = useRef(0);\n  const dragging = useRef(false);\n\n  const onDown = (e) => { dragging.current = true; start.current = e.clientX; };\n  const onMove = (e) => {\n    if (!dragging.current) return;\n    setX(e.clientX - start.current);\n  };\n  const onUp = () => {\n    dragging.current = false;\n    if (Math.abs(x) > 100) onDismiss();\n    else setX(0);\n  };\n\n  return (\n    <div\n      onPointerDown={onDown}\n      onPointerMove={onMove}\n      onPointerUp={onUp}\n      style={{\n        transform: `translateX(${x}px) rotate(${x * 0.05}deg)`,\n        opacity: Math.max(1 - Math.abs(x) / 250, 0.3),\n        transition: dragging.current ? 'none' : 'transform .5s cubic-bezier(.34,1.56,.64,1)',\n      }}\n    >\n      {children}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a card you can drag horizontally with the pointer to dismiss. Track pointerdown/move/up, translate by the drag delta plus a subtle rotation, and fade opacity with distance. On release past a 100px threshold fling it off-screen; otherwise spring it back with cubic-bezier(0.34,1.56,0.64,1)."
             },
             "keywords": [
                 "swipe",
@@ -241,9 +220,6 @@
                 "css": ".ripple-btn {\n  position: relative;\n  overflow: hidden;\n}\n.ripple {\n  position: absolute;\n  border-radius: 50%;\n  background: rgba(255,138,0,0.4);\n  transform: scale(0);\n  animation: ripple-out 0.6s ease-out;\n}\n@keyframes ripple-out {\n  to { transform: scale(3); opacity: 0; }\n}",
                 "react": "function RippleButton({ children }) {\n  const [ripples, setRipples] = useState([]);\n\n  const addRipple = (e) => {\n    const r = e.currentTarget.getBoundingClientRect();\n    const size = Math.max(r.width, r.height);\n    const id = Date.now();\n    setRipples(prev => [...prev, {\n      id, size,\n      x: e.clientX - r.left - size / 2,\n      y: e.clientY - r.top - size / 2,\n    }]);\n    setTimeout(() => setRipples(prev => prev.filter(rp => rp.id !== id)), 650);\n  };\n\n  return (\n    <button onClick={addRipple} style={{ position: 'relative', overflow: 'hidden' }}>\n      {children}\n      {ripples.map(rp => (\n        <span key={rp.id} className=\"ripple\" style={{\n          width: rp.size, height: rp.size, left: rp.x, top: rp.y,\n        }} />\n      ))}\n    </button>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a button with a material-style ripple that starts at the exact click point. On click, spawn an absolutely-positioned circle at the pointer coordinates inside an overflow-hidden button, animate it from scale(0) to scale(2.6) while fading out over ~0.6s, then remove it."
-            },
             "keywords": [
                 "click",
                 "tap",
@@ -270,9 +246,6 @@
             "snippets": {
                 "css": ".hold-btn .prog {\n  stroke-dasharray: 207;\n  stroke-dashoffset: 207;            /* empty ring */\n  transition: stroke-dashoffset 0.2s ease-out;\n}\n.hold-btn.holding .prog {\n  stroke-dashoffset: 0;              /* fill over the hold */\n  transition: stroke-dashoffset 0.8s linear;\n}\n/* JS adds .holding on pointerdown, and a 800ms timer\n   promotes it to .done (or cancels on early release). */",
                 "react": "function HoldToConfirm({ onConfirm, ms = 800 }) {\n  const [holding, setHolding] = useState(false);\n  const timer = useRef(null);\n\n  const start = () => {\n    setHolding(true);\n    timer.current = setTimeout(() => { setHolding(false); onConfirm(); }, ms);\n  };\n  const cancel = () => { clearTimeout(timer.current); setHolding(false); };\n\n  return (\n    <button\n      className={holding ? 'hold-btn holding' : 'hold-btn'}\n      onPointerDown={start}\n      onPointerUp={cancel}\n      onPointerLeave={cancel}\n    >\n      <svg className=\"ring\" viewBox=\"0 0 72 72\">\n        <circle className=\"track\" cx=\"36\" cy=\"36\" r=\"33\" />\n        <circle className=\"prog\" cx=\"36\" cy=\"36\" r=\"33\" />\n      </svg>\n      <span>Hold</span>\n    </button>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a circular 'hold to confirm' button with an SVG progress ring. On pointerdown animate the ring's stroke-dashoffset from full to 0 over 800ms linear; if held the whole time fire confirm and flash a success state, otherwise cancel and snap the ring back on early release."
             },
             "keywords": [
                 "long press",
@@ -301,9 +274,6 @@
                 "css": ".thumb {\n  transition: none;                 /* follows the pointer 1:1 */\n}\n.thumb.snap {\n  transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n/* Past the ends, JS adds only 32% of the overshoot:\n   pct = clamped + (raw - clamped) * 0.32  — the rubber band.\n   On release it removes the overshoot and lets .snap spring home. */",
                 "react": "function RubberSlider() {\n  const track = useRef(null);\n  const [pct, setPct] = useState(0.5);\n  const [snap, setSnap] = useState(false);\n\n  const at = (clientX, rubber) => {\n    const r = track.current.getBoundingClientRect();\n    const raw = (clientX - r.left) / r.width;\n    const clamped = Math.min(Math.max(raw, 0), 1);\n    return rubber ? clamped + (raw - clamped) * 0.32 : clamped;\n  };\n\n  return (\n    <div ref={track} className=\"track\"\n      onPointerMove={(e) => e.buttons && (setSnap(false), setPct(at(e.clientX, true)))}\n      onPointerUp={(e) => { setSnap(true); setPct(at(e.clientX, false)); }}\n    >\n      <span className={snap ? 'thumb snap' : 'thumb'} style={{ left: `${pct * 100}%` }} />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a horizontal slider whose thumb resists past the ends like a rubber band. While dragging, map the pointer to 0–1, but when it exceeds the range add only ~32% of the overshoot so it stretches; on release remove the overshoot and spring the thumb back into range with cubic-bezier(0.34,1.56,0.64,1)."
-            },
             "keywords": [
                 "range",
                 "slider",
@@ -330,9 +300,6 @@
             "snippets": {
                 "css": ".heart { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }\n.like-btn.pop .heart { transform: scale(1.35); }\n.like-btn.liked .heart { fill: #FF8A00; stroke: #FF8A00; }\n\n.particle { animation: fly 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }\n@keyframes fly { to { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }\n/* JS spawns 8 particles on a circle each time it's liked. */",
                 "react": "function LikeButton({ start = 128 }) {\n  const [liked, setLiked] = useState(false);\n  const [bits, setBits] = useState([]);\n\n  const toggle = () => {\n    const next = !liked;\n    setLiked(next);\n    if (next) {\n      setBits(Array.from({ length: 8 }, (_, i) => {\n        const a = (Math.PI * 2 * i) / 8, d = 28;\n        return { id: Date.now() + i, tx: Math.cos(a) * d, ty: Math.sin(a) * d };\n      }));\n      setTimeout(() => setBits([]), 600);\n    }\n  };\n\n  return (\n    <button className={liked ? 'like-btn liked pop' : 'like-btn'} onClick={toggle}>\n      <Heart /> <span>{start + (liked ? 1 : 0)}</span>\n      {bits.map(b => (\n        <span key={b.id} className=\"particle\"\n          style={{ '--tx': `${b.tx}px`, '--ty': `${b.ty}px` }} />\n      ))}\n    </button>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a like button that pops its heart and emits a particle burst when toggled on. Scale the heart to ~1.35 and back with a spring curve, fill it with the accent color, increment the count, and spawn ~8 small particles outward on an even circle that translate out and shrink to scale(0) over ~0.6s."
             },
             "keywords": [
                 "heart",
@@ -361,9 +328,6 @@
                 "css": "/* Pure transform work — no layout. Each dot eases toward\n   the one ahead of it, so the chain lags into a comet tail. */\n.trail-dot { position: absolute; will-change: transform; }\n.trail-dot:nth-child(2) { opacity: 0.85; }\n.trail-dot:nth-child(3) { opacity: 0.7; }\n/* ...decreasing size + opacity down the chain... */",
                 "react": "function CursorTrail({ count = 6 }) {\n  const dots = useRef([]);\n  const pts = useRef(Array.from({ length: count }, () => ({ x: 0, y: 0 })));\n  const target = useRef({ x: 0, y: 0 });\n\n  useEffect(() => {\n    let id;\n    const tick = () => {\n      let lead = target.current;\n      pts.current.forEach((p, i) => {\n        p.x += (lead.x - p.x) * 0.35;\n        p.y += (lead.y - p.y) * 0.35;\n        const el = dots.current[i];\n        if (el) el.style.transform = `translate(${p.x}px, ${p.y}px)`;\n        lead = p;\n      });\n      id = requestAnimationFrame(tick);\n    };\n    tick();\n    return () => cancelAnimationFrame(id);\n  }, []);\n\n  return (\n    <div onPointerMove={(e) => {\n      const r = e.currentTarget.getBoundingClientRect();\n      target.current = { x: e.clientX - r.left, y: e.clientY - r.top };\n    }}>\n      {Array.from({ length: count }).map((_, i) => (\n        <span key={i} ref={el => (dots.current[i] = el)} className=\"trail-dot\" />\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a contained area where a chain of dots follows the cursor with eased lag. Track the pointer; each animation frame, lerp each dot ~35% toward the dot ahead of it (the first toward the cursor) so they form a comet tail. Decrease size and opacity down the chain and hide when the pointer leaves."
-            },
             "keywords": [
                 "mouse",
                 "pointer",
@@ -390,9 +354,6 @@
             "snippets": {
                 "css": ".push-btn {\n  border-radius: 12px;\n  background: #FF8A00;\n  color: #0E0E10;\n  box-shadow: 0 6px 0 #B36200;\n  transition: transform 0.06s ease, box-shadow 0.06s ease;\n}\n.push-btn:active {\n  transform: translateY(5px);\n  box-shadow: 0 1px 0 #B36200;\n}",
                 "react": "function PushButton({ children }) {\n  // Pure CSS: the bottom box-shadow is the button's \"edge\".\n  // :active drops it down and shrinks the edge so it reads\n  // as a physical press — pair this with the .push-btn rule.\n  return (\n    <button className=\"push-btn\">\n      {children}\n    </button>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a button that physically depresses when pressed, pure CSS. Give it a solid bottom box-shadow to act as a 3D edge; on :active translateY it down by the edge height and shrink the shadow to ~1px over ~0.06s so it reads as a tactile push."
             },
             "keywords": [
                 "3d button",
@@ -421,9 +382,6 @@
                 "css": ".star {\n  color: #2A2A2E;\n  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),\n              color 0.15s ease;\n}\n.star.on { color: #FF8A00; }\n.star.pop { transform: scale(1.3); }\n/* JS toggles .on for stars up to the hovered/selected\n   index, and flashes .pop on the one just clicked. */",
                 "react": "function StarRating({ count = 5 }) {\n  const [value, setValue] = useState(0);\n  const [hover, setHover] = useState(0);\n\n  return (\n    <div onMouseLeave={() => setHover(0)}>\n      {Array.from({ length: count }).map((_, i) => {\n        const n = i + 1;\n        const lit = (hover || value) >= n;\n        return (\n          <button\n            key={n}\n            onMouseEnter={() => setHover(n)}\n            onClick={() => setValue(n)}\n            style={{ color: lit ? '#FF8A00' : '#2A2A2E' }}\n          >\n            ★\n          </button>\n        );\n      })}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a five-star rating control. On hover, light every star up to the hovered index in the accent color as a live preview; on click, lock that value and briefly pop the clicked star with a spring scale. On mouse leave, fall back to showing the locked value."
-            },
             "keywords": [
                 "review",
                 "feedback",
@@ -450,9 +408,6 @@
             "snippets": {
                 "css": ".field { position: relative; }\n.field label {\n  position: absolute;\n  left: 14px; top: 50%;\n  transform: translateY(-50%);\n  color: #6E6C68;\n  pointer-events: none;\n  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),\n              color 0.2s, font-size 0.2s;\n}\n/* Empty uses :placeholder-shown; lift on focus or value */\n.field input:focus + label,\n.field input:not(:placeholder-shown) + label {\n  transform: translateY(-26px) scale(0.85);\n  color: #FF8A00;\n}",
                 "react": "function FloatingField({ label }) {\n  // The motion is pure CSS: keep a \" \" placeholder so\n  // :placeholder-shown tracks emptiness, and animate the\n  // adjacent label on :focus / :not(:placeholder-shown).\n  return (\n    <div className=\"field\">\n      <input id=\"email\" placeholder=\" \" />\n      <label htmlFor=\"email\">{label}</label>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a text field whose placeholder floats up into a label when focused or filled, pure CSS. Give the input a single-space placeholder so :placeholder-shown reflects emptiness; position the label over the input and, on input:focus or :not(:placeholder-shown), translate it up and scale it down into the accent color over ~0.2s."
             },
             "keywords": [
                 "form",
@@ -487,9 +442,6 @@
                 "css": ".copy-icon { position: relative; }\n.copy-icon svg {\n  position: absolute; inset: 0;\n  transition: opacity 0.2s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.ic-check { opacity: 0; transform: scale(0.5); color: #4CD08A; }\n.copy-btn.copied .ic-copy  { opacity: 0; transform: scale(0.5); }\n.copy-btn.copied .ic-check { opacity: 1; transform: scale(1); }\n/* JS writes to the clipboard, adds .copied + swaps the\n   label to \"Copied\", then reverts after ~1.4s. */",
                 "react": "function CopyButton({ text }) {\n  const [copied, setCopied] = useState(false);\n\n  const copy = async () => {\n    await navigator.clipboard.writeText(text);\n    setCopied(true);\n    setTimeout(() => setCopied(false), 1400);\n  };\n\n  return (\n    <button className={copied ? 'copy-btn copied' : 'copy-btn'} onClick={copy}>\n      <span className=\"copy-icon\">\n        <CopyIcon className=\"ic-copy\" />\n        <CheckIcon className=\"ic-check\" />\n      </span>\n      <span>{copied ? 'Copied' : 'Copy'}</span>\n    </button>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a copy-to-clipboard button that confirms with a crossfade. On click write the value to the clipboard, then crossfade the copy glyph out and a green check in with a spring scale while the label swaps from \"Copy\" to \"Copied\"; revert both after ~1.4s."
-            },
             "keywords": [
                 "clipboard",
                 "copy paste",
@@ -516,9 +468,6 @@
             "snippets": {
                 "css": ".step-val {\n  display: inline-block;\n  min-width: 2ch; text-align: center;\n  font-variant-numeric: tabular-nums;\n  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.step-val.bump { transform: scale(1.3); }\n.step-btn:active { transform: scale(0.9); }",
                 "react": "function Stepper({ min = 0 }) {\n  const [n, setN] = useState(1);\n  const [bump, setBump] = useState(false);\n\n  const change = (d) => {\n    setN((v) => Math.max(min, v + d));\n    setBump(true);\n    setTimeout(() => setBump(false), 350);\n  };\n\n  return (\n    <div className=\"stepper\">\n      <button className=\"step-btn\" onClick={() => change(-1)}>−</button>\n      <span className={bump ? 'step-val bump' : 'step-val'}>{n}</span>\n      <button className=\"step-btn\" onClick={() => change(1)}>+</button>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a quantity stepper with − and + buttons around a number. On each change update the value (clamped at a minimum) and briefly pop it with a spring scale(1.3) that settles via cubic-bezier(0.34,1.56,0.64,1); dip the pressed button with a quick scale(0.9) on :active. Use tabular-nums so the digits don't shift."
             },
             "keywords": [
                 "cart",
@@ -547,9 +496,6 @@
                 "css": ".chip {\n  padding: 7px 15px; border-radius: 100px;\n  border: 1px solid #2A2A2E; color: #A8A6A0;\n  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),\n              background 0.2s, color 0.2s, border-color 0.2s;\n}\n.chip.on {\n  background: #FF8A00; color: #0E0E10; border-color: #FF8A00;\n}\n.chip.pop { transform: scale(1.12); }",
                 "react": "function ChoiceChips({ options }) {\n  const [on, setOn] = useState(() => new Set());\n\n  const toggle = (opt) =>\n    setOn((prev) => {\n      const next = new Set(prev);\n      next.has(opt) ? next.delete(opt) : next.add(opt);\n      return next;\n    });\n\n  return (\n    <div>\n      {options.map((opt) => (\n        <button\n          key={opt}\n          className={on.has(opt) ? 'chip on' : 'chip'}\n          onClick={() => toggle(opt)}\n        >\n          {opt}\n        </button>\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a row of selectable filter chips. Clicking a chip toggles an .on state that fills it with the accent color and flips the text to the dark background color, with a brief spring pop (scale ~1.12) on each toggle. Multiple chips can be active at once."
-            },
             "keywords": [
                 "filter",
                 "tags",
@@ -576,9 +522,6 @@
             "snippets": {
                 "css": ".pin-box {\n  width: 44px; height: 52px;\n  text-align: center;\n  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),\n    border-color 0.2s ease;\n}\n.pin-box.filled { border-color: var(--amber); }\n.pin-box.pop { transform: scale(1.14); }\n.pin-box:focus { border-color: var(--amber); outline: none; }",
                 "react": "function PinInput({ length = 4 }) {\n  const refs = useRef([]);\n  const onChange = (i, e) => {\n    const el = e.target;\n    if (el.value) {\n      el.classList.add('filled', 'pop');\n      setTimeout(() => el.classList.remove('pop'), 350);\n      refs.current[i + 1]?.focus();\n    } else {\n      el.classList.remove('filled');\n    }\n  };\n  const onKey = (i, e) => {\n    if (e.key === 'Backspace' && !e.target.value)\n      refs.current[i - 1]?.focus();\n  };\n  return (\n    <div>\n      {Array.from({ length }).map((_, i) => (\n        <input\n          key={i}\n          maxLength={1}\n          ref={(el) => (refs.current[i] = el)}\n          onChange={(e) => onChange(i, e)}\n          onKeyDown={(e) => onKey(i, e)}\n        />\n      ))}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a one-time-code / PIN input of four single-character boxes. When a digit is typed, mark that box filled (accent border) and give it a brief spring pop (scale ~1.14 with cubic-bezier(0.34, 1.56, 0.64, 1)), then move focus to the next box automatically. On Backspace in an empty box, move focus to the previous box. Keep focus rings on the active box."
             },
             "keywords": [
                 "otp",
@@ -613,9 +556,6 @@
                 "css": ".meter span {\n  flex: 1; height: 5px; border-radius: 3px;\n  background: var(--card-2);\n  transform: scaleX(0); transform-origin: left;\n  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.meter[data-score=\"1\"] span:nth-child(-n+1),\n.meter[data-score=\"2\"] span:nth-child(-n+2),\n.meter[data-score=\"3\"] span:nth-child(-n+3),\n.meter[data-score=\"4\"] span { transform: scaleX(1); }",
                 "react": "function PasswordMeter() {\n  const [score, setScore] = useState(0);\n  const rate = (v) => {\n    let s = 0;\n    if (v.length > 4) s++;\n    if (v.length > 8) s++;\n    if (/[0-9]/.test(v)) s++;\n    if (/[^a-zA-Z0-9]/.test(v)) s++;\n    return Math.min(s, 4);\n  };\n  const colors = ['#FF5C5C', '#FF8A00', '#FF8A00', '#4CD08A'];\n  return (\n    <div>\n      <input onChange={(e) => setScore(rate(e.target.value))} />\n      <div className=\"meter\">\n        {[0, 1, 2, 3].map((i) => (\n          <span\n            key={i}\n            style={{\n              transform: i < score ? 'scaleX(1)' : 'scaleX(0)',\n              background: colors[score - 1],\n            }}\n          />\n        ))}\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a password strength meter of four segment bars under a text field. On every keystroke score the value (length tiers, plus a point each for containing a digit and a symbol), clamp to 0–4, and reveal that many bars by scaling them from scaleX(0) to scaleX(1) with a spring cubic-bezier(0.34, 1.56, 0.64, 1). Tint the filled bars red at weak, amber at medium, green at strong, and show a matching text label."
-            },
             "keywords": [
                 "strength",
                 "security",
@@ -642,9 +582,6 @@
             "snippets": {
                 "css": ".tip {\n  position: absolute;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.2s ease;\n}\n.zone:hover .tip { opacity: 1; }\n/* JS lerps tip x/y toward the pointer each frame */",
                 "react": "function PointerTooltip() {\n  const ref = useRef(null);\n  const pos = useRef({ x: 0, y: 0, tx: 0, ty: 0 });\n\n  useEffect(() => {\n    let raf;\n    const loop = () => {\n      const p = pos.current;\n      p.x += (p.tx - p.x) * 0.18;\n      p.y += (p.ty - p.y) * 0.18;\n      if (ref.current)\n        ref.current.style.transform = `translate(${p.x}px, ${p.y}px)`;\n      raf = requestAnimationFrame(loop);\n    };\n    loop();\n    return () => cancelAnimationFrame(raf);\n  }, []);\n\n  const onMove = (e) => {\n    const r = e.currentTarget.getBoundingClientRect();\n    pos.current.tx = e.clientX - r.left;\n    pos.current.ty = e.clientY - r.top;\n  };\n  return (\n    <div onMouseMove={onMove} style={{ position: 'relative' }}>\n      <span ref={ref} className=\"tip\">follow</span>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a tooltip label that smoothly trails the cursor inside a zone. On mousemove store the target x/y relative to the zone; in a requestAnimationFrame loop, lerp the label's current position toward the target by ~0.18 each frame and apply it as a translate, so it eases behind the pointer instead of snapping. Fade the label in on hover and show the live coordinates."
             },
             "keywords": [
                 "hover",
@@ -673,9 +610,6 @@
                 "css": ".swipe-item {\n  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.swipe-item.dragging { transition: none; }\n.swipe-item.open { transform: translateX(-96px); }",
                 "react": "function SwipeToReveal() {\n  const [open, setOpen] = useState(false);\n  const ref = useRef(null);\n  const start = useRef(0);\n  const dragging = useRef(false);\n\n  const onDown = (e) => {\n    dragging.current = true;\n    start.current = e.clientX;\n    ref.current.classList.add('dragging');\n  };\n  const onMove = (e) => {\n    if (!dragging.current) return;\n    const dx = Math.min(0, e.clientX - start.current);\n    ref.current.style.transform = `translateX(${dx}px)`;\n  };\n  const onUp = (e) => {\n    if (!dragging.current) return;\n    dragging.current = false;\n    ref.current.classList.remove('dragging');\n    const dx = e.clientX - start.current;\n    setOpen(dx < -96);\n    ref.current.style.transform = '';\n  };\n\n  return (\n    <div style={{ position: 'relative', overflow: 'hidden' }}>\n      <div style={{ position: 'absolute', right: 0 }}>\n        <button>Archive</button>\n        <button>Delete</button>\n      </div>\n      <div\n        ref={ref}\n className={open ? 'swipe-item open' : 'swipe-item'}\n        onPointerDown={onDown}\n        onPointerMove={onMove}\n        onPointerUp={onUp}\n      >\n        Swipe me left\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a list item that can be swiped left to reveal archive and delete action buttons behind it. Track pointerdown/move/up, translate the item left following the pointer (clamped to 0 on the right). On release, if dragged past ~96px add an .open class that holds it at translateX(-96px) with a spring transition; otherwise spring it back to 0. The action buttons sit absolutely behind the item."
-            },
             "keywords": [
                 "actions",
                 "delete",
@@ -702,9 +636,6 @@
             "snippets": {
                 "css": ".knob {\n  border-radius: 50%;\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.knob.dragging { transition: none; }\n.knob::before {\n  content: '';\n  position: absolute; top: 8px; left: 50%;\n  width: 4px; height: 16px; margin-left: -2px;\n  border-radius: 2px; background: #FF8A00;\n}",
                 "react": "function RotaryKnob({ max = 270, steps = 10 }) {\n  const ref = useRef(null);\n  const [angle, setAngle] = useState(0);\n  const dragging = useRef(false);\n  const prevAngle = useRef(0);\n  const pointerOffset = 225;\n\n  const getAngle = (e) => {\n    const r = ref.current.getBoundingClientRect();\n    const cx = r.left + r.width / 2;\n    const cy = r.top + r.height / 2;\n    return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI + 90;\n  };\n\n  const onDown = (e) => {\n    dragging.current = true;\n    prevAngle.current = getAngle(e);\n  };\n  const onMove = (e) => {\n    if (!dragging.current) return;\n    const cur = getAngle(e);\n    let delta = cur - prevAngle.current;\n    if (delta > 180) delta -= 360;\n    if (delta < -180) delta += 360;\n    prevAngle.current = cur;\n    setAngle((a) => Math.min(max, Math.max(0, a + delta)));\n  };\n  const onUp = () => {\n    dragging.current = false;\n    setAngle((a) => Math.round(a / (max / steps)) * (max / steps));\n  };\n\n  return (\n    <div\n      ref={ref}\n      onPointerDown={onDown}\n      onPointerMove={onMove}\n      onPointerUp={onUp}\n      style={{ transform: `rotate(${angle + pointerOffset}deg)`, transition: dragging.current ? 'none' : 'transform .5s cubic-bezier(.34,1.56,.64,1)' }}\n    />\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a rotary knob that the user can drag in a circle to set a value from 0 to 270 degrees. On pointerdown record the starting angle from the knob center; on pointermove compute the delta angle, clamp it to 0–270, and rotate the knob. On release snap to the nearest detent (e.g. 10 steps) with a spring cubic-bezier(0.34,1.56,0.64,1). Show the current value as a number below the knob and fill an SVG arc proportional to the angle."
             },
             "keywords": [
                 "dial",
@@ -735,9 +666,6 @@
                 "css": ".reorder-item {\n  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),\n              opacity 0.2s, box-shadow 0.2s;\n}\n.reorder-item.dragging {\n  transition: none;\n  opacity: 0.9;\n  box-shadow: 0 8px 24px -6px rgba(0,0,0,0.6);\n  z-index: 10;\n}",
                 "react": "function ReorderList({ items: initial }) {\n  const [items, setItems] = useState(initial);\n  const [dragIdx, setDragIdx] = useState(null);\n  const [dragY, setDragY] = useState(0);\n  const startY = useRef(0);\n  const itemH = 44;\n\n  const onDown = (i, e) => {\n    setDragIdx(i);\n    startY.current = e.clientY;\n  };\n  const onMove = (e) => {\n    if (dragIdx === null) return;\n    const dy = e.clientY - startY.current;\n    setDragY(dy);\n    const target = Math.min(items.length - 1,\n      Math.max(0, Math.round((i * itemH + dy) / itemH)));\n    if (target !== dragIdx) {\n      const next = [...items];\n      const [m] = next.splice(dragIdx, 1);\n      next.splice(target, 0, m);\n      setItems(next);\n      setDragIdx(target);\n      startY.current = e.clientY;\n      setDragY(0);\n    }\n  };\n  const onUp = () => { setDragIdx(null); setDragY(0); };\n\n  return (\n    <div onPointerMove={onMove} onPointerUp={onUp}>\n      {items.map((item, i) => (\n        <div\n          key={item}\n          onPointerDown={(e) => onDown(i, e)}\n          style={{\n            transform: dragIdx === i ? `translateY(${dragY}px)` : '',\n            transition: dragIdx === i ? 'none' : 'transform .3s cubic-bezier(.16,1,.3,1)',\n          }}\n        >\n          {item}\n        </div>\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a reorderable vertical list where items can be dragged up or down to rearrange. On pointerdown on an item, mark it as dragging (disable its transition, add a shadow). On pointermove translate it by the drag delta; when it crosses the midpoint of an adjacent item, swap their positions in the array and reset the drag origin so the dragged item stays under the cursor. On release, snap it into place with a glide cubic-bezier(0.16,1,0.3,1) transition. Show a drag handle on each item."
-            },
             "keywords": [
                 "drag and drop",
                 "sort",
@@ -764,9 +692,6 @@
             "snippets": {
                 "css": ".search {\n  width: 56px;\n  overflow: hidden;\n  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);\n}\n/* label wrapper: click anywhere focuses the input */\n.search:hover,\n.search:focus-within {\n  width: 230px;\n}",
                 "react": "function ExpandingSearch() {\n  return (\n    <div\n      style={{\n        width: 56,\n        overflow: 'hidden',\n        transition: 'width 0.4s cubic-bezier(0.16,1,0.3,1)',\n      }}\n      onFocusCapture={(e) => (e.currentTarget.style.width = '230px')}\n      onBlurCapture={(e) => (e.currentTarget.style.width = '56px')}\n    >\n      <SearchIcon />\n      <input placeholder=\"Search…\" />\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a pill-shaped search field that starts collapsed to just its icon (~56px) and expands to full width when focused. Use :focus-within and animate only the width over ~0.4s with a glide cubic-bezier(0.16, 1, 0.3, 1). Keep overflow hidden so the input text is clipped while collapsed, and let the icon stay pinned on the left."
             },
             "keywords": [
                 "search bar",
@@ -795,9 +720,6 @@
                 "css": ".btn {\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.btn:active {\n  transform: scale(0.88);\n  transition: transform 0.08s ease-out;\n}",
                 "react": "function SquishButton({ children }) {\n  return (\n    <button\n      style={{ transition: 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)' }}\n      onPointerDown={(e) => {\n        e.currentTarget.style.transition = 'transform 0.08s ease-out';\n        e.currentTarget.style.transform = 'scale(0.88)';\n      }}\n      onPointerUp={(e) => {\n        e.currentTarget.style.transition =\n          'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';\n        e.currentTarget.style.transform = 'scale(1)';\n      }}\n    >\n      {children}\n    </button>\n  );\n}"
             },
-            "prompts": {
-                "general": "Make a button that squishes down to ~88% scale the instant it is pressed (fast 0.08s ease-out) and springs back to full size on release with an overshooting cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.5s. The asymmetric timing — quick down, bouncy up — is what makes it feel physical. Drive it from :active."
-            },
             "keywords": [
                 "press",
                 "scale",
@@ -825,9 +747,6 @@
                 "css": ".pill input { position: absolute; opacity: 0; }\n.pill span {\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),\n    background 0.25s ease, color 0.25s ease;\n}\n.pill input:checked + span {\n  background: #ff8a00;\n  color: #0e0e10;\n  transform: scale(1.06);\n}",
                 "react": "function TogglePills({ options }) {\n  const [active, setActive] = useState(options[0]);\n  return options.map((opt) => (\n    <button\n      key={opt}\n      onClick={() => setActive(opt)}\n      style={{\n        transform: active === opt ? 'scale(1.06)' : 'scale(1)',\n        background: active === opt ? '#ff8a00' : '#232326',\n        transition: 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)',\n      }}\n    >\n      {opt}\n    </button>\n  ));\n}"
             },
-            "prompts": {
-                "general": "Build a row of rounded pill options backed by hidden radio inputs so only one is selected at a time. When a pill becomes checked, fill it with the accent colour and pop it to scale(1.06) using a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.5s while colour/background ease over 0.25s. Use :checked + span so it works with zero JS."
-            },
             "keywords": [
                 "switch",
                 "options",
@@ -854,9 +773,6 @@
             "snippets": {
                 "css": ".value {\n  cursor: ew-resize;\n  touch-action: none;\n  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.value.scrubbing {\n  color: #ff8a00;\n  transform: scale(1.06);\n}",
                 "react": "function Scrubber({ start = 48 }) {\n  const [v, setV] = useState(start);\n  const onDown = (e) => {\n    const x0 = e.clientX, v0 = v;\n    const move = (m) => setV(v0 + Math.round(m.clientX - x0));\n    const up = () => {\n      window.removeEventListener('pointermove', move);\n      window.removeEventListener('pointerup', up);\n    };\n    window.addEventListener('pointermove', move);\n    window.addEventListener('pointerup', up);\n  };\n  return (\n    <span style={{ cursor: 'ew-resize' }} onPointerDown={onDown}>\n      {v}\n    </span>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a draggable number scrubber: a large value you can click and drag horizontally to change, like a Blender/After Effects field. On pointerdown capture the start X and value; on pointermove add the pixel delta to the original value (1px ≈ 1 unit). Show an ew-resize cursor, pop the value to scale(1.06) with a spring while scrubbing, and release cleanly on pointerup."
             },
             "keywords": [
                 "number input",
@@ -889,9 +805,6 @@
                 "css": ".item {\n  opacity: 0;\n  transform: scale(0.4);\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;\n}\n:checked ~ .item:nth-of-type(1) { transform: translate(-54px, -58px); transition-delay: 0.02s; }\n:checked ~ .item:nth-of-type(2) { transform: translate(0, -80px);     transition-delay: 0.07s; }\n:checked ~ .item:nth-of-type(3) { transform: translate(54px, -58px);  transition-delay: 0.12s; }\n:checked ~ .item { opacity: 1; }",
                 "react": "function SpeedDial({ actions }) {\n  const [open, setOpen] = useState(false);\n  const fan = [[-54, -58], [0, -80], [54, -58]];\n  return (\n    <div>\n      {actions.map((a, i) => (\n        <button\n          key={i}\n          style={{\n            transform: open\n              ? `translate(${fan[i][0]}px, ${fan[i][1]}px)`\n              : 'scale(0.4)',\n            opacity: open ? 1 : 0,\n            transitionDelay: `${i * 0.05}s`,\n          }}\n        >\n          {a.icon}\n        </button>\n      ))}\n      <button onClick={() => setOpen(!open)}>+</button>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a floating action button that fans out 3 mini action buttons when toggled. Drive the open state from a hidden checkbox (label as the +) so it needs no JS. When checked, translate each item to a fanned position (upper-left, top, upper-right) and scale it from 0.4 to 1 using a spring cubic-bezier(0.34, 1.56, 0.64, 1), staggering transition-delay by ~50ms. Rotate the + icon to a × at the same time."
-            },
             "keywords": [
                 "floating action button",
                 "menu",
@@ -918,9 +831,6 @@
             "snippets": {
                 "css": ".swatch span {\n  box-shadow: 0 0 0 2px #0e0e10;\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;\n}\n.swatch input:checked + span {\n  transform: scale(1.2);\n  box-shadow: 0 0 0 2px #0e0e10, 0 0 0 4px var(--c);\n}\n.swatch input:checked + span::after { content: \"✓\"; opacity: 1; }",
                 "react": "function Swatches({ colors }) {\n  const [active, setActive] = useState(colors[0]);\n  return colors.map((c) => (\n    <button\n      key={c}\n      onClick={() => setActive(c)}\n      style={{\n        background: c,\n        transform: active === c ? 'scale(1.2)' : 'scale(1)',\n        boxShadow:\n          active === c ? `0 0 0 2px #0e0e10, 0 0 0 4px ${c}` : 'none',\n        transition: 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)',\n      }}\n    />\n  ));\n}"
-            },
-            "prompts": {
-                "general": "Build a colour swatch picker: a row of circular swatches backed by hidden radio inputs. When one is checked, scale it to 1.2 with a spring cubic-bezier(0.34, 1.56, 0.64, 1), draw a ring around it using a double box-shadow in the swatch's own colour, and fade-pop a ✓ glyph in the centre. Pure CSS via :checked + span, only one selected at a time."
             },
             "keywords": [
                 "color picker",
@@ -949,9 +859,6 @@
                 "css": ".thumb {\n  transition: left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.track.dragging .thumb { transition: none; }   /* follow finger 1:1 */\n.track.unlocked .thumb { background: #4cd08a; }",
                 "react": "function SlideUnlock({ onUnlock }) {\n  const [x, setX] = useState(0);\n  const max = 184;\n  const onMove = (dx) => setX(Math.min(Math.max(dx, 0), max));\n  const onEnd = () => {\n    if (x >= max * 0.85) { setX(max); onUnlock(); }\n    else setX(0); // spring back\n  };\n  return (\n    <div className=\"track\">\n      <div\n        className=\"thumb\"\n        style={{ left: x }}\n        onPointerMove={(e) => e.buttons && onMove(x + e.movementX)}\n        onPointerUp={onEnd}\n      />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build an iOS-style slide-to-unlock control. A round thumb sits at the left of a pill track; dragging moves it 1:1 with the pointer (disable the transition while dragging) and a green fill grows behind it. On release, if the thumb passed ~85% of the track, latch it open at the far end and mark it unlocked; otherwise spring it back to the start with a cubic-bezier(0.34, 1.56, 0.64, 1)."
-            },
             "keywords": [
                 "swipe",
                 "confirm",
@@ -978,9 +885,6 @@
             "snippets": {
                 "css": ".tag { animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }\n.tag.removing { animation: out 0.24s ease forwards; }\n@keyframes pop { from { transform: scale(0.4); opacity: 0; } }\n@keyframes out { to   { transform: scale(0.4); opacity: 0; } }",
                 "react": "function TagInput() {\n  const [tags, setTags] = useState(['design', 'motion']);\n  const add = (e) => {\n    if (e.key === 'Enter' && e.target.value.trim()) {\n      setTags([...tags, e.target.value.trim()]);\n      e.target.value = '';\n    }\n  };\n  return (\n    <div className=\"tags\">\n      {tags.map((t, i) => (\n        <span key={i} className=\"tag\">\n          {t}\n          <button onClick={() => setTags(tags.filter((_, j) => j !== i))}>×</button>\n        </span>\n      ))}\n      <input onKeyDown={add} placeholder=\"Add tag…\" />\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a tag/token input. Typing a value and pressing Enter appends a pill that springs in from scale(0.4) with a cubic-bezier(0.34, 1.56, 0.64, 1) pop. Each pill has a × button that removes it with a quick scale-down fade. Pressing Backspace in the empty field removes the last tag. The field shares a bordered container with the pills and highlights on focus-within."
             },
             "keywords": [
                 "chips",
@@ -1009,9 +913,6 @@
                 "css": ".key {\n  box-shadow: 0 7px 0 0 #0c0c0e, 0 10px 16px -4px rgba(0,0,0,0.6);\n  transition: transform 0.09s ease-out, box-shadow 0.09s ease-out;\n}\n.key:active {\n  transform: translateY(6px);\n  box-shadow: 0 1px 0 0 #0c0c0e, 0 2px 6px -2px rgba(0,0,0,0.6);\n}",
                 "react": "function Keycap({ label }) {\n  return <button className=\"key\">{label}</button>;\n  // The :active state collapses the 7px bottom shadow\n  // and pushes the cap down 6px — a 1:1 travel illusion.\n}"
             },
-            "prompts": {
-                "general": "Style a button as a 3D mechanical keycap. Give it a solid offset box-shadow (0 7px 0 a dark colour) to act as the key's side wall, plus a soft ambient shadow below. On :active, translate the cap down by the same 6–7px and shrink the side shadow to ~1px so it reads as physically bottoming out. Use a fast ~0.09s ease-out so the press feels crisp."
-            },
             "keywords": [
                 "keyboard",
                 "key",
@@ -1038,9 +939,6 @@
             "snippets": {
                 "css": ".menu:hover .action-n { transform: translateY(-52px); opacity: 1; }\n.menu:hover .action-e { transform: translateX(52px); opacity: 1; }\n/* give each action a different translate vector and spring transition */",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a compact radial action menu. A dark circular + button anchors the centre; four tiny actions begin stacked behind it, then orbit outward in cardinal directions on hover. Use independent translate transforms with a slightly overshooting spring so the menu feels magnetic rather than mechanically radial."
             },
             "keywords": [
                 "radial menu",
@@ -1069,9 +967,6 @@
                 "css": ".dock button:hover { transform: translateY(-14px) scale(1.35); }\n.dock button:has(+ button:hover), .dock button:hover + button { transform: translateY(-7px) scale(1.14); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a modern contextual dock using CSS :has(). The hovered icon rises and enlarges; its immediate neighbours get a smaller lift and scale. Keep the icons monochrome until focus, use a short spring transition, and let the dock settle naturally when the pointer moves away."
-            },
             "keywords": [
                 "dock",
                 "macos",
@@ -1098,9 +993,6 @@
             "snippets": {
                 "css": ".dial:hover { transform: rotate(72deg); }\n.dial:hover .needle { transform: rotate(-42deg); }\n/* counter-rotate the needle with a delayed spring for inertia */",
                 "react": null
-            },
-            "prompts": {
-                "general": "Make a precision dial with a conic-gradient tick ring, central readout, and a needle that visibly lags behind the rotating housing. On hover rotate the outer dial, then counter-rotate the needle with a longer delayed spring transition so it feels like a real weighted instrument."
             },
             "keywords": [
                 "dial",
@@ -1129,9 +1021,6 @@
                 "css": ".lasso-box { border: 1px solid #ff8a00; background: rgba(255,138,0,.1); }\n.dot.selected { transform: scale(1.45); background: #ff8a00; }",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a miniature drag-to-select surface. Pointer drag stretches a translucent lasso rectangle from its origin; dots touched by the rectangle spring larger and turn amber. Clear the selection on the next drag."
-            },
             "keywords": [
                 "selection",
                 "marquee",
@@ -1158,9 +1047,6 @@
             "snippets": {
                 "css": ".gate:hover i { transform: scaleX(1); transition: transform .7s linear; }\n.gate:hover span { animation: unlock .01s .7s forwards; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Create a hover-intent action that only arms after the pointer rests for 700ms. A hairline charge travels under the label; once complete, the label flips from STAY to ENTER. Leaving early instantly resets it."
             },
             "keywords": [
                 "hover delay",
@@ -1189,9 +1075,6 @@
                 "css": ".chord button.hit { transform: translateY(4px); color: #ff8a00; }\n.chord.done strong { opacity: 1; transform: translateY(0); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Make a two-key gesture chord. Tapping K then X depresses each physical keycap and reveals ARMED with a spring. A wrong order or a completed sequence resets after a short beat."
-            },
             "keywords": [
                 "keyboard shortcut",
                 "sequence",
@@ -1218,9 +1101,6 @@
             "snippets": {
                 "css": ".glass {\n  backdrop-filter: blur(14px) saturate(1.4);\n  border: 1px solid rgba(255,255,255,.12);\n  box-shadow: inset 0 1px 0 rgba(255,255,255,.18);\n}\n.glass::after { /* specular streak */\n  background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent);\n  transition: transform .65s cubic-bezier(0.16,1,0.3,1);\n}\n.glass:hover::after { transform: translateX(220%); }\n.glass:active { transform: scale(0.97); }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a modern liquid-glass CTA. Use a frosted translucent surface with backdrop-filter blur and saturation, an inset top highlight, and soft ambient shadow. On hover drift the inner colour pools and sweep a specular streak across the face; on press, scale slightly down so it feels tactile and refractive rather than flat material."
             },
             "keywords": [
                 "liquid glass",
@@ -1249,9 +1129,6 @@
                 "css": ".bento { display: grid; grid-template-columns: 1.1fr .9fr; gap: 7px; }\n.bento span:hover {\n  background: var(--amber);\n  transform: scale(1.04);\n}\n.bento:has(span:hover) span:not(:hover) {\n  opacity: .45;\n  transform: scale(.96);\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a miniature bento grid where hovering a tile lifts it with a spring scale and amber fill while siblings dim and shrink slightly via :has(). Keep labels monospaced and the layout uneven (one tall hero cell) so it feels editorial rather than a uniform dashboard grid."
-            },
             "keywords": [
                 "bento",
                 "grid",
@@ -1278,9 +1155,6 @@
             "snippets": {
                 "css": ".rail {\n  display: flex;\n  padding: 4px;\n  --i: 0;\n}\n.rail::before {\n  position: absolute;\n  top: 4px; bottom: 4px; left: 4px;\n  width: calc((100% - 8px) / 3); /* one equal third */\n  transform: translateX(calc(var(--i) * 100%));\n  transition: transform .45s cubic-bezier(0.34,1.56,0.64,1);\n}\n.rail:has(button:nth-child(2):hover) { --i: 1; }\n.rail:has(button:nth-child(3):hover) { --i: 2; }\n.rail button {\n  flex: 1 1 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a segmented snap rail for Day / Week / Month. Use flex with three equal flex:1 buttons so labels stay horizontally centered in identical cells. A single pill pseudo-element is exactly calc((100% - padding) / 3) wide and slides with translateX(calc(var(--i) * 100%)) where --i is set via :has() on hover. Never size the pill to the text — always to the equal column."
             },
             "keywords": [
                 "segmented control",
@@ -1309,9 +1183,6 @@
                 "css": ".xy-puck {\n  translate: calc(var(--x) * 1px) calc(var(--y) * 1px);\n  transition: translate .52s cubic-bezier(.34,1.56,.64,1);\n}\n.xy-pad.dragging .xy-puck { transition-duration: 70ms; }",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a compact two-axis input pad with a luminous puck. While dragging, map pointer coordinates to clamped X and Y values and move the puck with a short trailing transition. On release, spring it back to dead centre and reset a monospaced coordinate readout."
-            },
             "keywords": [
                 "xy pad",
                 "two axis",
@@ -1338,9 +1209,6 @@
             "snippets": {
                 "css": ".command-panel {\n  clip-path: inset(0 0 100% 0 round 14px);\n  transition: clip-path .5s cubic-bezier(.16,1,.3,1);\n}\n.command.open .command-panel { clip-path: inset(0 round 14px); }\n.command.open .command-panel button { opacity: 1; transform: translateY(0); }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a miniature command palette that blooms downward from a compact keyboard-shortcut trigger. Reveal a frosted action lens with a rounded clip-path wipe, then stagger three rows upward by a few pixels. Let Escape and outside clicks close it, and expose the expanded state to assistive technology."
             },
             "keywords": [
                 "command palette",
@@ -1369,9 +1237,6 @@
                 "css": ".picker-track {\n  transform: translateY(calc(var(--i) * -38px));\n  transition: transform .58s cubic-bezier(.34,1.56,.64,1);\n}\n.picker-track button:not(.active) { opacity: .32; transform: scale(.88); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a tactile vertical picker with three density options. Mouse-wheel, arrow keys, and taps should move one detent at a time; the list overshoots slightly while the focused row stays aligned behind a fixed highlight. Dim and scale peripheral rows to imply cylindrical depth."
-            },
             "keywords": [
                 "wheel",
                 "picker",
@@ -1398,9 +1263,6 @@
             "snippets": {
                 "css": ".composer-field {\n  transition: height .34s cubic-bezier(.16,1,.3,1), border-color .3s ease;\n}\n.composer-halo { opacity: 0; transition: opacity .45s ease; }\n.composer.focused .composer-halo { opacity: 1; animation: halo-spin 4s linear infinite; }\n.composer-send { transform: scale(.7); opacity: .35; }\n.composer.ready .composer-send { transform: scale(1); opacity: 1; }\n.composer.sending .composer-send::before { opacity: 0; }   /* arrow out */\n.composer.sending .composer-send::after  { transform: scale(1); } /* stop square in */",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build an AI prompt composer that feels alive as you type. The field auto-grows to its content with a glide easing instead of jumping line by line, a slow conic halo rotates behind the border only while focused, and the send button springs from a dim disabled dot to a full accent circle the moment there is text. On submit, morph the arrow into a stop square, run a determinate sweep across the field, then settle back to empty — no spinners, no layout shift."
             },
             "keywords": [
                 "ai",
@@ -1432,9 +1294,6 @@
                 "css": ".filmstrip-head {\n  translate: calc(var(--head) * 1px) 0;   /* --head is measured, not stepped */\n  transition: translate .48s cubic-bezier(.34,1.56,.64,1);\n}\n.filmstrip.scrubbing .filmstrip-head { transition-duration: 90ms; }\n.filmstrip-track button {\n  transform: scaleY(calc(1 + var(--near) * .34));\n  transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .25s ease;\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a video-style filmstrip scrubber. While the pointer moves across the strip, the playhead tracks it almost instantly and each frame swells based on how close it is to the cursor. On release or click, the playhead springs to the centre of the nearest frame and a monospaced timecode updates to that frame. Arrow keys should step frame by frame with the same spring, and the whole thing must stay one row with no reflow."
-            },
             "keywords": [
                 "video",
                 "timeline",
@@ -1463,9 +1322,6 @@
             "snippets": {
                 "css": ".dragstack-row button {\n  transition: translate .5s cubic-bezier(.34,1.56,.64,1), rotate .5s var(--spring);\n}\n.dragstack.gathered button {\n  translate: calc(var(--dx) * 1px) calc(var(--dy) * 1px);\n  rotate: calc(var(--i) * 5deg - 5deg);\n  transition-duration: 120ms;              /* tight while dragging */\n}\n.dragstack.gathered .dragstack-badge { transform: scale(1); }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a Finder-style drag collection. Press on any item in a row and every item converges into a single fanned pile that follows the pointer, each card rotated a few degrees and stacked with a slight z-offset, with a count badge popping in beside them. Track the pointer with a short transition while dragging, and on release let all items spring back to their original slots on a stagger. Never reflow the row — the movement is transform-only."
             },
             "keywords": [
                 "drag and drop",
@@ -1496,9 +1352,6 @@
                 "css": ".focus-ring {\n  position: absolute;\n  width: var(--w); height: var(--h);\n  translate: var(--x) var(--y);\n  border: 1.5px solid var(--amber);\n  transition: translate .48s cubic-bezier(.34,1.56,.64,1),\n              width .48s cubic-bezier(.34,1.56,.64,1),\n              height .48s cubic-bezier(.34,1.56,.64,1);\n  pointer-events: none;\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a shared focus ring that is a single absolutely positioned element, not a per-field outline. Measure the active field and write --x --y --w --h onto the host. The ring springs to the new box with a cubic-bezier overshoot so the leap reads as one object relocating, not two outlines fading. Hover and keyboard focus must share the same path. Never reflow the fields."
-            },
             "keywords": [
                 "focus ring",
                 "shared outline",
@@ -1525,9 +1378,6 @@
             "snippets": {
                 "css": ".talk-wave i {\n  transform: scaleY(0.12);\n  transition: transform .4s cubic-bezier(.34,1.56,.64,1);\n}\n.talk.live .talk-wave i {\n  animation: talk-bar .42s ease-in-out infinite alternate;\n}\n.talk.live .talk-wave i:nth-child(3) { animation-duration: .28s; }\n@keyframes talk-bar {\n  from { transform: scaleY(0.18); }\n  to   { transform: scaleY(1); }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Create a hold-to-talk control. Idle bars sit almost flat. On press they spring up into a staggered live waveform and a ring blooms around the button. On release the bars collapse with a spring, the button flashes SENT for a beat, then everything returns to rest. This is a voice capture, not a confirm-hold ring — the waveform is the state."
             },
             "keywords": [
                 "voice",
@@ -1557,9 +1407,6 @@
                 "css": ".lattice-tile {\n  translate: calc(var(--c) * (100% + 8px))\n             calc(var(--r) * (100% + 8px));\n  transition: translate .5s cubic-bezier(.34,1.56,.64,1);\n}\n.lattice.dragging .lattice-tile {\n  translate: calc(var(--tx) * 1px) calc(var(--ty) * 1px);\n  transition-duration: 80ms;\n}\n.lattice span.hot { border-color: var(--amber); background: rgba(255,138,0,.08); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a 3 by 2 magnetic lattice. While dragging, the tile tracks the pointer with a short trail and the cell under it lights. On release it springs to that cell using column and row custom properties — 100% of the tile size plus the gap — so the same rule works for every slot. Arrow keys should step one cell. Never reflow the grid."
-            },
             "keywords": [
                 "grid",
                 "snap",
@@ -1586,9 +1433,6 @@
             "snippets": {
                 "css": "/* Mostly JS-driven: interval swaps each character\n   for a random glyph, then locks left-to-right\n   once a per-character frame threshold is passed. */\n.scramble {\n  font-family: monospace;\n  letter-spacing: 0.02em;\n}",
                 "react": "const CHARS = '!<>-_/[]{}=+*^?#';\n\nfunction useScramble(text) {\n  const [display, setDisplay] = useState(text);\n  const play = () => {\n    let frame = 0;\n    const total = 24;\n    const id = setInterval(() => {\n      frame++;\n      setDisplay(text.split('').map((c, i) => {\n        if (c === ' ') return ' ';\n        const progress = frame - i * 1.2;\n        return progress > total * 0.6\n          ? c\n          : CHARS[Math.floor(Math.random() * CHARS.length)];\n      }).join(''));\n      if (frame > total + text.length) {\n        clearInterval(id);\n        setDisplay(text);\n      }\n    }, 35);\n  };\n  return [display, play];\n}"
-            },
-            "prompts": {
-                "general": "Build text that decodes from random glyphs into the final string, left to right. On trigger run an interval (~35ms) that swaps each not-yet-settled character for a random symbol, locking characters progressively based on frame count minus their index, then clear the interval and show the final text."
             },
             "keywords": [
                 "text effect",
@@ -1617,9 +1461,6 @@
                 "css": ".marquee-track {\n  display: flex;\n  width: max-content;\n  animation: marquee-scroll 14s linear infinite;\n}\n.marquee-zone:hover .marquee-track {\n  animation-play-state: paused;\n}\n@keyframes marquee-scroll {\n  from { transform: translateX(0); }\n  to { transform: translateX(-50%); }\n}\n/* Duplicate the chip list once so -50% loops seamlessly */",
                 "react": "function Marquee({ items }) {\n  const [paused, setPaused] = useState(false);\n  return (\n    <div\n      onMouseEnter={() => setPaused(true)}\n      onMouseLeave={() => setPaused(false)}\n      style={{ overflow: 'hidden' }}\n    >\n      <div style={{\n        display: 'flex',\n        width: 'max-content',\n        animation: 'marquee-scroll 14s linear infinite',\n        animationPlayState: paused ? 'paused' : 'running',\n      }}>\n        {[...items, ...items].map((item, i) => (\n          <span key={i}>{item}</span>\n        ))}\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build an infinite horizontal marquee of chips that pauses smoothly on hover. Duplicate the chip list and animate the track translateX from 0 to -50% with a linear infinite keyframe so it loops seamlessly; set animation-play-state: paused on hover and add edge mask-image fades."
-            },
             "keywords": [
                 "ticker",
                 "scroll",
@@ -1646,9 +1487,6 @@
             "snippets": {
                 "css": ".stagger-item {\n  opacity: 0;\n  transform: translateY(14px);\n  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),\n              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.stagger-item.in {\n  opacity: 1;\n  transform: translateY(0);\n}\n/* JS adds .in to each item with i * 90ms setTimeout,\n   or via IntersectionObserver for scroll-trigger */",
                 "react": "function StaggerList({ items }) {\n  const [visible, setVisible] = useState(false);\n  const ref = useRef(null);\n\n  useEffect(() => {\n    const obs = new IntersectionObserver(([entry]) => {\n      if (entry.isIntersecting) setVisible(true);\n    }, { threshold: 0.4 });\n    if (ref.current) obs.observe(ref.current);\n    return () => obs.disconnect();\n  }, []);\n\n  return (\n    <div ref={ref}>\n      {items.map((item, i) => (\n        <div key={item} style={{\n          opacity: visible ? 1 : 0,\n          transform: visible ? 'translateY(0)' : 'translateY(14px)',\n          transition: `opacity .45s cubic-bezier(.16,1,.3,1) ${i * 90}ms,\n                       transform .45s cubic-bezier(.16,1,.3,1) ${i * 90}ms`,\n        }}>\n          {item}\n        </div>\n      ))}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a list whose items rise and fade in one after another when scrolled into view. Trigger with an IntersectionObserver; transition each item from opacity 0 / translateY(14px) to visible with cubic-bezier(0.16,1,0.3,1), delaying each by index * 90ms."
             },
             "keywords": [
                 "scroll reveal",
@@ -1677,9 +1515,6 @@
                 "css": ".morph-icon svg {\n  position: absolute;\n  transition: opacity 0.3s, filter 0.3s, transform 0.3s;\n}\n.morph-icon svg.hide {\n  opacity: 0;\n  filter: blur(6px);\n  transform: scale(0.7) rotate(-20deg);\n}\n.morph-icon svg.show {\n  opacity: 1;\n  filter: blur(0);\n  transform: scale(1) rotate(0deg);\n}",
                 "react": "function MorphIcon({ IconA, IconB }) {\n  const [showA, setShowA] = useState(true);\n  const style = (visible) => ({\n    position: 'absolute',\n    opacity: visible ? 1 : 0,\n    filter: visible ? 'blur(0)' : 'blur(6px)',\n    transform: visible ? 'scale(1) rotate(0deg)' : 'scale(0.7) rotate(-20deg)',\n    transition: 'opacity .3s, filter .3s, transform .3s',\n  });\n  return (\n    <div onClick={() => setShowA(!showA)} style={{ position: 'relative', width: 28, height: 28 }}>\n      <IconA style={style(showA)} />\n      <IconB style={style(!showA)} />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build an icon that morphs between two glyphs on click. Crossfade the two SVGs while the outgoing one blurs and scales/rotates out (blur(6px), scale(0.7), rotate(-20deg)) and the incoming one settles in, all over ~0.3s with a spring transform curve."
-            },
             "keywords": [
                 "icon transition",
                 "toggle icon",
@@ -1706,9 +1541,6 @@
             "snippets": {
                 "css": ".underline-link {\n  position: relative;\n  text-decoration: none;\n}\n.underline-link::after {\n  content: '';\n  position: absolute;\n  left: 0; bottom: -4px;\n  width: 100%; height: 2px;\n  background: currentColor;\n  transform: scaleX(0);\n  transform-origin: left;\n  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);\n}\n.underline-link:hover::after {\n  transform: scaleX(1);\n}",
                 "react": "function DrawUnderline({ children, href }) {\n  return (\n    <a href={href} style={{ position: 'relative', textDecoration: 'none' }}\n       className=\"draw-underline-link\">\n      {children}\n    </a>\n  );\n}\n/* :hover state still needs a real CSS rule —\n   pair this component with the .draw-underline-link\n   class above since inline styles can't hover. */"
-            },
-            "prompts": {
-                "general": "Build a link whose underline draws in from left to right on hover. Use an ::after bar with transform: scaleX(0) and transform-origin: left, transitioning to scaleX(1) on hover with cubic-bezier(0.65,0,0.35,1) over ~0.4s. Pure CSS."
             },
             "keywords": [
                 "link hover",
@@ -1737,9 +1569,6 @@
                 "css": ".progress-fill {\n  height: 100%;\n  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);\n}\n/* The cubic-bezier overshoot curve (1, 0.16) gives a\n   slight bounce as width settles past its target. */",
                 "react": "function ElasticProgress({ value }) {\n  return (\n    <div style={{ height: 8, background: '#232326', borderRadius: 100, overflow: 'hidden' }}>\n      <div style={{\n        height: '100%',\n        width: `${value}%`,\n        background: 'linear-gradient(90deg, #B36200, #FF8A00)',\n        transition: 'width .9s cubic-bezier(.16,1,.3,1)',\n      }} />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a progress bar whose gradient fill eases toward its target with a smooth settle. Animate width with cubic-bezier(0.16,1,0.3,1) over ~0.9s so it decelerates gently into place."
-            },
             "keywords": [
                 "progress bar",
                 "loading",
@@ -1766,9 +1595,6 @@
             "snippets": {
                 "css": ".tooltip-bubble {\n  opacity: 0;\n  transform: translateX(-50%) scale(0.85);\n  transition: opacity 0.15s, transform 0.15s;\n}\n.tooltip-zone:hover .tooltip-bubble {\n  opacity: 1;\n  transform: translateX(-50%) scale(1);\n  /* delay only on the way IN */\n  transition: opacity 0.15s 0.4s, transform 0.15s 0.4s;\n}",
                 "react": "function DelayedTooltip({ label, children }) {\n  const [show, setShow] = useState(false);\n  const timer = useRef(null);\n\n  const onEnter = () => { timer.current = setTimeout(() => setShow(true), 400); };\n  const onLeave = () => { clearTimeout(timer.current); setShow(false); };\n\n  return (\n    <div onMouseEnter={onEnter} onMouseLeave={onLeave} style={{ position: 'relative' }}>\n      {children}\n      <div style={{\n        opacity: show ? 1 : 0,\n        transform: `translateX(-50%) scale(${show ? 1 : 0.85})`,\n        transition: show ? 'opacity .15s, transform .15s' : 'opacity .1s, transform .1s',\n      }}>\n        {label}\n      </div>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a tooltip that appears only after a short hover delay but disappears instantly. On hover transition opacity and scale in with a ~0.4s delay (springy transform); on leave drop the delay so it vanishes immediately. CSS-only works by putting the delay only on the :hover rule."
             },
             "keywords": [
                 "tooltip delay",
@@ -1797,9 +1623,6 @@
                 "css": ".switch-knob {\n  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),\n              background 0.3s;\n}\n.switch.on .switch-knob {\n  transform: translateX(22px);\n}",
                 "react": "function SpringSwitch() {\n  const [on, setOn] = useState(false);\n  return (\n    <div\n      onClick={() => setOn(!on)}\n      style={{\n        width: 52, height: 30, borderRadius: 100, padding: 3,\n        background: on ? '#B36200' : '#1A1A1D',\n        transition: 'background .3s',\n      }}\n    >\n      <div style={{\n        width: 22, height: 22, borderRadius: '50%',\n        background: on ? '#FF8A00' : '#A8A6A0',\n        transform: on ? 'translateX(22px)' : 'translateX(0)',\n        transition: 'transform .4s cubic-bezier(.34,1.56,.64,1), background .3s',\n      }} />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a toggle switch whose knob overshoots as it slides. Translate the knob across the track with cubic-bezier(0.34,1.56,0.64,1) over ~0.4s while crossfading track and knob colors. Toggle an .on class."
-            },
             "keywords": [
                 "toggle",
                 "on off",
@@ -1826,9 +1649,6 @@
             "snippets": {
                 "css": ".tick {\n  stroke-dasharray: 24;\n  stroke-dashoffset: 24;            /* hidden */\n  transition: stroke-dashoffset 0.32s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;\n}\n.check.checked .tick { stroke-dashoffset: 0; }   /* draws on */\n.check.checked .box  { background: #FF8A00; border-color: #FF8A00; }",
                 "react": "function DrawCheckbox({ label }) {\n  const [on, setOn] = useState(false);\n  return (\n    <label className={on ? 'check checked' : 'check'} onClick={() => setOn(!on)}>\n      <span className=\"box\">\n        <svg viewBox=\"0 0 24 24\">\n          <path className=\"tick\" d=\"M5 12.5 L10 17.5 L19 7\" />\n        </svg>\n      </span>\n      <span className=\"label\">{label}</span>\n    </label>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a checkbox whose tick is drawn on with an animated SVG stroke. Set the check path's stroke-dasharray to its length and animate stroke-dashoffset from full to 0 with cubic-bezier(0.16,1,0.3,1) over ~0.32s when checked; fill the box with the accent color and strike through the label."
             },
             "keywords": [
                 "check",
@@ -1857,9 +1677,6 @@
                 "css": ".caret {\n  display: inline-block; width: 2px; height: 1.1em;\n  background: #FF8A00;\n  animation: blink 1s steps(1) infinite;\n}\n@keyframes blink { 50% { opacity: 0; } }\n/* JS advances one character every ~55ms, pauses at the end\n   of a phrase, then backspaces and moves to the next. */",
                 "react": "function Typewriter({ phrases }) {\n  const [text, setText] = useState('');\n  const i = useRef(0), c = useRef(0), del = useRef(false);\n\n  useEffect(() => {\n    let id;\n    const loop = () => {\n      const word = phrases[i.current];\n      setText(word.slice(0, c.current));\n      let wait = 55;\n      if (!del.current && c.current < word.length) c.current++;\n      else if (!del.current) { del.current = true; wait = 1100; }\n      else if (c.current > 0) { c.current--; wait = 30; }\n      else { del.current = false; i.current = (i.current + 1) % phrases.length; wait = 320; }\n      id = setTimeout(loop, wait);\n    };\n    loop();\n    return () => clearTimeout(id);\n  }, [phrases]);\n\n  return <span>{text}<span className=\"caret\" /></span>;\n}"
             },
-            "prompts": {
-                "general": "Build a typewriter that types a phrase, pauses, deletes it, and advances to the next, looping forever. Type one character every ~55ms and delete every ~30ms, pause ~1.1s at the full phrase, and show a blinking caret via a CSS steps() animation."
-            },
             "keywords": [
                 "typing",
                 "text animation",
@@ -1886,9 +1703,6 @@
             "snippets": {
                 "css": "/* The motion is JS (requestAnimationFrame easing), the type\n   treatment keeps digits from shifting width as they change. */\n.odometer {\n  font-variant-numeric: tabular-nums;\n  letter-spacing: -0.02em;\n}",
                 "react": "function CountUp({ target, duration = 1400 }) {\n  const ref = useRef(null);\n  const [n, setN] = useState(0);\n\n  useEffect(() => {\n    const obs = new IntersectionObserver(([e]) => {\n      if (!e.isIntersecting) return;\n      obs.disconnect();\n      const t0 = performance.now();\n      const step = (t) => {\n        const p = Math.min((t - t0) / duration, 1);\n        setN(Math.round(target * (1 - Math.pow(1 - p, 3))));\n        if (p < 1) requestAnimationFrame(step);\n      };\n      requestAnimationFrame(step);\n    }, { threshold: 0.5 });\n    obs.observe(ref.current);\n    return () => obs.disconnect();\n  }, [target]);\n\n  return <div ref={ref}>{n.toLocaleString()}</div>;\n}"
-            },
-            "prompts": {
-                "general": "Build a large number that counts up from zero to a target when it scrolls into view. Trigger with an IntersectionObserver, then over ~1.4s use requestAnimationFrame with an ease-out cubic (1 - (1-p)^3) to interpolate the value, formatting with thousands separators and tabular-nums."
             },
             "keywords": [
                 "statistics",
@@ -1920,9 +1734,6 @@
                 "css": ".pill { transition: background 0.35s, border-color 0.35s, color 0.35s; }\n.pill[data-state=\"loading\"] { color: #5B8DEF; }\n.pill[data-state=\"loading\"] .icon::before {\n  content: ''; width: 12px; height: 12px; border-radius: 50%;\n  border: 2px solid rgba(91,141,239,0.3); border-top-color: #5B8DEF;\n  animation: spin 0.7s linear infinite;\n}\n.pill[data-state=\"success\"] { background: #4CD08A; color: #0E0E10; }\n@keyframes spin { to { transform: rotate(1turn); } }",
                 "react": "function StatusPill() {\n  const [state, setState] = useState('idle');\n  const labels = { idle: 'Deploy', loading: 'Deploying…', success: 'Deployed' };\n\n  const run = () => {\n    if (state === 'success') return setState('idle');\n    setState('loading');\n    setTimeout(() => setState('success'), 1500);\n  };\n\n  return (\n    <button className=\"pill\" data-state={state} onClick={run}>\n      <span className=\"icon\">{state === 'success' ? <Check /> : null}</span>\n      <span>{labels[state]}</span>\n    </button>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a button that morphs through idle → loading → success. On click switch to a loading state with a spinning ring and 'Deploying…' label, then after ~1.5s to a green success state with an animated check; clicking again resets. Crossfade background, border and text colors over ~0.35s."
-            },
             "keywords": [
                 "state",
                 "badge",
@@ -1949,9 +1760,6 @@
             "snippets": {
                 "css": ".badge { position: relative; }\n.badge::before, .badge::after {\n  content: '';\n  position: absolute; inset: 0;\n  border-radius: 50%;\n  border: 2px solid #FF8A00;\n  animation: pulse-ring 1.8s ease-out infinite;\n}\n.badge::after { animation-delay: 0.9s; }\n@keyframes pulse-ring {\n  0%   { transform: scale(1); opacity: 0.7; }\n  100% { transform: scale(2.4); opacity: 0; }\n}",
                 "react": "function PulseBadge({ count }) {\n  // Pure CSS: two ::before/::after rings scale out and fade,\n  // offset by half the duration so a ring is always traveling.\n  return (\n    <span className=\"badge\">{count}</span>\n  );\n}\n/* pair with the .badge ::before / ::after rules in the CSS tab */"
-            },
-            "prompts": {
-                "general": "Build a notification badge that radiates expanding rings, pure CSS. Put two ::before/::after rings on the badge that animate from scale(1)/opacity 0.7 to scale(2.4)/opacity 0 on an ease-out infinite loop (~1.8s), offsetting the second by half the duration so a ring is always traveling outward."
             },
             "keywords": [
                 "notification dot",
@@ -1980,9 +1788,6 @@
                 "css": ".ring {\n  fill: none; stroke: #2A2A2E; stroke-width: 3;\n  stroke-dasharray: 151; stroke-dashoffset: 151;\n  transition: stroke-dashoffset 0.5s cubic-bezier(0.65, 0, 0.35, 1);\n}\n.tick {\n  fill: none; stroke: #4CD08A; stroke-width: 4; stroke-linecap: round;\n  stroke-dasharray: 28; stroke-dashoffset: 28;\n  transition: stroke-dashoffset 0.3s ease-out 0.4s;\n}\n.check.done .ring { stroke: #4CD08A; stroke-dashoffset: 0; }\n.check.done .tick { stroke-dashoffset: 0; }",
                 "react": "function SuccessCheck() {\n  const [done, setDone] = useState(false);\n  return (\n    <button className={done ? 'check done' : 'check'}\n            onClick={() => setDone(d => !d)}>\n      <svg viewBox=\"0 0 52 52\">\n        <circle className=\"ring\" cx=\"26\" cy=\"26\" r=\"24\" />\n        <path className=\"tick\" d=\"M15 27 l7 7 l15 -15\" />\n      </svg>\n    </button>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a circular success indicator whose ring and checkmark draw themselves on click. Set stroke-dasharray to each path's length and animate stroke-dashoffset from full to 0 — the ring over ~0.5s, then the tick over ~0.3s with a short delay so it follows. Toggle a .done class; recolor the ring to green as it completes."
-            },
             "keywords": [
                 "checkmark",
                 "done",
@@ -2009,9 +1814,6 @@
             "snippets": {
                 "css": ".segment {\n  flex: 1; height: 8px; border-radius: 4px;\n  background: #232326;\n  overflow: hidden;\n}\n.segment::after {\n  content: '';\n  display: block; height: 100%;\n  background: linear-gradient(90deg, #B36200, #FF8A00);\n  transform: scaleX(0); transform-origin: left;\n  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.segment.filled::after { transform: scaleX(1); }\n/* JS adds .filled to each segment on an i * 120ms stagger. */",
                 "react": "function SegmentLoader({ count = 5 }) {\n  const [filled, setFilled] = useState(0);\n\n  const run = () => {\n    setFilled(0);\n    for (let i = 1; i <= count; i++) {\n      setTimeout(() => setFilled(i), i * 120);\n    }\n  };\n\n  return (\n    <div>\n      <div style={{ display: 'flex', gap: 6 }}>\n        {Array.from({ length: count }).map((_, i) => (\n          <span key={i} className={i < filled ? 'segment filled' : 'segment'} />\n        ))}\n      </div>\n      <button onClick={run}>Load</button>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a segmented progress loader that fills its bars in sequence on demand. Each segment's fill is an ::after scaled with scaleX from a left origin; on trigger, reset all then add a .filled class to each segment on an index * 120ms stagger so they sweep in left to right with cubic-bezier(0.16,1,0.3,1)."
             },
             "keywords": [
                 "loading",
@@ -2040,9 +1842,6 @@
                 "css": ".spinner {\n  width: 44px; height: 44px;\n  border-radius: 50%;\n  border: 4px solid #232326;\n  border-top-color: #FF8A00;\n  border-right-color: #FF8A00;\n  animation: spin 0.8s linear infinite;\n}\n@keyframes spin { to { transform: rotate(1turn); } }",
                 "react": "function Spinner() {\n  // Pure CSS: a transparent ring with two adjacent borders\n  // tinted the accent color, rotated on a fast linear loop.\n  return <div className=\"spinner\" />;\n}\n/* pair with the .spinner rule + spin keyframe in the CSS tab */"
             },
-            "prompts": {
-                "general": "Build a circular loading spinner, pure CSS. Make a round element with a thick neutral border, tint two adjacent sides (top and right) the accent color to form an arc, and rotate it 1turn on a linear infinite loop (~0.8s)."
-            },
             "keywords": [
                 "loading spinner",
                 "loader",
@@ -2069,9 +1868,6 @@
             "snippets": {
                 "css": ".ring .prog {\n  fill: none; stroke: #FF8A00; stroke-width: 6; stroke-linecap: round;\n  stroke-dasharray: 213.6;            /* 2π · r (r = 34) */\n  transition: stroke-dashoffset 0.9s cubic-bezier(0.16, 1, 0.3, 1);\n}\n/* offset = circumference · (1 − pct); rotate −90deg so it\n   starts at 12 o'clock. JS sets the offset + label. */",
                 "react": "function ProgressRing({ pct }) {\n  const C = 2 * Math.PI * 34;\n  return (\n    <svg viewBox=\"0 0 80 80\" style={{ transform: 'rotate(-90deg)' }}>\n      <circle cx=\"40\" cy=\"40\" r=\"34\" className=\"track\" />\n      <circle\n        cx=\"40\" cy=\"40\" r=\"34\" className=\"prog\"\n        style={{\n          strokeDasharray: C,\n          strokeDashoffset: C * (1 - pct / 100),\n          transition: 'stroke-dashoffset .9s cubic-bezier(.16,1,.3,1)',\n        }}\n      />\n    </svg>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a circular progress ring driven by a percentage. Use two stacked SVG circles (track + progress); set the progress circle's stroke-dasharray to its circumference (2π·r) and animate stroke-dashoffset to circumference·(1−pct) with cubic-bezier(0.16,1,0.3,1) over ~0.9s. Rotate the ring −90deg so it fills from the top, and show the percentage in the center."
             },
             "keywords": [
                 "circular progress",
@@ -2100,9 +1896,6 @@
                 "css": ".notify {\n  transform: translate(-50%, -160%);\n  opacity: 0;\n  transition: transform 0.55s cubic-bezier(0.18, 1.25, 0.4, 1),\n              opacity 0.3s;\n}\n.notify.show {\n  transform: translate(-50%, 0);\n  opacity: 1;\n}\n/* JS adds .show on trigger, removes it after ~2.2s. */",
                 "react": "function Notification({ message, show }) {\n  return (\n    <div\n      style={{\n        position: 'absolute', left: '50%', top: 12,\n        transform: show\n          ? 'translate(-50%, 0)'\n          : 'translate(-50%, -160%)',\n        opacity: show ? 1 : 0,\n        transition:\n          'transform .55s cubic-bezier(.18,1.25,.4,1), opacity .3s',\n      }}\n    >\n      {message}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a notification banner that drops in from the top edge. Transition transform from translateY(-160%) to translateY(0) with cubic-bezier(0.18,1.25,0.4,1) over ~0.55s while opacity fades in, so it overshoots slightly and settles; auto-dismiss after a couple seconds."
-            },
             "keywords": [
                 "banner",
                 "alert",
@@ -2129,9 +1922,6 @@
             "snippets": {
                 "css": ".track i {\n  transform: scaleX(0); transform-origin: left;\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.steps[data-step=\"2\"] .track i { transform: scaleX(0.33); }\n.steps[data-step=\"3\"] .track i { transform: scaleX(0.66); }\n.steps[data-step=\"4\"] .track i { transform: scaleX(1); }\n.step.active {\n  transform: scale(1.18);\n  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}",
                 "react": "function StepProgress({ count = 4 }) {\n  const [step, setStep] = useState(1);\n  const next = () => setStep((s) => (s % count) + 1);\n  return (\n    <div>\n      <div className=\"steps\" data-step={step}>\n        {Array.from({ length: count }).map((_, i) => (\n          <span\n            key={i}\n            className={i + 1 <= step ? 'step active' : 'step'}\n          >\n            {i + 1}\n          </span>\n        ))}\n        <span className=\"track\">\n          <i style={{ transform: `scaleX(${(step - 1) / (count - 1)})` }} />\n        </span>\n      </div>\n      <button onClick={next}>Next</button>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a horizontal step progress indicator: numbered nodes joined by a connector line. Track the current step in state; render a fill bar over the connector and scale it on the x-axis to (step - 1) / (count - 1) with a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.5s. Mark every node up to the current step active with an accent fill and a small spring scale pop. A Next button advances and wraps back to the start."
             },
             "keywords": [
                 "wizard",
@@ -2160,9 +1950,6 @@
                 "css": ".snackbar {\n  transform: translateY(120%);\n  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.snackbar.show { transform: translateY(0); }\n.snackbar .progress {\n  transform-origin: left;\n  animation: drain 3s linear forwards;\n}\n@keyframes drain { from { transform: scaleX(1); } to { transform: scaleX(0); } }",
                 "react": "function UndoSnackbar() {\n  const [open, setOpen] = useState(false);\n  useEffect(() => {\n    if (!open) return;\n    const t = setTimeout(() => setOpen(false), 3000);\n    return () => clearTimeout(t);\n  }, [open]);\n  return (\n    <>\n      <button onClick={() => setOpen(true)}>Delete item</button>\n      <div className={open ? 'snackbar show' : 'snackbar'}>\n        <span>Item deleted</span>\n        <button onClick={() => setOpen(false)}>Undo</button>\n        {open && <span className=\"progress\" />}\n      </div>\n    </>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build an undo snackbar that appears after a destructive action. Slide it up from below with a spring cubic-bezier(0.34, 1.56, 0.64, 1) and run a progress bar that scales from scaleX(1) to scaleX(0) over 3s (drain keyframes, transform-origin left) to show the remaining undo window. Auto-dismiss when the timer ends, or hide immediately if Undo is clicked."
-            },
             "keywords": [
                 "undo",
                 "snackbar",
@@ -2189,9 +1976,6 @@
             "snippets": {
                 "css": ".dots i {\n  animation: bounce 0.6s ease-in-out infinite;\n}\n.dots i:nth-child(2) { animation-delay: 0.12s; }\n.dots i:nth-child(3) { animation-delay: 0.24s; }\n@keyframes bounce { 50% { transform: translateY(-6px); } }\n.check path {\n  stroke-dasharray: 30;\n  stroke-dashoffset: 30;\n  transition: stroke-dashoffset 0.4s var(--spring);\n}\n.done .check path { stroke-dashoffset: 0; }",
                 "react": "function SubmitButton() {\n  const [state, setState] = useState('idle'); // idle | loading | done\n  const submit = () => {\n    setState('loading');\n    setTimeout(() => setState('done'), 1400);\n  };\n  return (\n    <button data-state={state} onClick={submit}>\n      {state === 'idle' && <span>Save</span>}\n      {state === 'loading' && <span className=\"dots\">•••</span>}\n      {state === 'done' && <span>✓</span>}\n    </button>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a submit button that cycles through three states: label, loading, done. On click swap the label for three dots that bounce on a staggered ease-in-out loop (translateY keyframes, delays 0/0.12/0.24s). After ~1.4s switch to a checkmark drawn in via stroke-dashoffset animated to 0 with a spring easing. Crossfade between the three states so only one is visible at a time."
             },
             "keywords": [
                 "button states",
@@ -2220,9 +2004,6 @@
                 "css": ".countdown .prog {\n  stroke-dasharray: 213.6;\n  stroke-dashoffset: 0;\n  transition: stroke-dashoffset 1s linear, stroke 0.3s ease;\n}\n.countdown.done .prog { stroke: #4CD08A; }",
                 "react": "function Countdown({ seconds = 5 }) {\n  const [n, setN] = useState(seconds);\n  const [running, setRunning] = useState(false);\n  const C = 2 * Math.PI * 34;\n\n  useEffect(() => {\n    if (!running) return;\n    if (n <= 0) { setRunning(false); return; }\n    const t = setTimeout(() => setN(n - 1), 1000);\n    return () => clearTimeout(t);\n  }, [n, running]);\n\n  const pct = n / seconds;\n  return (\n    <div onClick={() => { if (!running) { setN(seconds); setRunning(true); } }}>\n      <svg viewBox=\"0 0 80 80\">\n        <circle className=\"track\" cx=\"40\" cy=\"40\" r=\"34\" />\n        <circle className=\"prog\" cx=\"40\" cy=\"40\" r=\"34\"\n          style={{\n            strokeDashoffset: C * (1 - pct),\n            transition: 'stroke-dashoffset 1s linear',\n          }} />\n      </svg>\n      <span>{n}</span>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a circular countdown timer. An SVG ring with stroke-dasharray equal to its circumference starts fully drawn; each second the stroke-dashoffset increases by one segment over a 1s linear transition so the ring drains. Show the remaining seconds in the center. On tap, reset to the start value and begin ticking; when it reaches zero, switch the ring color to a success green."
-            },
             "keywords": [
                 "timer",
                 "countdown",
@@ -2249,9 +2030,6 @@
             "snippets": {
                 "css": ".skel-bar {\n  background: linear-gradient(90deg, #232326 25%, #34343a 50%, #232326 75%);\n  background-size: 200% 100%;\n  animation: shimmer-sweep 1.4s ease-in-out infinite;\n}\n@keyframes shimmer-sweep {\n  0%   { background-position: 200% 0; }\n  100% { background-position: -200% 0; }\n}\n.skel-content.loaded .skel-bar { animation: none; opacity: 0; }\n.skel-content.loaded .skel-real { opacity: 1; transform: translateY(0); }",
                 "react": "function SkeletonCard() {\n  const [loaded, setLoaded] = useState(false);\n  return (\n    <div\n      className={loaded ? 'skel-content loaded' : 'skel-content'}\n      onClick={() => setLoaded(true)}\n    >\n      {!loaded && (\n        <>\n          <div className=\"skel-avatar\" />\n          <div className=\"skel-bar\" />\n          <div className=\"skel-bar short\" />\n        </>\n      )}\n      {loaded && (\n        <>\n          <div className=\"skel-real-avatar\">K</div>\n          <div className=\"skel-real-name\">Ada Lovelace</div>\n          <div className=\"skel-real-meta\">Analytical Engine</div>\n        </>\n      )}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a skeleton loading card that shimmers with a gradient sweep and resolves into real content on click. Show a circular avatar placeholder and two text bars with a 200%-size linear-gradient background that animates its background-position back and forth (shimmer-sweep). On click, fade out the skeleton elements and fade in the real avatar, name, and metadata with a small translateY glide."
             },
             "keywords": [
                 "skeleton",
@@ -2280,9 +2058,6 @@
                 "css": ".toaststack-item {\n  transform: translateY(100%) scale(0.9);\n  opacity: 0;\n  transition: transform 0.5s cubic-bezier(0.18, 1.25, 0.4, 1),\n              opacity 0.3s ease;\n}\n.toaststack-item.show {\n  transform: translateY(0) scale(1);\n  opacity: 1;\n}\n.toaststack-item.hide {\n  transform: translateY(20px) scale(0.9);\n  opacity: 0;\n}",
                 "react": "function ToastStack({ max = 3 }) {\n  const [toasts, setToasts] = useState([]);\n  const idRef = useRef(0);\n\n  const push = () => {\n    const id = ++idRef.current;\n    setToasts((prev) => [...prev.slice(-max + 1), { id, msg: 'Saved ' + id }]);\n    setTimeout(() => {\n      setToasts((prev) => prev.filter((t) => t.id !== id));\n    }, 2400);\n  };\n\n  return (\n    <>\n      <button onClick={push}>Push toast</button>\n      <div className=\"toaststack\">\n        {toasts.map((t) => (\n          <div key={t.id} className=\"toaststack-item show\">\n            <span className=\"dot\" /> {t.msg}\n          </div>\n        ))}\n      </div>\n    </>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a toast stack that can hold up to 3 toasts. On button click, push a new toast that slides up from the bottom with an overshoot cubic-bezier(0.18,1.25,0.4,1) and auto-dismisses after ~2.4s by sliding down and fading. When a new toast is pushed beyond the max, the oldest is removed. Stack them vertically with a small gap."
-            },
             "keywords": [
                 "toasts",
                 "notifications",
@@ -2309,9 +2084,6 @@
             "snippets": {
                 "css": ".bar { position: relative; overflow: hidden; }\n.bar::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  width: 40%;\n  background: #ff8a00;\n  animation: slide 1.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;\n}\n@keyframes slide {\n  0%   { transform: translateX(-100%); }\n  100% { transform: translateX(320%); }\n}",
                 "react": "function IndeterminateBar() {\n  return (\n    <div className=\"bar\" role=\"progressbar\">\n      <span />\n    </div>\n  );\n  // .bar span animates translateX(-100% -> 320%)\n  // on a 1.4s glide loop; width is fixed at 40%.\n}"
-            },
-            "prompts": {
-                "general": "Build an indeterminate progress bar: a thin rounded track with a 40%-wide accent segment that sweeps across it on an infinite 1.4s loop using a glide cubic-bezier(0.16, 1, 0.3, 1). Animate translateX from -100% to 320% so the segment fully enters and exits. Keep overflow hidden and the track a muted inset colour."
             },
             "keywords": [
                 "loading",
@@ -2340,9 +2112,6 @@
                 "css": ".badge::after {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  border-radius: 50%;\n  background: #ff8a00;\n  animation: pulse 1.8s ease-out infinite;\n}\n@keyframes pulse {\n  0%        { transform: scale(1);   opacity: 0.7; }\n  70%, 100% { transform: scale(2.6); opacity: 0; }\n}",
                 "react": "function PulseBadge({ children }) {\n  return (\n    <span className=\"wrap\">\n      {children}\n      <span className=\"dot\" />\n      <span className=\"dot pulse\" />\n    </span>\n  );\n  // .pulse animates scale(1 -> 2.6) + opacity(0.7 -> 0)\n}"
             },
-            "prompts": {
-                "general": "Add a small accent notification dot to a bell icon, then layer a second copy behind it that pulses outward forever: scale(1) to scale(2.6) while fading opacity 0.7 to 0 on a 1.8s ease-out loop. The solid dot stays put while the ghost ring radiates, signalling an unread/new state without any interaction."
-            },
             "keywords": [
                 "notification dot",
                 "alert",
@@ -2369,9 +2138,6 @@
             "snippets": {
                 "css": ".line {\n  background: linear-gradient(90deg, #232326 0%, #2a2a2e 20%, #232326 40%);\n  background-size: 280% 100%;\n  animation: shimmer 1.5s linear infinite;\n}\n@keyframes shimmer {\n  0%   { background-position: 140% 0; }\n  100% { background-position: -140% 0; }\n}",
                 "react": "function Skeleton({ lines = 3 }) {\n  return (\n    <div className=\"skeleton\">\n      {Array.from({ length: lines }).map((_, i) => (\n        <div key={i} className=\"line\" />\n      ))}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a loading skeleton of stacked rounded bars. Give each bar a wide linear-gradient (muted, lighter highlight, muted) sized to ~280% width and animate background-position from 140% to -140% on a 1.5s linear infinite loop so a soft highlight sweeps across. Make the last line shorter (~60%) to imply a paragraph."
             },
             "keywords": [
                 "skeleton",
@@ -2400,9 +2166,6 @@
                 "css": ".typing span {\n  animation: bounce 1.2s ease-in-out infinite;\n}\n.typing span:nth-child(2) { animation-delay: 0.16s; }\n.typing span:nth-child(3) { animation-delay: 0.32s; }\n@keyframes bounce {\n  0%, 60%, 100% { transform: translateY(0);    opacity: 0.4; }\n  30%           { transform: translateY(-7px); opacity: 1; }\n}",
                 "react": "function TypingDots() {\n  return (\n    <div className=\"typing\">\n      {[0, 1, 2].map((i) => (\n        <span key={i} style={{ animationDelay: `${i * 0.16}s` }} />\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a chat \"typing…\" indicator: a rounded bubble (with one squared corner) holding three dots. Animate each dot on an infinite 1.2s ease-in-out loop that lifts it ~7px and brightens opacity at the 30% mark, otherwise resting low and dim. Stagger the three dots by ~0.16s so the bounce travels left to right."
-            },
             "keywords": [
                 "chat",
                 "messaging",
@@ -2429,9 +2192,6 @@
             "snippets": {
                 "css": ".dot {\n  background: #4cd08a;\n  box-shadow: 0 0 12px 2px #4cd08a;\n  offset-path: path(\"M0,42 L80,18 L92,68 L104,42 L230,42\");\n  animation: trace 2.4s linear infinite;\n}\n@keyframes trace {\n  from { offset-distance: 0%; }\n  to   { offset-distance: 100%; }\n}",
                 "react": "const PATH = 'M0,42 L80,18 L92,68 L104,42 L230,42';\n\nfunction Heartbeat() {\n  return (\n    <div className=\"ekg\">\n      <svg viewBox=\"0 0 230 84\">\n        <path className=\"line\" d={PATH} />\n      </svg>\n      <span className=\"dot\" style={{ offsetPath: `path(\"${PATH}\")` }} />\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a heart-rate monitor. Draw a faint EKG line as an SVG path (flat, a sharp QRS spike, flat, a small bump, flat). Then put a glowing accent dot on the same path using CSS offset-path: path(...) and animate offset-distance from 0% to 100% on an infinite 2.4s linear loop so the dot sweeps along the trace. Give the dot a box-shadow glow so it reads like a live signal."
             },
             "keywords": [
                 "ekg",
@@ -2460,9 +2220,6 @@
                 "css": ".fill {\n  background: linear-gradient(90deg, #4cd08a, #74e2aa);\n  animation: charge 3.6s ease-in-out infinite;\n}\n@keyframes charge {\n  0%        { width: 14%; }\n  85%, 100% { width: 100%; }\n}",
                 "react": "function Battery({ level }) {\n  return (\n    <div className=\"battery\">\n      <div\n        className=\"fill\"\n        style={{ width: `${level}%`, transition: 'width 0.4s ease' }}\n      />\n      <BoltIcon className=\"bolt\" />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a charging battery indicator: a rounded battery body with a small terminal nub on the right. Inside, a green gradient fill grows its width from ~14% to 100% on an infinite 3.6s ease-in-out loop, holding full briefly before looping. Centre a lightning bolt icon over it that gently pulses scale and opacity, and show a \"Charging…\" label below."
-            },
             "keywords": [
                 "charging",
                 "battery",
@@ -2489,9 +2246,6 @@
             "snippets": {
                 "css": ".bar::after {\n  background: #4cd08a;\n  animation: fill 2.4s ease-in-out infinite;\n}\n.bar:nth-child(2)::after { animation-delay: 0.18s; }\n.bar:nth-child(3)::after { animation-delay: 0.36s; }\n.bar:nth-child(4)::after { animation-delay: 0.54s; }\n@keyframes fill {\n  0% { opacity: 0; } 12%,70% { opacity: 1; } 82%,100% { opacity: 0; }\n}",
                 "react": "function SignalBars() {\n  const heights = [32, 55, 78, 100];\n  return (\n    <div className=\"signal\">\n      {heights.map((h, i) => (\n        <span\n          key={i}\n          className=\"bar\"\n          style={{ height: `${h}%`, animationDelay: `${i * 0.18}s` }}\n        />\n      ))}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a \"connecting\" signal-strength indicator: four bars of increasing height. Each has a green fill overlay that animates opacity 0→1→0 on an infinite 2.4s loop, with the four bars staggered by ~0.18s so they light up left-to-right in sequence, hold briefly, then clear and repeat — like a device searching for signal."
             },
             "keywords": [
                 "wifi",
@@ -2520,9 +2274,6 @@
                 "css": ".count { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }\n.count.pop { transform: scale(1.4); }\n/* toggle .pop off after ~320ms to let it spring back */",
                 "react": "function CartBadge() {\n  const [n, setN] = useState(1);\n  const [pop, setPop] = useState(false);\n  const add = () => {\n    setN(n + 1);\n    setPop(true);\n    setTimeout(() => setPop(false), 320);\n  };\n  return (\n    <button onClick={add}>\n      <CartIcon />\n      <span className={pop ? 'count pop' : 'count'}>{n}</span>\n    </button>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a cart icon with a numeric badge in the corner. On each click, increment the number and pop the badge to scale(1.4) with a spring cubic-bezier(0.34, 1.56, 0.64, 1), then remove the class after ~320ms so it springs back to rest. Force a reflow between removing and re-adding the class so rapid clicks re-trigger the bump every time."
-            },
             "keywords": [
                 "notification count",
                 "unread",
@@ -2549,9 +2300,6 @@
             "snippets": {
                 "css": ".mark svg { fill: transparent; stroke: #a8a6a0; transition: fill 0.3s, stroke 0.3s; }\n.mark input:checked + svg {\n  fill: #ff8a00; stroke: #ff8a00;\n  animation: drop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n@keyframes drop {\n  0%   { transform: translateY(-9px) scale(0.9); }\n  55%  { transform: translateY(3px)  scale(1.14); }\n  100% { transform: translateY(0)    scale(1); }\n}",
                 "react": "function Bookmark() {\n  const [saved, setSaved] = useState(false);\n  return (\n    <button\n      onClick={() => setSaved(!saved)}\n      className={saved ? 'mark on' : 'mark'}\n      aria-pressed={saved}\n    >\n      <RibbonIcon />\n    </button>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a bookmark/ribbon save toggle backed by a hidden checkbox. When unchecked the ribbon is just an outline; when checked it fills with the accent colour and plays a one-shot \"drop in\" keyframe — start slightly above and small, overshoot down and large, then settle — using a spring cubic-bezier(0.34, 1.56, 0.64, 1). Tint the \"Save\" label to match. Pure CSS via :checked."
             },
             "keywords": [
                 "save",
@@ -2580,9 +2328,6 @@
                 "css": ".packet-map i { stroke-dasharray: 7 8; animation: packet 1.8s linear infinite; }\n@keyframes packet { to { stroke-dashoffset: -45; } }",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a tiny network-status visualization: three endpoint dots are connected by two angled routes, with a bright segmented packet stream moving along them. Keep the topology quiet and let only the travelling packets and destination glow communicate activity."
-            },
             "keywords": [
                 "network",
                 "data flow",
@@ -2609,9 +2354,6 @@
             "snippets": {
                 "css": ".phase span { animation: orbit 1.4s ease-in-out infinite alternate; }\n.phase span:nth-child(2) { animation-delay: -.23s; }\n.phase:hover span { animation-delay: 0s; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Create a compact synchronization status. Three dots orbit with different phase offsets while idle; on hover they resolve into a clean aligned row and reveal SYNC. It should make an abstract backend state feel delightfully physical without using a spinner."
             },
             "keywords": [
                 "sync",
@@ -2640,9 +2382,6 @@
                 "css": ".checksum:hover span { color: var(--ok); transform: scale(1.15); }\n.checksum span { transition: 0.35s var(--spring); transition-delay: calc(var(--i) * 35ms); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Design a checksum verification micro-state using a row of binary cells. On hover, cells bloom from dim neutral to green in a short sequential wave, ending at a highlighted check. It should feel more like a cryptographic handshake than a conventional success alert."
-            },
             "keywords": [
                 "hash",
                 "verification",
@@ -2669,9 +2408,6 @@
             "snippets": {
                 "css": ".receipt span { animation: echo 1.8s var(--spring) infinite; }\n.receipt span:nth-child(2) { animation-delay: .09s; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Show delivery acknowledgement as three overlapping checkmarks. A small scale-and-opacity echo travels from the first mark through the others, suggesting local receipt, server receipt, and peer receipt without labels."
             },
             "keywords": [
                 "read receipt",
@@ -2700,9 +2436,6 @@
                 "css": ".diff:hover p:first-child { opacity: .2; transform: translateX(-8px); }\n.diff:hover p:last-child { opacity: 1; transform: translateX(0); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Visualize a tiny state transition as a two-line code diff. On hover the removed idle value drifts left and dims while the added live value slides into alignment and glows green."
-            },
             "keywords": [
                 "diff",
                 "git",
@@ -2729,9 +2462,6 @@
             "snippets": {
                 "css": ".braille span { animation: cell 2.1s steps(1) infinite; }\n.braille span:nth-child(2n) { animation-delay: -.7s; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a six-dot status matrix inspired by Braille. Different dots illuminate in discrete timed phases to encode changing machine state, with a quiet READY label beneath. Avoid spinner and equalizer conventions."
             },
             "keywords": [
                 "dots",
@@ -2760,9 +2490,6 @@
                 "css": ".token {\n  opacity: 0;\n  transform: translateY(10px) scale(.92);\n  animation: token-in 3.6s cubic-bezier(0.34,1.56,0.64,1) infinite;\n}\n.token:nth-child(n) { animation-delay: calc((n - 1) * 0.22s); }\n@keyframes token-in {\n  12%, 72% { opacity: 1; transform: none; }\n  88%, 100% { opacity: 0; }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Design an AI token-stream indicator. Render monospaced chips that pop in one after another with a spring, hold briefly as a completed phrase, then fade upward before looping. Highlight a mid-stream token in accent colour so it reads as generative output, not a generic loader."
-            },
             "keywords": [
                 "ai",
                 "llm",
@@ -2789,9 +2516,6 @@
             "snippets": {
                 "css": ".presence span { margin-left: -12px; border-radius: 50%; border: 2px solid #0e0e10; }\n.presence span.live::after {\n  content: \"\";\n  position: absolute; right: 1px; bottom: 1px;\n  width: 10px; height: 10px; border-radius: 50%;\n  background: #4cd08a;\n  animation: ping 1.8s ease-out infinite;\n}\n.presence:hover span { transform: translateY(-6px) scale(1.06); }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Build a collaborative presence stack: overlapping circular avatars with a green online dot that soft-pings, plus a +N overflow chip. On hover the stack fans slightly apart with staggered lifts so the group feels alive and multiplayer."
             },
             "keywords": [
                 "avatars",
@@ -2820,9 +2544,6 @@
                 "css": ".fill {\n  background: linear-gradient(90deg, #5b8def, #4cd08a);\n  animation: settle 2.8s cubic-bezier(0.34,1.56,0.64,1) infinite;\n}\n@keyframes settle {\n  0% { width: 0; }\n  55% { width: 96%; }\n  72%, 100% { width: 87%; }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a confidence meter for AI or ranking UIs. Animate a gradient fill that races past the target, then eases back to the final percentage with a spring. Update a tabular mono readout in lockstep so the number feels measured, not gimmicky."
-            },
             "keywords": [
                 "confidence",
                 "score",
@@ -2849,9 +2570,6 @@
             "snippets": {
                 "css": ".optimistic-toggle {\n  animation: optimistic-toggle 4s cubic-bezier(.34,1.56,.64,1) infinite;\n}\n@keyframes optimistic-toggle {\n  0%, 12% { transform: translateX(0); }\n  24%, 62% { transform: translateX(26px); }\n  76%, 100% { transform: translateX(0); }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Visualize an optimistic UI update: a setting turns on immediately, reports APPLIED, waits in SYNCING, then softly rolls back to RESTORED when the server rejects it. Use restrained status colour, spring the toggle both ways, and avoid an aggressive error shake."
             },
             "keywords": [
                 "optimistic ui",
@@ -2880,9 +2598,6 @@
                 "css": ".sources span { animation: reconcile-in 3.4s var(--spring) infinite; }\n.reconcile strong { animation: authority-in 3.4s var(--spring) infinite; }\n@keyframes authority-in {\n  0%, 42% { opacity: 0; transform: scale(.82); }\n  58%, 84% { opacity: 1; transform: scale(1); }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Show local-first data reconciliation. Two compact value chips approach from opposite sides, pause while a bridge scans between them, then dissolve into one authoritative SYNCED value. Keep the merge spatial and calm so it reads as data resolution rather than a generic success state."
-            },
             "keywords": [
                 "reconcile",
                 "local first",
@@ -2910,9 +2625,6 @@
                 "css": ".ledger div {\n  animation: ledger-age 4.6s cubic-bezier(.16,1,.3,1) infinite;\n}\n.ledger div:nth-child(2) { animation-delay: -.9s; }\n.ledger div:nth-child(3) { animation-delay: -1.8s; }\n@keyframes ledger-age {\n  0% { opacity: 0; transform: translateY(-10px) scale(1.03); }\n  18%, 58% { opacity: 1; transform: none; }\n  100% { opacity: .22; transform: translateY(5px) scale(.95); }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Design a live activity ledger where each incoming event lands crisply at the top, holds, then becomes quieter and slightly denser as it ages. Stagger three rows in one continuous cycle and use a moving edge dot to distinguish event freshness from a normal static timeline."
-            },
             "keywords": [
                 "activity",
                 "events",
@@ -2939,9 +2651,6 @@
             "snippets": {
                 "css": ".handoff-wire b { animation: baton 5.2s cubic-bezier(.65,0,.35,1) infinite; }\n.handoff-node:first-child i { animation: node-hot 5.2s ease-in-out infinite; }\n.handoff-node:last-child  i { animation: node-hot 5.2s ease-in-out infinite 2.1s; }\n@keyframes baton {\n  0%, 14%  { offset-distance: 0%;   transform: scale(.4); opacity: 0; }\n  22%      { transform: scale(1);   opacity: 1; }\n  62%      { offset-distance: 100%; opacity: 1; }\n  74%, 100%{ offset-distance: 100%; transform: scale(.4); opacity: 0; }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Visualise a multi-agent handoff: two labelled nodes joined by a thin trace. A context packet detaches from the first node, accelerates along the wire with an in-out curve, and lands in the second, which only heats up on arrival while the sender cools. Light the trace behind the packet like a charge and keep a monospaced context-size label that ticks over at the moment of transfer. One continuous loop, no spinners."
             },
             "keywords": [
                 "agent",
@@ -2972,9 +2681,6 @@
                 "css": ".ratelimit-tokens i { animation: token-cycle 6.4s linear infinite; }\n.ratelimit-tokens i:nth-child(2) { animation-delay: .16s; }  /* spend: fast */\n.ratelimit-tokens i:nth-child(5) { animation-delay: .64s; }\n@keyframes token-cycle {\n  0%, 6%   { opacity: 1; transform: scale(1); }\n  12%      { opacity: .1; transform: scale(.55); }  /* spent */\n  55%      { opacity: .1; transform: scale(.55); }  /* throttled */\n  70%      { opacity: 1; transform: scale(1.18); }  /* refilled */\n  78%, 100%{ opacity: 1; transform: scale(1); }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Show a token-bucket rate limiter as a state animation. Five pips are spent left to right in quick succession, the status flips from a calm 200 to a warning 429, and a cooldown arc sweeps once. Then the pips return one at a time on a slow, uneven drip with a small overshoot as each is credited. The asymmetry is the point: spending is instant, recovery is patient."
-            },
             "keywords": [
                 "rate limit",
                 "throttle",
@@ -3003,9 +2709,6 @@
             "snippets": {
                 "css": ".vector i {\n  translate: var(--x) var(--y);\n  transition: translate .6s cubic-bezier(.16,1,.3,1);\n}\n.vector i.hit { animation: recall 5.6s cubic-bezier(.16,1,.3,1) infinite; }\n@keyframes recall {\n  0%, 30%  { translate: var(--x) var(--y); opacity: .35; }\n  52%, 78% { translate: calc(var(--x) * .34) calc(var(--y) * .34); opacity: 1; }\n  100%     { translate: var(--x) var(--y); opacity: .35; }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Illustrate semantic search over an embedding space. Scatter faint points around a bright query node, then expand a thin ring outward; the three nearest points brighten and drift a third of the way toward the query while the rest stay dim and still. Cross-fade a status readout from \"querying\" to a cosine score at the moment the matches land. Positions come from custom properties so the same rule animates every point."
             },
             "keywords": [
                 "vector search",
@@ -3036,9 +2739,6 @@
                 "css": ".swr span { animation: stale-ghost 4.8s cubic-bezier(.16,1,.3,1) infinite; }\n.swr strong { animation: fresh-in 4.8s cubic-bezier(.34,1.56,.64,1) infinite; }\n@keyframes stale-ghost {\n  0%, 18% { opacity: 1; filter: none; }\n  38%, 72% { opacity: .22; filter: blur(1.5px); transform: translateX(-10px) scale(.92); }\n  88%, 100% { opacity: 1; filter: none; }\n}\n@keyframes fresh-in {\n  0%, 28% { opacity: 0; transform: translateX(14px) scale(.86); }\n  46%, 78% { opacity: 1; transform: none; }\n  92%, 100% { opacity: 0; }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Show a stale-while-revalidate cycle. The current number stays on screen as STALE, then ghosts left and blurs while FETCH is active. The new number springs in from the right and a FRESH chip lights. Keep both values in the same slot so it reads as one datum being replaced, not two counters. Loop calmly — this is cache policy, not an error."
-            },
             "keywords": [
                 "swr",
                 "cache",
@@ -3065,9 +2765,6 @@
             "snippets": {
                 "css": ".breaker-arm {\n  transform-origin: 8px 50%;\n  animation: throw 6.8s cubic-bezier(.34,1.56,.64,1) infinite;\n}\n@keyframes throw {\n  0%, 18%  { rotate: 0deg; }    /* closed */\n  28%, 48% { rotate: 78deg; }   /* open */\n  58%, 74% { rotate: 38deg; }   /* half-open probe */\n  86%, 100%{ rotate: 0deg; }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Visualise a circuit breaker as a physical throw switch, not a spinner. Three LEDs (closed / open / half-open) light in lockstep with a pivoted arm that slams open, rests at a half-open probe angle, then springs closed again. Status copy swaps CLOSED, OPEN, HALF. The overshoot on the throw is the point — it should feel like a breaker, not a toggle."
             },
             "keywords": [
                 "resilience",
@@ -3096,9 +2793,6 @@
                 "css": ".flame-row { width: var(--w); }\n.flame-row i {\n  transform-origin: left center;\n  animation: span-fill 5.4s cubic-bezier(.16,1,.3,1) infinite;\n}\n.flame-row:nth-child(2) i { animation-delay: .28s; }\n.flame-row:nth-child(3) i { animation-delay: .56s; }\n@keyframes span-fill {\n  0%, 8%  { transform: scaleX(0); }\n  28%, 72%{ transform: scaleX(1); }\n  88%, 100%{ transform: scaleX(0); }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Draw a tiny distributed-trace flamegraph. Three nested spans (gateway, worker, db) of decreasing width fill from the left in sequence, each a different heat colour. A monospaced duration ticks to 69ms when the last span lands. This is a waterfall of work, not a progress bar — keep the rows stacked and left-aligned so parent and child are obvious."
-            },
             "keywords": [
                 "flamegraph",
                 "distributed trace",
@@ -3125,9 +2819,6 @@
             "snippets": {
                 "css": "@keyframes shake-x {\n  10%, 90% { transform: translateX(-1px); }\n  20%, 80% { transform: translateX(2px); }\n  30%, 50%, 70% { transform: translateX(-4px); }\n  40%, 60% { transform: translateX(4px); }\n}\n.input.error {\n  border-color: #FF5C5C;\n  animation: shake-x 0.45s cubic-bezier(.36,.07,.19,.97) both;\n}",
                 "react": "function ShakeInput() {\n  const [error, setError] = useState(false);\n\n  const submit = () => {\n    setError(false);\n    requestAnimationFrame(() => setError(true));\n    setTimeout(() => setError(false), 500);\n  };\n\n  return (\n    <input\n      onBlur={submit}\n      className={error ? 'error' : ''}\n      style={{ animation: error ? 'shake-x .45s cubic-bezier(.36,.07,.19,.97) both' : 'none' }}\n    />\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build an input that shakes horizontally to signal an error and can be retriggered. Apply a keyframe oscillating translateX with decreasing, settling offsets over ~0.45s using cubic-bezier(0.36,0.07,0.19,0.97); turn the border red and reveal a message. Restart cleanly by removing and re-adding the class via a reflow."
             },
             "keywords": [
                 "validation error",
@@ -3156,9 +2847,6 @@
                 "css": ".confetti-particle {\n  position: absolute;\n  width: 6px; height: 6px;\n  animation: confetti-fly 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n@keyframes confetti-fly {\n  to {\n    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));\n    opacity: 0;\n  }\n}\n/* JS spawns N particles in a circle, sets --tx/--ty/--rot\n   per particle, removes them after the animation ends */",
                 "react": "function ConfettiButton({ children }) {\n  const [particles, setParticles] = useState([]);\n\n  const burst = () => {\n    const next = Array.from({ length: 16 }, (_, i) => {\n      const angle = (Math.PI * 2 * i) / 16 + Math.random() * 0.3;\n      const dist = 60 + Math.random() * 50;\n      return {\n        id: Date.now() + i,\n        tx: Math.cos(angle) * dist,\n        ty: Math.sin(angle) * dist,\n        rot: Math.random() * 360,\n      };\n    });\n    setParticles(next);\n    setTimeout(() => setParticles([]), 950);\n  };\n\n  return (\n    <div style={{ position: 'relative' }}>\n      <button onClick={burst}>{children}</button>\n      {particles.map(p => (\n        <span key={p.id} className=\"confetti-particle\" style={{\n          '--tx': `${p.tx}px`, '--ty': `${p.ty}px`, '--rot': `${p.rot}deg`,\n        }} />\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a button that bursts confetti from its center. On click spawn ~16 small squares, each sent along an evenly-spaced angle (with slight randomness) a random distance, translating out with random rotation while fading and shrinking over ~0.9s using cubic-bezier(0.16,1,0.3,1); remove them after."
-            },
             "keywords": [
                 "celebration",
                 "party",
@@ -3185,9 +2873,6 @@
             "snippets": {
                 "css": ".tilt-zone { perspective: 800px; }\n.tilt-card {\n  transition: transform 0.15s ease-out;\n  transform-style: preserve-3d;\n}\n/* JS reads pointer position relative to card,\n   maps to rotateX/rotateY within a max range */",
                 "react": "function TiltCard({ children }) {\n  const ref = useRef(null);\n  const [tilt, setTilt] = useState({ x: 0, y: 0 });\n\n  const onMove = (e) => {\n    const r = ref.current.getBoundingClientRect();\n    const px = (e.clientX - r.left) / r.width;\n    const py = (e.clientY - r.top) / r.height;\n    setTilt({ x: (py - 0.5) * -16, y: (px - 0.5) * 16 });\n  };\n\n  return (\n    <div style={{ perspective: 800 }} onMouseMove={onMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })}>\n      <div\n        ref={ref}\n        style={{\n          transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,\n          transition: 'transform .15s ease-out',\n        }}\n      >\n        {children}\n      </div>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a card that tilts in 3D toward the cursor with a glow that follows. Set perspective on the wrapper; on mousemove map the pointer position to rotateX/rotateY within ±16deg over a short ease-out transition and move a radial glow to the pointer; reset on mouseleave."
             },
             "keywords": [
                 "3d card",
@@ -3216,9 +2901,6 @@
                 "css": ".dots span {\n  width: 10px; height: 10px;\n  border-radius: 50%;\n  animation: dot-wave 1.1s ease-in-out infinite;\n}\n.dots span:nth-child(2) { animation-delay: 0.12s; }\n.dots span:nth-child(3) { animation-delay: 0.24s; }\n.dots span:nth-child(4) { animation-delay: 0.36s; }\n@keyframes dot-wave {\n  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }\n  30% { transform: translateY(-10px); opacity: 1; }\n}",
                 "react": "function WaveLoader({ count = 4 }) {\n  return (\n    <div style={{ display: 'flex', gap: 6 }}>\n      {Array.from({ length: count }).map((_, i) => (\n        <span\n          key={i}\n          style={{\n            width: 10, height: 10, borderRadius: '50%',\n            background: '#FF8A00',\n            animation: 'dot-wave 1.1s ease-in-out infinite',\n            animationDelay: `${i * 0.12}s`,\n          }}\n        />\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a row of dots that bounce in a phase-offset wave. Animate each dot's translateY up and back with an ease-in-out infinite keyframe (~1.1s), offset each dot's animation-delay by ~0.12s, and dip opacity at the bottom of the bounce."
-            },
             "keywords": [
                 "loading dots",
                 "bounce",
@@ -3245,9 +2927,6 @@
             "snippets": {
                 "css": ".skel-line {\n  height: 12px;\n  border-radius: 6px;\n  background: linear-gradient(90deg, #1A1A1D 25%, #34343a 50%, #1A1A1D 75%);\n  background-size: 200% 100%;\n  animation: shimmer-sweep 1.4s ease-in-out infinite;\n}\n@keyframes shimmer-sweep {\n  0% { background-position: 200% 0; }\n  100% { background-position: -200% 0; }\n}",
                 "react": "function SkeletonLine({ width = '100%' }) {\n  return (\n    <div style={{\n      height: 12, width, borderRadius: 6,\n      background: 'linear-gradient(90deg, #1A1A1D 25%, #34343a 50%, #1A1A1D 75%)',\n      backgroundSize: '200% 100%',\n      animation: 'shimmer-sweep 1.4s ease-in-out infinite',\n    }} />\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build skeleton placeholder lines with a shimmer sweeping across them. Use a 3-stop linear-gradient background sized 200% and animate background-position from 200% to -200% with an ease-in-out infinite loop (~1.4s)."
             },
             "keywords": [
                 "skeleton",
@@ -3276,9 +2955,6 @@
                 "css": ".peel-zone { perspective: 1000px; }\n.peel-card {\n  transform-origin: left center;\n  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.6s;\n  backface-visibility: hidden;\n}\n.peel-card.peeled {\n  transform: rotateY(-130deg) translateX(-20px);\n  opacity: 0;\n}",
                 "react": "function PagePeel({ pages }) {\n  const [peeledCount, setPeeledCount] = useState(0);\n\n  return (\n    <div style={{ perspective: 1000, position: 'relative' }}>\n      {pages.map((page, i) => (\n        <div key={i} style={{\n          position: 'absolute',\n          transformOrigin: 'left center',\n          transform: i < peeledCount ? 'rotateY(-130deg) translateX(-20px)' : 'none',\n          opacity: i < peeledCount ? 0 : 1,\n          transition: 'transform .6s cubic-bezier(.65,0,.35,1), opacity .6s',\n        }}>\n          {page}\n        </div>\n      ))}\n      <button onClick={() => setPeeledCount(c => (c + 1) % (pages.length + 1))}>\n        Peel\n      </button>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a stack of cards where the top one peels away like a turning page. Set perspective on the container and transform-origin: left center on the cards; on trigger rotate the top card rotateY(-130deg) translateX(-20px) and fade it out over ~0.6s with cubic-bezier(0.65,0,0.35,1), revealing the one beneath."
-            },
             "keywords": [
                 "page turn",
                 "book",
@@ -3305,9 +2981,6 @@
             "snippets": {
                 "css": ".spotlight-glow {\n  position: absolute;\n  width: 220px; height: 220px;\n  border-radius: 50%;\n  background: radial-gradient(circle, rgba(255,138,0,0.22), transparent 70%);\n  transform: translate(-50%, -50%);\n  pointer-events: none;\n}\n/* JS sets glow.style.left/top to pointer position\n   relative to the container on every mousemove */",
                 "react": "function SpotlightSurface({ children }) {\n  const ref = useRef(null);\n  const [pos, setPos] = useState({ x: -200, y: -200 });\n\n  const onMove = (e) => {\n    const r = ref.current.getBoundingClientRect();\n    setPos({ x: e.clientX - r.left, y: e.clientY - r.top });\n  };\n\n  return (\n    <div ref={ref} onMouseMove={onMove} style={{ position: 'relative', overflow: 'hidden' }}>\n      <div style={{\n        position: 'absolute',\n        width: 220, height: 220, borderRadius: '50%',\n        background: 'radial-gradient(circle, rgba(255,138,0,0.22), transparent 70%)',\n        left: pos.x, top: pos.y,\n        transform: 'translate(-50%, -50%)',\n        pointerEvents: 'none',\n      }} />\n      {children}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a surface with a soft radial spotlight that follows the cursor. Inside an overflow-hidden container place an absolutely-positioned radial-gradient circle and on mousemove set its left/top to the pointer position (translate -50% to center it). Use pointer-events: none so it never blocks interaction."
             },
             "keywords": [
                 "spotlight",
@@ -3336,9 +3009,6 @@
                 "css": ".card { transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }\n.card.flipped { transform: rotateY(180deg); }\n.face { position: absolute; inset: 0; backface-visibility: hidden; }\n.face.back { transform: rotateY(180deg); }",
                 "react": "function FlipCard({ front, back }) {\n  const [flipped, setFlipped] = useState(false);\n  return (\n    <div style={{ perspective: 800 }} onClick={() => setFlipped(f => !f)}>\n      <div className={flipped ? 'card flipped' : 'card'}>\n        <div className=\"face front\">{front}</div>\n        <div className=\"face back\">{back}</div>\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a card that flips in 3D between a front and back face on click. Set perspective on the wrapper, transform-style: preserve-3d and a spring transition on the inner element; rotateY(180deg) when flipped. Each face uses backface-visibility: hidden and the back is pre-rotated 180deg."
-            },
             "keywords": [
                 "card flip",
                 "two sided",
@@ -3365,9 +3035,6 @@
             "snippets": {
                 "css": ".glitch::before, .glitch::after {\n  content: attr(data-text);\n  position: absolute; left: 0; top: 0; opacity: 0;\n}\n.glitch::before { color: #FF5C5C; }\n.glitch::after  { color: #5B8DEF; }\n.glitch:hover::before { opacity: .85; animation: g-a 0.4s steps(2) infinite; }\n.glitch:hover::after  { opacity: .85; animation: g-b 0.4s steps(2) infinite; }\n@keyframes g-a { 0%{clip-path:inset(0 0 72% 0);transform:translate(-2px,-1px)}\n  50%{clip-path:inset(42% 0 20% 0);transform:translate(2px,1px)}\n  100%{clip-path:inset(70% 0 0 0);transform:translate(-1px,1px)} }\n/* g-b mirrors g-a with opposite offsets */",
                 "react": "function GlitchText({ children }) {\n  // The effect is CSS-only; React just supplies data-text\n  // so the pseudo-elements can echo the same string.\n  return (\n    <span className=\"glitch\" data-text={children}>\n      {children}\n    </span>\n  );\n}\n/* pair with the .glitch ::before / ::after rules in the CSS tab */"
-            },
-            "prompts": {
-                "general": "Build text with an RGB-split glitch on hover, pure CSS. Render two ::before/::after copies via content: attr(data-text) in red and blue; on hover animate each with clip-path inset slices and tiny translate offsets on a fast steps() loop so the layers tear and jitter."
             },
             "keywords": [
                 "glitch",
@@ -3396,9 +3063,6 @@
                 "css": ".beam { position: relative; padding: 1.5px; overflow: hidden; border-radius: 14px; }\n.beam::before {\n  content: ''; position: absolute; inset: -50%;\n  background: conic-gradient(from 0deg, transparent 0 72%, #FF8A00 84%, #EDE9E0 90%, transparent 96%);\n  animation: spin 3s linear infinite;\n}\n.beam-inner { position: relative; border-radius: 12.5px; background: #232326; }\n@keyframes spin { to { transform: rotate(1turn); } }",
                 "react": "function BorderBeam({ children }) {\n  // Pure CSS: a spinning conic gradient sits behind an inset\n  // inner panel, so only the sliver at the edge shows as a beam.\n  return (\n    <div className=\"beam\">\n      <div className=\"beam-inner\">{children}</div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a card with a light beam traveling around its border, pure CSS. Put a spinning conic-gradient (mostly transparent with one bright arc) on a ::before behind an inset inner panel so only the sliver at the edge shows; rotate it 1turn over ~3s linear infinite."
-            },
             "keywords": [
                 "border animation",
                 "glowing border",
@@ -3425,9 +3089,6 @@
             "snippets": {
                 "css": ".aurora::before {\n  content: ''; position: absolute; inset: -40%;\n  background:\n    radial-gradient(40% 50% at 30% 38%, #FF8A00aa, transparent 60%),\n    radial-gradient(45% 55% at 72% 62%, #5B8DEFaa, transparent 60%),\n    radial-gradient(40% 50% at 50% 82%, #4CD08A88, transparent 60%);\n  filter: blur(16px);\n  animation: drift 12s ease-in-out infinite alternate;\n}\n@keyframes drift {\n  0%   { transform: translate(-6%, -4%) rotate(0deg) scale(1.1); }\n  100% { transform: translate(6%, 4%) rotate(8deg) scale(1.3); }\n}",
                 "react": "function AuroraDrift({ children }) {\n  // CSS-only: three blurred radial gradients on a ::before\n  // layer, drifting on an infinite alternating keyframe.\n  return (\n    <div className=\"aurora\">\n      <span>{children}</span>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a panel with soft, blurred aurora-like color fields that drift forever. Layer a few radial-gradients (different accent colors and positions) on a ::before, blur it ~16px, and animate its transform (translate, slight rotate, scale) on an ease-in-out alternating infinite loop (~12s)."
             },
             "keywords": [
                 "gradient background",
@@ -3456,9 +3117,6 @@
                 "css": ".shine { position: relative; overflow: hidden; }\n.shine::before {\n  content: '';\n  position: absolute; top: 0; left: -120%;\n  width: 60%; height: 100%;\n  transform: skewX(-20deg);\n  background: linear-gradient(90deg, transparent,\n    rgba(237,233,224,0.25), transparent);\n}\n.shine:hover::before {\n  left: 120%;\n  transition: left 0.9s cubic-bezier(0.65, 0, 0.35, 1);\n}",
                 "react": "function ShineCard({ children }) {\n  // Pure CSS: a skewed translucent gradient sits off the left\n  // edge and slides across on :hover via a left transition.\n  return (\n    <div className=\"shine\">\n      {children}\n    </div>\n  );\n}\n/* pair with the .shine ::before rule in the CSS tab */"
             },
-            "prompts": {
-                "general": "Build a surface with a diagonal light streak that sweeps across on hover, pure CSS. Inside an overflow-hidden element, place a skewed (-20deg) translucent linear-gradient ::before parked off the left edge; on :hover transition its left from -120% to 120% over ~0.9s so the highlight glides across once."
-            },
             "keywords": [
                 "shine",
                 "gloss",
@@ -3485,9 +3143,6 @@
             "snippets": {
                 "css": ".breathe {\n  border-radius: 50%;\n  background: radial-gradient(circle at 50% 45%, #FF8A00, #B36200);\n  animation: breathe 5s ease-in-out infinite;\n}\n@keyframes breathe {\n  0%, 100% {\n    transform: scale(0.9);\n    box-shadow: 0 0 20px 0 rgba(255,138,0,0.35);\n  }\n  50% {\n    transform: scale(1.08);\n    box-shadow: 0 0 48px 8px rgba(255,138,0,0.55);\n  }\n}",
                 "react": "function BreathingOrb({ children }) {\n  // Pure CSS: a radial-gradient circle scales between 0.9 and\n  // 1.08 while its glow box-shadow grows and shrinks in sync.\n  return (\n    <div className=\"breathe\">\n      {children}\n    </div>\n  );\n}\n/* pair with the .breathe @keyframes in the CSS tab */"
-            },
-            "prompts": {
-                "general": "Build a glowing orb that breathes forever, pure CSS. Use a radial-gradient circle and an ease-in-out infinite keyframe (~5s) that scales it between 0.9 and 1.08 while growing and shrinking a colored glow box-shadow in sync, so it gently inflates and relaxes."
             },
             "keywords": [
                 "breathe",
@@ -3516,9 +3171,6 @@
                 "css": ".float-card {\n  animation: float-bob 4s ease-in-out infinite;\n}\n@keyframes float-bob {\n  0%, 100% {\n    transform: translateY(0);\n    box-shadow: 0 10px 20px -8px rgba(0,0,0,0.55);\n  }\n  50% {\n    transform: translateY(-12px);\n    box-shadow: 0 26px 30px -10px rgba(0,0,0,0.45);\n  }\n}",
                 "react": "function FloatCard({ children }) {\n  // Pure CSS: an ease-in-out infinite keyframe lifts the card\n  // and softens its shadow at the top of the bob, so it reads\n  // as hovering above the surface.\n  return (\n    <div className=\"float-card\">\n      {children}\n    </div>\n  );\n}\n/* pair with the .float-card @keyframes in the CSS tab */"
             },
-            "prompts": {
-                "general": "Build a card that gently floats and bobs forever, pure CSS. Use an ease-in-out infinite keyframe (~4s) that translates it up ~12px and back; at the top of the bob raise and soften the drop shadow (larger blur, more vertical offset) so it convincingly hovers above the surface."
-            },
             "keywords": [
                 "float",
                 "hover",
@@ -3545,9 +3197,6 @@
             "snippets": {
                 "css": ".blob {\n  background: linear-gradient(135deg, #FF8A00, #B36200);\n  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;\n  animation: blob-morph 8s ease-in-out infinite;\n}\n@keyframes blob-morph {\n  0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }\n  33%      { border-radius: 70% 30% 46% 54% / 30% 60% 40% 70%; }\n  66%      { border-radius: 34% 66% 60% 40% / 65% 35% 65% 35%; }\n}",
                 "react": "function LiquidBlob({ children }) {\n  // Pure CSS: an 8-value border-radius is keyframed between\n  // three asymmetric shapes on an ease-in-out infinite loop,\n  // so the silhouette wobbles like a drop of liquid.\n  return (\n    <div className=\"blob\">\n      {children}\n    </div>\n  );\n}\n/* pair with the .blob @keyframes in the CSS tab */"
-            },
-            "prompts": {
-                "general": "Build an organic \"liquid\" blob that endlessly morphs its outline, pure CSS. Use the 8-value border-radius syntax (horizontal / vertical radii) and animate it between three asymmetric sets of values on an ease-in-out infinite loop (~8s) so the gradient-filled shape wobbles and flows like a drop of liquid."
             },
             "keywords": [
                 "blob",
@@ -3576,9 +3225,6 @@
                 "css": ".shimmer-text {\n  background: linear-gradient(100deg,\n    #6E6C68 30%, #FF8A00 50%, #6E6C68 70%);\n  background-size: 200% auto;\n  -webkit-background-clip: text;\n  background-clip: text;\n  color: transparent;\n  animation: shimmer 3s linear infinite;\n}\n@keyframes shimmer {\n  to { background-position: -200% center; }\n}",
                 "react": "function ShimmerText({ children }) {\n  // Pure CSS: a wide gradient is clipped to the text and its\n  // background-position scrolls, so a highlight sweeps across.\n  return <span className=\"shimmer-text\">{children}</span>;\n}\n/* pair with the .shimmer-text rule + shimmer keyframe */"
             },
-            "prompts": {
-                "general": "Build text with a highlight that endlessly sweeps through it, pure CSS. Fill the text with a wide linear-gradient (dim, bright accent in the middle, dim), set background-size 200%, clip the background to the text (color: transparent + background-clip: text), and animate background-position on a linear infinite loop (~3s)."
-            },
             "keywords": [
                 "text gradient",
                 "shimmer",
@@ -3605,9 +3251,6 @@
             "snippets": {
                 "css": ".neon {\n  color: #FF8A00;\n  border: 1px solid #FF8A00;\n  border-radius: 100px;\n  animation: neon-pulse 2s ease-in-out infinite;\n}\n@keyframes neon-pulse {\n  0%, 100% {\n    text-shadow: 0 0 4px #FF8A00;\n    box-shadow: 0 0 6px -1px #FF8A00, inset 0 0 6px -2px #FF8A00;\n  }\n  50% {\n    text-shadow: 0 0 12px #FF8A00, 0 0 22px #FF8A00;\n    box-shadow: 0 0 18px 0 #FF8A00, inset 0 0 12px -2px #FF8A00;\n  }\n}",
                 "react": "function NeonTag({ children }) {\n  // Pure CSS: an ease-in-out infinite keyframe grows and\n  // shrinks the text-shadow and box-shadow halo in sync.\n  return <span className=\"neon\">{children}</span>;\n}\n/* pair with the .neon rule + neon-pulse keyframe */"
-            },
-            "prompts": {
-                "general": "Build a neon-style pill whose glow pulses, pure CSS. Color the text and a thin border the accent, then animate text-shadow and box-shadow (plus a faint inset) between a dim and a bright, wider blur on an ease-in-out infinite loop (~2s) so the halo breathes."
             },
             "keywords": [
                 "neon",
@@ -3636,9 +3279,6 @@
                 "css": ".eq span {\n  width: 6px; height: 100%;\n  background: #FF8A00; border-radius: 3px;\n  transform-origin: bottom;\n  animation: eq-pump 1s ease-in-out infinite;\n}\n.eq span:nth-child(2) { animation-delay: -0.8s; }\n.eq span:nth-child(3) { animation-delay: -0.4s; }\n.eq span:nth-child(4) { animation-delay: -0.6s; }\n.eq span:nth-child(5) { animation-delay: -0.2s; }\n@keyframes eq-pump {\n  0%, 100% { transform: scaleY(0.25); }\n  50%      { transform: scaleY(1); }\n}",
                 "react": "function Equalizer({ count = 5 }) {\n  const delays = [0, -0.8, -0.4, -0.6, -0.2];\n  return (\n    <div style={{ display: 'flex', gap: 5, alignItems: 'flex-end', height: 48 }}>\n      {Array.from({ length: count }).map((_, i) => (\n        <span key={i} style={{\n          width: 6, height: '100%', background: '#FF8A00', borderRadius: 3,\n          transformOrigin: 'bottom',\n          animation: 'eq-pump 1s ease-in-out infinite',\n          animationDelay: `${delays[i % delays.length]}s`,\n        }} />\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build an audio-equalizer animation of vertical bars, pure CSS. Give each bar a bottom transform-origin and animate scaleY between ~0.25 and 1 on an ease-in-out infinite loop (~1s); offset each bar with a different negative animation-delay so they pump out of phase like a sound meter."
-            },
             "keywords": [
                 "audio",
                 "music",
@@ -3665,9 +3305,6 @@
             "snippets": {
                 "css": ".wave {\n  position: absolute; inset: 0; margin: auto;\n  width: 24px; height: 24px; border-radius: 50%;\n  border: 2px solid var(--amber);\n  animation: ping 2.4s cubic-bezier(0, 0.4, 0.2, 1) infinite;\n}\n.wave:nth-child(3) { animation-delay: 0.8s; }\n.wave:nth-child(4) { animation-delay: 1.6s; }\n@keyframes ping {\n  0%   { transform: scale(0.4); opacity: 0.9; }\n  100% { transform: scale(4.2); opacity: 0; }\n}",
                 "react": "function RadarPulse() {\n  return (\n    <div style={{ position: 'relative', width: 120, height: 120 }}>\n      <span className=\"core\" />\n      {[0, 0.8, 1.6].map((d, i) => (\n        <span\n          key={i}\n          className=\"wave\"\n          style={{\n            animation: 'ping 2.4s cubic-bezier(0,.4,.2,1) infinite',\n            animationDelay: `${d}s`,\n          }}\n        />\n      ))}\n    </div>\n  );\n}\n/* @keyframes ping {\n     0%   { transform: scale(.4); opacity: .9; }\n     100% { transform: scale(4.2); opacity: 0; }\n   } */"
-            },
-            "prompts": {
-                "general": "Build a sonar / radar pulse with a solid center dot and several rings that expand outward and fade, pure CSS. Stack centered ring elements and animate each from scale(0.4)/opacity 0.9 to scale(4.2)/opacity 0 on an infinite loop (~2.4s, ease-out); stagger their animation-delay evenly across the duration so a new ripple launches before the previous one finishes."
             },
             "keywords": [
                 "radar",
@@ -3696,9 +3333,6 @@
                 "css": ".ball { transform-origin: top center; }\n.ball.first { animation: swing-l 1.2s ease-in-out infinite; }\n.ball.last  { animation: swing-r 1.2s ease-in-out infinite; }\n/* only the outer balls move; the middle three stay put,\n   reading as transferred momentum */\n@keyframes swing-l {\n  0%, 50%, 100% { transform: rotate(0); }\n  25%           { transform: rotate(48deg); }\n}\n@keyframes swing-r {\n  0%, 50%, 100% { transform: rotate(0); }\n  75%           { transform: rotate(-48deg); }\n}",
                 "react": "function NewtonsCradle() {\n  return (\n    <div style={{ display: 'flex' }}>\n      {['first', '', '', '', 'last'].map((c, i) => (\n        <span key={i} className={`ball ${c}`} />\n      ))}\n    </div>\n  );\n}\n/* @keyframes swing-l { 0%,50%,100% { transform: rotate(0); }\n                        25% { transform: rotate(48deg); } }\n   @keyframes swing-r { 0%,50%,100% { transform: rotate(0); }\n                        75% { transform: rotate(-48deg); } } */"
             },
-            "prompts": {
-                "general": "Build a Newton's cradle, pure CSS: a row of five balls hanging from a bar. Give each ball a top-center transform-origin. Animate only the leftmost ball swinging out and back (rotate to ~48deg in the first quarter) and the rightmost ball swinging out and back (rotate to ~-48deg in the third quarter) on the same ease-in-out infinite loop (~1.2s), so the impact reads as momentum passing through the three still middle balls."
-            },
             "keywords": [
                 "pendulum",
                 "physics",
@@ -3725,9 +3359,6 @@
             "snippets": {
                 "css": ".ball  { animation: drop 1s cubic-bezier(0.7, 0, 0.3, 1) infinite; }\n.shadow { animation: shade 1s cubic-bezier(0.7, 0, 0.3, 1) infinite; }\n@keyframes drop {\n  0%, 100% { transform: translateY(-54px) scaleY(1.05); }\n  50%      { transform: translateY(0) scaleY(0.8) scaleX(1.15); }\n}\n@keyframes shade {\n  0%, 100% { transform: scale(0.5); opacity: 0.25; }\n  50%      { transform: scale(1);   opacity: 0.5; }\n}",
                 "react": "function BouncingBall() {\n  return (\n    <div style={{ position: 'relative' }}>\n      <span\n        style={{ animation: 'drop 1s cubic-bezier(.7,0,.3,1) infinite' }}\n      />\n      <span\n        style={{ animation: 'shade 1s cubic-bezier(.7,0,.3,1) infinite' }}\n      />\n    </div>\n  );\n}\n/* @keyframes drop {\n     0%,100% { transform: translateY(-54px) scaleY(1.05); }\n     50%     { transform: translateY(0) scaleY(.8) scaleX(1.15); }\n   }\n   @keyframes shade {\n     0%,100% { transform: scale(.5); opacity: .25; }\n     50%     { transform: scale(1);  opacity: .5; }\n   } */"
-            },
-            "prompts": {
-                "general": "Build a bouncing ball with squash and stretch, pure CSS. Animate the ball falling and rising (translateY between -54px and 0) on a sharp cubic-bezier(0.7, 0, 0.3, 1) infinite loop (~1s); at the bottom of the bounce flatten it with scaleY(0.8)/scaleX(1.15) and stretch it slightly vertically at the top. Sync a separate ellipse shadow underneath that grows darker and wider as the ball lands and shrinks as it rises."
             },
             "keywords": [
                 "bounce",
@@ -3756,9 +3387,6 @@
                 "css": ".reveal-track {\n  display: flex;\n  gap: 12px;\n  width: max-content;\n  animation: reveal-scroll 6s linear infinite;\n}\n.reveal-zone:hover .reveal-track {\n  animation-play-state: paused;\n}\n@keyframes reveal-scroll {\n  from { transform: translateX(0); }\n  to   { transform: translateX(-50%); }\n}",
                 "react": "function MarqueeReveal({ items }) {\n  return (\n    <div style={{ overflow: 'hidden' }}>\n      <div\n        className=\"reveal-track\"\n        style={{\n          display: 'flex',\n          gap: 12,\n          width: 'max-content',\n          animation: 'reveal-scroll 6s linear infinite',\n        }}\n      >\n        {[...items, ...items].map((item, i) => (\n          <div key={i} className=\"reveal-card\">{item}</div>\n        ))}\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a horizontal marquee of small cards that scrolls infinitely, pure CSS. Duplicate the card list so the track is 2x wide; animate translateX from 0 to -50% on a 6s linear infinite loop so the second copy seamlessly takes over. Pause the animation on hover. Mask the edges with a fade gradient so cards appear and disappear smoothly."
-            },
             "keywords": [
                 "carousel",
                 "scroll",
@@ -3785,9 +3413,6 @@
             "snippets": {
                 "css": ".gradborder {\n  position: relative;\n  padding: 2px;\n  overflow: hidden;\n  border-radius: 14px;\n  background: #2A2A2E;\n}\n.gradborder::before {\n  content: '';\n  position: absolute;\n  inset: -50%;\n  background: conic-gradient(\n    from 0deg,\n    #FF8A00, #5B8DEF, #4CD08A, #FF5C5C, #FF8A00\n  );\n  animation: gradborder-spin 4s linear infinite;\n}\n@keyframes gradborder-spin {\n  to { transform: rotate(1turn); }\n}\n.gradborder-inner {\n  position: relative;\n  z-index: 1;\n  background: #232326;\n  border-radius: 12px;\n}",
                 "react": "function GradientBorder({ children }) {\n  return (\n    <div className=\"gradborder\">\n      <div className=\"gradborder-inner\">\n        {children}\n      </div>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a card with an animated gradient border, pure CSS. Give the card 2px padding and overflow:hidden; place a pseudo-element behind the inner content that is a conic-gradient cycling through 4 accent colors and is 200% the card size. Rotate it 360 degrees on a 4s linear infinite loop so the colors flow around the border. The inner content sits on top with a solid background and slightly smaller border-radius to reveal the 2px gradient ring."
             },
             "keywords": [
                 "animated border",
@@ -3816,9 +3441,6 @@
                 "css": ".split {\n  display: flex;\n  overflow: hidden;\n}\n.split span {\n  display: inline-block;\n  transform: translateY(110%);\n  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.split span:nth-child(1) { transition-delay: 0ms; }\n.split span:nth-child(2) { transition-delay: 40ms; }\n/* ...increment 40ms per letter... */\n.split.in span { transform: translateY(0); }",
                 "react": "function TextSplit({ text }) {\n  const [in_, setIn] = useState(false);\n  return (\n    <div\n      className={in_ ? 'split in' : 'split'}\n      onMouseEnter={() => setIn(true)}\n      onMouseLeave={() => setIn(false)}\n    >\n      {text.split('').map((c, i) => (\n        <span\n          key={i}\n          style={{ transitionDelay: `${i * 40}ms` }}\n        >\n          {c}\n        </span>\n      ))}\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a text reveal where each letter springs up from below a hidden mask in sequence, pure CSS. Wrap each character in a span inside a flex container with overflow:hidden so letters start hidden below the baseline (translateY(110%)). On hover add an .in class that sets translateY(0) with a spring cubic-bezier(0.34,1.56,0.64,1) and stagger the transition-delay by ~40ms per letter so they cascade in."
-            },
             "keywords": [
                 "letters",
                 "stagger",
@@ -3845,9 +3467,6 @@
             "snippets": {
                 "css": ".card {\n  transition:\n    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),\n    box-shadow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.card:hover {\n  transform: translateY(-10px);\n  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);\n}",
                 "react": "function LiftCard({ children }) {\n  const [hover, setHover] = useState(false);\n  return (\n    <div\n      onMouseEnter={() => setHover(true)}\n      onMouseLeave={() => setHover(false)}\n      style={{\n        transform: hover ? 'translateY(-10px)' : 'translateY(0)',\n        boxShadow: hover ? '0 18px 40px -12px rgba(0,0,0,0.7)' : 'none',\n        transition: 'all 0.5s cubic-bezier(0.34,1.56,0.64,1)',\n      }}\n    >\n      {children}\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Make a card that lifts on hover: translateY(-10px) with a soft, large cast shadow (0 18px 40px -12px rgba(0,0,0,0.7)). Animate both transform and box-shadow together over ~0.5s with an overshooting spring cubic-bezier(0.34, 1.56, 0.64, 1) so it gently bobs as it settles up and back down."
             },
             "keywords": [
                 "elevation",
@@ -3876,9 +3495,6 @@
                 "css": ".surface { position: relative; overflow: hidden; }\n.surface::after {\n  content: \"\";\n  position: absolute;\n  top: 0; left: -60%;\n  width: 50%; height: 100%;\n  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);\n  transform: skewX(-18deg);\n  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.surface:hover::after { left: 120%; }",
                 "react": "function Sheen({ children }) {\n  return <div className=\"surface\">{children}</div>;\n  // ::after is a skewed translucent stripe;\n  // :hover slides it from left: -60% to 120%\n  // over 0.7s with a glide curve.\n}"
             },
-            "prompts": {
-                "general": "Add a moving specular sheen to a surface on hover. Use an ::after pseudo-element: a ~50%-wide vertical stripe with a translucent white linear-gradient, skewed by -18deg, positioned off-screen left (left: -60%). On :hover transition its left to 120% over ~0.7s with a glide cubic-bezier(0.16, 1, 0.3, 1) so a glint sweeps across. Keep the parent overflow hidden."
-            },
             "keywords": [
                 "sheen",
                 "specular",
@@ -3905,9 +3521,6 @@
             "snippets": {
                 "css": ".over {\n  clip-path: inset(0 100% 0 0);\n  transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.wipe:hover .over {\n  clip-path: inset(0 0 0 0);\n}",
                 "react": "function ClipWipe({ base, reveal }) {\n  const [on, setOn] = useState(false);\n  return (\n    <div\n      onMouseEnter={() => setOn(true)}\n      onMouseLeave={() => setOn(false)}\n      style={{ position: 'relative' }}\n    >\n      <div>{base}</div>\n      <div\n        style={{\n          position: 'absolute', inset: 0,\n          clipPath: on ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)',\n          transition: 'clip-path 0.5s cubic-bezier(0.16,1,0.3,1)',\n        }}\n      >\n        {reveal}\n      </div>\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Stack two layers in a box: a base label and an accent-coloured overlay. Clip the overlay to nothing with clip-path: inset(0 100% 0 0) so only the base shows. On hover, transition the overlay's clip-path to inset(0 0 0 0) over ~0.5s with a glide cubic-bezier(0.16, 1, 0.3, 1) so it wipes in left-to-right. Keep the box overflow hidden."
             },
             "keywords": [
                 "reveal",
@@ -3936,9 +3549,6 @@
                 "css": ".scene { perspective: 620px; }\n.cube {\n  transform-style: preserve-3d;\n  transform: translateZ(-56px) rotateY(0deg);\n  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n.front { transform: rotateY(0deg)   translateZ(56px); }\n.right { transform: rotateY(90deg)  translateZ(56px); }\n.back  { transform: rotateY(180deg) translateZ(56px); }\n.left  { transform: rotateY(-90deg) translateZ(56px); }",
                 "react": "function Cube({ faces }) {\n  const [n, setN] = useState(0);\n  return (\n    <div className=\"scene\" onClick={() => setN(n + 1)}>\n      <div\n        className=\"cube\"\n        style={{ transform: `translateZ(-56px) rotateY(${-90 * n}deg)` }}\n      >\n        {faces.map((f, i) => (\n          <div key={i} className={`face ${f.side}`}>{f.label}</div>\n        ))}\n      </div>\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a 3D cube you can click to rotate. Use a scene with perspective and a preserve-3d cube whose four side faces are placed with rotateY(0/90/180/-90deg) translateZ(56px). Pull the cube back by translateZ(-56px) so faces sit around the centre. On each click, rotate the cube by -90deg on Y using a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.7s so the next face rolls into view with a slight overshoot."
-            },
             "keywords": [
                 "cube",
                 "3d",
@@ -3965,9 +3575,6 @@
             "snippets": {
                 "css": ".jelly:hover {\n  animation: wobble 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n@keyframes wobble {\n  0%   { transform: scale(1, 1); }\n  25%  { transform: scale(1.14, 0.86); }\n  45%  { transform: scale(0.9, 1.1); }\n  65%  { transform: scale(1.05, 0.95); }\n  100% { transform: scale(1, 1); }\n}",
                 "react": "function Jelly({ children }) {\n  const [k, setK] = useState(0);\n  return (\n    <div\n      key={k}\n      onMouseEnter={() => setK((x) => x + 1)}\n      className=\"jelly\"\n    >\n      {children}\n    </div>\n  );\n  // re-keying restarts the wobble keyframes on each enter\n}"
-            },
-            "prompts": {
-                "general": "Give an element a jelly squash-and-stretch wobble on hover. Run a single ~0.8s keyframe animation with an overshooting spring easing that alternates non-uniform scales: stretch wide and short (1.14, 0.86), then tall and narrow (0.9, 1.1), then progressively smaller corrections until it settles back to scale(1,1). The conservation-of-volume feel (one axis grows as the other shrinks) is what sells it."
             },
             "keywords": [
                 "jelly",
@@ -3996,9 +3603,6 @@
                 "css": ".fold { perspective: 820px; overflow: hidden; }\n.panel {\n  backface-visibility: hidden;\n  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.panel.left  { transform-origin: left center; }\n.panel.right { transform-origin: right center; }\n.fold:hover .panel.left  { transform: rotateY(-108deg); }\n.fold:hover .panel.right { transform: rotateY(108deg); }",
                 "react": "function FoldReveal({ children }) {\n  return (\n    <div className=\"fold\">\n      <div className=\"inner\">{children}</div>\n      <div className=\"panel left\" />\n      <div className=\"panel right\" />\n    </div>\n  );\n}"
             },
-            "prompts": {
-                "general": "Build a content box hidden behind two folding doors. Place an inner layer with the reveal content, then two half-width panels covering it. Give the parent perspective and each panel a transform-origin at its outer edge (left panel: left, right panel: right) with backface-visibility hidden. On hover, swing them open with rotateY(±108deg) over ~0.6s using a glide cubic-bezier(0.16, 1, 0.3, 1)."
-            },
             "keywords": [
                 "fold",
                 "doors",
@@ -4025,9 +3629,6 @@
             "snippets": {
                 "css": ".after  { clip-path: inset(0 50% 0 0); }   /* reveal up to the divider */\n.divider, .handle { left: 50%; }\n/* JS sets:  after.clipPath = `inset(0 ${100 - pct}% 0 0)` */",
                 "react": "function Compare({ before, after }) {\n  const [pct, setPct] = useState(50);\n  const onMove = (e) => {\n    if (!e.buttons) return;\n    const r = e.currentTarget.getBoundingClientRect();\n    setPct(((e.clientX - r.left) / r.width) * 100);\n  };\n  return (\n    <div className=\"compare\" onPointerMove={onMove}>\n      {before}\n      <div style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>{after}</div>\n      <div className=\"divider\" style={{ left: `${pct}%` }} />\n    </div>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Build a before/after image comparison slider. Stack two full-size layers; clip the top (after) layer with clip-path: inset(0 R% 0 0). Dragging a centre handle horizontally sets the percentage so R = 100 - pct, wiping the after layer in and out while a thin vertical divider and round handle track the split. Clamp to 0–100% and update on pointermove while pressed."
             },
             "keywords": [
                 "comparison",
@@ -4056,9 +3657,6 @@
                 "css": ".card { transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }\n.card:nth-child(2) { transform: translateY(7px)  scale(0.93); }\n.card:nth-child(3) { transform: translateY(14px) scale(0.86); }\n.stack:hover .card:nth-child(1) { transform: translateY(-48px) rotate(-5deg); }\n.stack:hover .card:nth-child(3) { transform: translateY(48px)  rotate(5deg); }",
                 "react": "function DepthStack({ cards }) {\n  return (\n    <div className=\"stack\">\n      {cards.map((c, i) => (\n        <div key={i} className=\"card\" style={{ zIndex: cards.length - i }}>\n          {c}\n        </div>\n      ))}\n    </div>\n  );\n  // depth via translateY + scale; :hover fans them apart\n}"
             },
-            "prompts": {
-                "general": "Build a stack of 3 overlapping cards that look like a deck — each lower card pushed down a few px and scaled slightly smaller, with descending z-index. On hover, fan them apart vertically: the top card lifts up and tilts left, the bottom drops and tilts right, the middle squares up to full size. Animate transforms with a spring cubic-bezier(0.34, 1.56, 0.64, 1) over ~0.55s."
-            },
             "keywords": [
                 "stack",
                 "layers",
@@ -4085,9 +3683,6 @@
             "snippets": {
                 "css": ".wave span {\n  display: inline-block;\n  animation: bob 1.5s ease-in-out infinite;\n}\n/* phase each letter with a negative delay so the crest travels */\n@keyframes bob {\n  0%, 100% { transform: translateY(0); }\n  28%      { transform: translateY(-13px); color: #ff8a00; }\n}",
                 "react": "function TextWave({ text }) {\n  return (\n    <span className=\"wave\">\n      {[...text].map((ch, i) => (\n        <span key={i} style={{ animationDelay: `${-i * 0.09}s` }}>\n          {ch}\n        </span>\n      ))}\n    </span>\n  );\n}"
-            },
-            "prompts": {
-                "general": "Animate a word so a wave of motion travels across its letters. Wrap each character in an inline-block span running the same ~1.5s ease-in-out loop that lifts it ~13px (and tints it the accent colour) at the crest, resting otherwise. Offset each letter with a negative animation-delay stepping by ~0.09s so the peak ripples smoothly left-to-right and never stops."
             },
             "keywords": [
                 "wave text",
@@ -4116,9 +3711,6 @@
                 "css": ".caustics::before { background: radial-gradient(...), radial-gradient(...); filter: blur(10px); animation: drift 9s ease-in-out infinite alternate; }\n.caustics { backdrop-filter: blur(10px); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a dark frosted-glass panel with slow, uneven pools of amber, blue, and green light moving beneath it. Use oversized blurred radial gradients with different positions so it resembles water caustics rather than an aurora or generic gradient blob."
-            },
             "keywords": [
                 "glass",
                 "frosted",
@@ -4145,9 +3737,6 @@
             "snippets": {
                 "css": ".chromatic::before, .chromatic::after { content: attr(data-text); position: absolute; }\n.chromatic:hover::before { transform: translateX(-3px); color: #5b8def; }\n.chromatic:hover::after { transform: translateX(3px); color: #ff5d73; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Make a display word that gets a subtle prismatic RGB split on hover. Duplicate the text with pseudo-elements, offset the blue and red channels by only a few pixels, then use a quick elastic return so it reads like an optical glitch, not a harsh cyberpunk effect."
             },
             "keywords": [
                 "chromatic aberration",
@@ -4176,9 +3765,6 @@
                 "css": ".warp-grid { background-size: 18px 18px; transform-style: preserve-3d; }\n.warp-grid:hover { transform: rotateX(42deg) rotateZ(-5deg) scale(1.08); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a minimal perspective field using two fine repeating-linear-gradient layers. On hover, tip and enlarge the grid toward the viewer while a small central focal point brightens. Keep it architectural and restrained, like a spatial interface rather than a retro wireframe."
-            },
             "keywords": [
                 "grid",
                 "warp",
@@ -4205,9 +3791,6 @@
             "snippets": {
                 "css": ".lens, .lens::before { background: repeating-radial-gradient(circle, transparent 0 4px, #777 5px); }\n.lens::before { animation: counterspin 12s linear infinite reverse; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Create a restrained moiré lens from two fine repeating radial line fields. Counter-rotate the layers very slowly so interference bands appear to breathe in depth. Mask everything to a rounded dark panel."
             },
             "keywords": [
                 "moire",
@@ -4236,9 +3819,6 @@
                 "css": ".foil::before { background: conic-gradient(from var(--angle), ...); mix-blend-mode: screen; }\n.foil:hover { transform: perspective(500px) rotateY(-13deg); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Design a dark polarized foil surface. Keep its spectrum nearly invisible head-on; on hover tilt the panel and sweep a narrow, desaturated conic highlight across it, like security foil seen at a grazing angle."
-            },
             "keywords": [
                 "foil",
                 "holographic",
@@ -4265,9 +3845,6 @@
             "snippets": {
                 "css": ".metaballs { filter: blur(7px) contrast(18); }\n.metaballs span { animation: exchange 4.8s ease-in-out infinite; }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Create two glowing particles that repeatedly merge, form a liquid neck, and separate while trading apparent mass. Use blur-plus-contrast metaball compositing inside a clipped dark field; this should read as fluid topology, not a single morphing blob."
             },
             "keywords": [
                 "metaball",
@@ -4296,9 +3873,6 @@
                 "css": ".word {\n  font-weight: 200;\n  letter-spacing: .04em;\n  transition: font-weight .55s cubic-bezier(0.16,1,0.3,1),\n              letter-spacing .55s cubic-bezier(0.16,1,0.3,1);\n}\n.word:hover {\n  font-weight: 800;\n  letter-spacing: -.02em;\n  color: var(--amber);\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Animate a display word using variable font weight. Idle at weight 200 with open tracking; on hover glide to weight 800 with tighter letter-spacing and a soft amber glow. Prefer a long ease-out curve so the densification feels typographic, not bouncy."
-            },
             "keywords": [
                 "variable font",
                 "font weight",
@@ -4325,9 +3899,6 @@
             "snippets": {
                 "css": ".surface::before {\n  width: 86px; height: 86px; border-radius: 50%;\n  background: radial-gradient(circle, rgba(255,255,255,.45), transparent 70%);\n  animation: orbit 4.2s linear infinite;\n}\n@keyframes orbit {\n  to { transform: rotate(360deg) translateX(46px) rotate(-360deg); }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Design a premium product surface with a slowly orbiting specular highlight. Use a dark brushed panel, a soft radial light that circles with rotate+translate, and a quiet label. Speed up slightly on hover so it feels like the light is responding to attention."
             },
             "keywords": [
                 "specular",
@@ -4356,9 +3927,6 @@
                 "css": ".panel::after {\n  background-image: url(\"data:image/svg+xml,...feTurbulence...\");\n  animation: noise .35s steps(3) infinite;\n  mix-blend-mode: overlay;\n}\n.panel:hover::before { opacity: 1; /* colour field */ }\n.panel:hover::after { opacity: .12; }",
                 "react": null
             },
-            "prompts": {
-                "general": "Create a noise-dissolve reveal panel. Idle state shows restless film grain over a dark surface; on hover the grain softens while a warm gradient blooms underneath, with a monospaced REVEAL label sitting in difference blend so it stays legible through the transition."
-            },
             "keywords": [
                 "noise",
                 "film grain",
@@ -4385,9 +3953,6 @@
             "snippets": {
                 "css": ".dither::before {\n  background: radial-gradient(circle, #ff8a00 0 1px, transparent 1.5px);\n  background-size: 7px 7px;\n  mask-image: radial-gradient(circle at var(--x) var(--y), #000, transparent 62%);\n  animation: dither-drift 6s steps(12) infinite;\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Create a refined ordered-dither surface from a tiny repeating dot grid, not random film grain. Move a soft radial mask across the grid in stepped frames so sparse amber pixels accumulate into a dense spectral bloom, then disperse. Preserve hard pixel edges inside a softly lit panel."
             },
             "keywords": [
                 "dither",
@@ -4416,9 +3981,6 @@
                 "css": ".ferrofluid::before {\n  clip-path: polygon(50% 0%, 56% 30%, 72% 7%, 70% 34%, 94% 20%, 76% 42%, 100% 50%, 76% 58%, 94% 80%, 70% 66%, 72% 93%, 56% 70%, 50% 100%, 44% 70%, 28% 93%, 30% 66%, 6% 80%, 24% 58%, 0 50%, 24% 42%, 6% 20%, 30% 34%, 28% 7%, 44% 30%);\n  animation: ferro-pull 3.8s ease-in-out infinite;\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Make a dark ferrofluid crown: a glossy circular core surrounded by irregular magnetic spikes that lengthen and rotate as if a field is passing around them. Use one clipped polygon with layered specular highlights; avoid ordinary blob morphing or a simple radial pulse."
-            },
             "keywords": [
                 "ferrofluid",
                 "magnetic",
@@ -4446,9 +4008,6 @@
                 "css": ".lenticular span::before,\n.lenticular span::after { position: absolute; content: attr(data-a); }\n.lenticular span::after {\n  content: attr(data-b);\n  mask: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 12px);\n}\n.lenticular:hover span { transform: skewY(-5deg) translateX(3px); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a lenticular type panel that alternates between MATTER and MOTION through fine vertical ridges. Interleave the second word with narrow mask strips, then shift the layers in opposite directions on hover so the perceived label changes with viewing angle rather than crossfading."
-            },
             "keywords": [
                 "lenticular",
                 "ridges",
@@ -4475,9 +4034,6 @@
             "snippets": {
                 "css": ".volumetric span {\n  background: repeating-linear-gradient(97deg,\n    transparent 0 12px, rgba(255,180,90,.16) 13px 22px);\n  -webkit-mask: radial-gradient(60% 90% at 50% 0%, #000, transparent 72%);\n  filter: blur(1.5px);\n  animation: shaft-rake 9s ease-in-out infinite alternate;\n}\n@keyframes shaft-rake {\n  from { transform: skewX(-9deg) translateX(-14px); opacity: .55; }\n  to   { transform: skewX(3deg)  translateX(14px);  opacity: 1; }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Render god rays falling through an unseen window into a dark room. Build the shafts from a repeating angled gradient, soften them with a small blur, and mask them so they fade out before they reach the floor. Slowly rake the whole bundle back and forth as if the sun were moving, drift a few dust motes across at a different speed, and let a warm pool brighten on the floor exactly where the shafts land."
             },
             "keywords": [
                 "god rays",
@@ -4508,9 +4064,6 @@
                 "css": ".letterpress span {\n  color: transparent;\n  background: linear-gradient(#00000012, #00000004);\n  -webkit-background-clip: text;\n  text-shadow:\n    calc(var(--lx) * 1px) calc(var(--ly) * 1px) 1px rgba(255,255,255,.85),\n    calc(var(--lx) * -1px) calc(var(--ly) * -1px) 2px rgba(60,40,20,.42);\n  animation: press-light 7s ease-in-out infinite alternate;\n}\n.letterpress:hover span { scale: .992; filter: contrast(1.15); }",
                 "react": null
             },
-            "prompts": {
-                "general": "Make type look physically stamped into warm paper. The glyphs themselves are nearly transparent — legibility comes only from a pale highlight on one side and a warm shadow on the other. Rotate that light source slowly so the relief reverses direction, and on hover deepen the impression by pressing the letters a fraction smaller with stronger contrast. Add a fine paper grain, no drop shadows on the panel."
-            },
             "keywords": [
                 "letterpress",
                 "emboss",
@@ -4539,9 +4092,6 @@
             "snippets": {
                 "css": ".rack-near { animation: pull-near 7.4s cubic-bezier(.65,0,.35,1) infinite; }\n.rack-far  { animation: pull-far  7.4s cubic-bezier(.65,0,.35,1) infinite; }\n@keyframes pull-near {\n  0%, 34%   { filter: blur(0);   opacity: 1;   scale: 1; }\n  50%, 84%  { filter: blur(6px); opacity: .42; scale: 1.03; }\n  100%      { filter: blur(0);   opacity: 1;   scale: 1; }\n}\n@keyframes pull-far { /* exact inverse — only one plane is ever sharp */ }",
                 "react": null
-            },
-            "prompts": {
-                "general": "Simulate a cinematic focus pull between two depth planes. Only one plane is ever sharp: as the near label resolves, the far label blurs, dims and grows fractionally, then they trade with an in-out curve on a slow loop. Bokeh circles behind them should swell and brighten exactly when their plane goes soft. Use blur, opacity and scale together — a plain crossfade will not read as a lens."
             },
             "keywords": [
                 "depth of field",
@@ -4572,9 +4122,6 @@
                 "css": ".eink i { animation: eink-flash 5.2s steps(1) infinite; }\n.eink span { animation: eink-settle 5.2s ease-out infinite; }\n@keyframes eink-flash {\n  0%, 8%   { opacity: 0; }\n  10%, 18% { opacity: 1; }   /* black frame */\n  20%, 100%{ opacity: 0; }\n}\n@keyframes eink-settle {\n  0%, 18% { opacity: 0; letter-spacing: .22em; filter: contrast(3); }\n  24%     { opacity: 1; transform: translate(1px,-1px); }\n  36%,100%{ opacity: 1; transform: none; letter-spacing: .08em; }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Simulate an electrophoretic e-ink refresh. The paper goes fully black for a beat (the classic inverse flash), then the word appears slightly offset and high-contrast before settling into the grain. Add a fine dither on the paper. This is not a fade-in — the flash is what makes it read as e-ink."
-            },
             "keywords": [
                 "eink",
                 "e-ink",
@@ -4602,9 +4149,6 @@
                 "css": ".flare b { animation: flare-travel 6.4s cubic-bezier(.65,0,.35,1) infinite; }\n.flare i,\n.flare em { animation: flare-bloom 6.4s ease-in-out infinite; }\n@keyframes flare-travel {\n  0%   { translate: -80px 0; }\n  100% { translate:  80px 0; }\n}\n@keyframes flare-bloom {\n  0%, 100% { opacity: .15; transform: scaleX(.4); }\n  50%      { opacity: 1;   transform: scaleX(1); }\n}",
                 "react": null
             },
-            "prompts": {
-                "general": "Build a cinematic anamorphic lens flare. A small white point travels across a black frame. As it crosses centre, a long horizontal streak blooms — cool blue one side, warm amber the other — plus two faint oval artifacts offset on the same axis. Soften with a 1px blur. This is a lens, not a shine sweep or a god-ray shaft."
-            },
             "keywords": [
                 "anamorphic",
                 "lens flare",
@@ -4631,9 +4175,6 @@
             "snippets": {
                 "css": ".lidar-plane { animation: lidar-plane 6s cubic-bezier(.65,0,.35,1) infinite; }\n.lidar-field i { animation: lidar-hit 6s cubic-bezier(.16,1,.3,1) infinite; }\n.lidar-field i:nth-child(n+6)  { animation-delay: .42s; }\n.lidar-field i:nth-child(n+11) { animation-delay: .84s; }\n@keyframes lidar-hit {\n  0%, 12% { opacity: .18; transform: translateY(0) scale(.7); }\n  22%, 70%{ opacity: 1;   transform: translateY(var(--lift, -6px)) scale(1); }\n  88%,100%{ opacity: .18; transform: none; }\n}",
                 "react": null
-            },
-            "prompts": {
-                "general": "Render a LiDAR sweep over a 5 by 4 point field. A thin cool scan plane travels top to bottom. Each row of points ignites as the plane crosses it — they lift a few pixels to imply depth, glow, then dim after the plane has passed. Vary the lift per column so the field reads as terrain, not a flat grid. This is a depth scan, not a radar ping."
             },
             "keywords": [
                 "lidar",
