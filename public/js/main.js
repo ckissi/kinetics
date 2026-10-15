@@ -1825,6 +1825,171 @@
     snap(0, 0);
   });
 
+  /* Velocity button — deformation is driven by pointer speed, not position. */
+  $$('.demo-velocity-zone').forEach((zone) => {
+    const btn = $('.demo-velocity-btn', zone);
+    const readout = $('b', zone);
+    if (!btn) return;
+
+    let lastX = 0;
+    let lastY = 0;
+    let lastTime = 0;
+    let settleTimer = null;
+
+    const reset = () => {
+      window.clearTimeout(settleTimer);
+      btn.classList.add('settling');
+      btn.style.setProperty('--stretch', '1');
+      btn.style.setProperty('--squash', '1');
+      btn.style.setProperty('--lean', '0deg');
+      if (readout) readout.textContent = 'VELOCITY 0.00';
+    };
+
+    zone.addEventListener('pointerenter', (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastTime = performance.now();
+      btn.classList.remove('settling');
+    });
+    zone.addEventListener('pointermove', (e) => {
+      const now = performance.now();
+      const dt = Math.max(12, now - lastTime);
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      const speed = Math.min(Math.hypot(dx, dy) / dt, 2.4);
+      const lean = Math.max(-7, Math.min(7, (dy / dt) * 9));
+      const stretch = 1 + speed * 0.1;
+      const squash = 1 - speed * 0.035;
+
+      btn.classList.remove('settling');
+      btn.style.setProperty('--stretch', stretch.toFixed(3));
+      btn.style.setProperty('--squash', squash.toFixed(3));
+      btn.style.setProperty('--lean', lean.toFixed(2) + 'deg');
+      if (readout) readout.textContent = 'VELOCITY ' + speed.toFixed(2);
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastTime = now;
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(reset, 110);
+    });
+    zone.addEventListener('pointerleave', reset);
+  });
+
+  /* Directional hover — seed the reveal at the nearest crossed edge. */
+  $$('.demo-direction-btn').forEach((btn) => {
+    const nearestEdge = (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = Math.max(0, Math.min(r.width, e.clientX - r.left));
+      const y = Math.max(0, Math.min(r.height, e.clientY - r.top));
+      const distances = [x, r.width - x, y, r.height - y];
+      const edge = distances.indexOf(Math.min(...distances));
+      const points = [
+        ['0%', (y / r.height) * 100 + '%'],
+        ['100%', (y / r.height) * 100 + '%'],
+        [(x / r.width) * 100 + '%', '0%'],
+        [(x / r.width) * 100 + '%', '100%'],
+      ];
+      btn.style.setProperty('--edge-x', points[edge][0]);
+      btn.style.setProperty('--edge-y', points[edge][1]);
+    };
+    btn.addEventListener('pointerenter', (e) => {
+      nearestEdge(e);
+      requestAnimationFrame(() => btn.classList.add('active'));
+    });
+    btn.addEventListener('pointerleave', (e) => {
+      nearestEdge(e);
+      btn.classList.remove('active');
+    });
+    btn.addEventListener('focus', () => btn.classList.add('active'));
+    btn.addEventListener('blur', () => btn.classList.remove('active'));
+  });
+
+  /* Gesture compass — a compact four-way marking menu. */
+  $$('.demo-compass').forEach((compass) => {
+    const origin = $('.demo-compass-origin', compass);
+    const options = $$('.demo-compass-option', compass);
+    const label = $(':scope > b', compass);
+    if (!origin || options.length !== 4) return;
+
+    let choosing = false;
+    let selected = -1;
+    let resetTimer = null;
+
+    const select = (index) => {
+      selected = index;
+      options.forEach((option, i) => option.classList.toggle('active', i === index));
+      if (label) label.textContent = index < 0 ? 'DRAG TO CHOOSE' : options[index].dataset.action.toUpperCase();
+    };
+    const update = (clientX, clientY) => {
+      const r = compass.getBoundingClientRect();
+      const dx = clientX - (r.left + r.width / 2);
+      const dy = clientY - (r.top + r.height / 2);
+      const distance = Math.hypot(dx, dy);
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const reach = Math.min(70, distance);
+      compass.style.setProperty('--angle', angle.toFixed(2));
+      compass.style.setProperty('--reach', reach.toFixed(1));
+
+      if (distance < 25) select(-1);
+      else if (angle >= -45 && angle < 45) select(1);
+      else if (angle >= 45 && angle < 135) select(2);
+      else if (angle >= -135 && angle < -45) select(0);
+      else select(3);
+    };
+    const commit = () => {
+      if (!choosing) return;
+      choosing = false;
+      compass.classList.remove('choosing');
+      compass.style.setProperty('--reach', 0);
+      if (selected < 0) {
+        select(-1);
+        return;
+      }
+      const option = options[selected];
+      option.classList.remove('active');
+      option.classList.add('committed');
+      if (label) label.textContent = option.dataset.action.toUpperCase() + ' · DONE';
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        option.classList.remove('committed');
+        select(-1);
+      }, 900);
+    };
+
+    origin.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      window.clearTimeout(resetTimer);
+      choosing = true;
+      compass.classList.add('choosing');
+      origin.setPointerCapture(e.pointerId);
+      update(e.clientX, e.clientY);
+    });
+    origin.addEventListener('pointermove', (e) => {
+      if (choosing) update(e.clientX, e.clientY);
+    });
+    origin.addEventListener('pointerup', commit);
+    origin.addEventListener('pointercancel', commit);
+    origin.addEventListener('keydown', (e) => {
+      const keys = { ArrowUp: 0, ArrowRight: 1, ArrowDown: 2, ArrowLeft: 3 };
+      if (!(e.key in keys)) return;
+      e.preventDefault();
+      options[keys[e.key]].click();
+    });
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        window.clearTimeout(resetTimer);
+        options.forEach((item) => item.classList.remove('active', 'committed'));
+        option.classList.add('committed');
+        if (label) label.textContent = option.dataset.action.toUpperCase() + ' · DONE';
+        resetTimer = window.setTimeout(() => {
+          option.classList.remove('committed');
+          select(-1);
+        }, 900);
+      });
+    });
+  });
+
   /* ---------------------------------------------------------
      Library search — filters cards by name, description and
      the keyword index in search-index.js. Each card gets its

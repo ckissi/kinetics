@@ -1,6 +1,6 @@
 @php
     // CSS, React, Prompt — in the order the tabs have always appeared.
-    // React is absent for the 54 CSS-only effects, so its tab is skipped
+    // React is absent for the 63 CSS-only effects, so its tab is skipped
     // entirely rather than rendered empty.
     $prompt = $effect->prompts->firstWhere('type', 'general');
 

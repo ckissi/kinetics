@@ -2,7 +2,7 @@
   <div class="wrap footer-grid">
     <div class="brand"><span class="dot"></span> Kinetics</div>
     <div class="dim mono" style="font-size: 12px">
-      153 motion patterns. CSS + React. MIT licensed.
+      162 motion patterns. CSS + React. MIT licensed.
     </div>
     <div class="footer-links mono">
       <a

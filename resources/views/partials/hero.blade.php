@@ -19,7 +19,7 @@
 
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">// 153 spring-driven interactions</div>
+          <div class="eyebrow">// 162 spring-driven interactions</div>
           <h1 class="h-display">
             Motion that<br />has <span class="accent">weight.</span>
           </h1>
@@ -53,7 +53,7 @@
               <input
                 type="search"
                 id="effect-search"
-                placeholder="Search 153 effects&hellip;"
+                placeholder="Search 162 effects&hellip;"
                 aria-label="Search effects"
                 autocomplete="off"
                 spellcheck="false"

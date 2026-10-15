@@ -1,6 +1,6 @@
 # Kinetics
 
-A gallery of **153 spring-physics micro-interactions** for web interfaces. Each effect ships with a live demo, a physics-style parameter readout, and copy-paste **CSS** + **React** code.
+A gallery of **162 spring-physics micro-interactions** for web interfaces. Each effect ships with a live demo, a physics-style parameter readout, and copy-paste **CSS** + **React** code.
 
 Built with Laravel 13, Livewire and MySQL.
 
@@ -34,7 +34,7 @@ database/
   migrations/              # the effect catalog schema
   seeders/
     EffectLibrarySeeder    # loads the free library
-    data/effects.json      # the 153 free effects, extracted from the old static site
+    data/effects.json      # the 162 free effects, extracted from the old static site
 resources/views/
   layouts/app.blade.php    # <head>, fonts, CSS links, analytics, scripts
   partials/                # header, hero, effect-card, physics + about, footer
@@ -91,7 +91,7 @@ Demo behaviour is still wired by class name in `public/js/main.js`, and styling
 for each demo lives in the matching `public/css/effects-*.css`, so a new effect
 needs a demo block in the JSON plus its CSS.
 
-Not every effect has all three samples — 99 of the 153 ship a React snippet.
+Not every effect has all three samples — 99 of the 162 ship a React snippet.
 Tabs render only for the samples that exist.
 
 Fonts (Archivo, Inter, JetBrains Mono) load from Google Fonts — self-host for

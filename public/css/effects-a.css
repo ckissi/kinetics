@@ -2432,3 +2432,225 @@
   outline: 2px solid var(--bone);
   outline-offset: 3px;
 }
+
+/* 52. Velocity button */
+.demo-velocity-zone {
+  display: grid;
+  justify-items: center;
+  gap: 13px;
+  width: 230px;
+  padding: 28px 16px 18px;
+}
+.demo-velocity-btn {
+  --stretch: 1;
+  --squash: 1;
+  --lean: 0deg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 174px;
+  height: 50px;
+  padding: 0 10px 0 17px;
+  border: 1px solid color-mix(in srgb, var(--amber) 35%, var(--line));
+  border-radius: 13px;
+  color: var(--bone);
+  background:
+    linear-gradient(115deg, color-mix(in srgb, var(--amber) 15%, transparent), transparent 52%),
+    var(--card-2);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform: rotate(var(--lean)) scale(var(--stretch), var(--squash));
+  transition: transform 90ms linear, border-color 0.24s ease;
+  will-change: transform;
+}
+.demo-velocity-btn.settling {
+  transition: transform 0.58s var(--glide), border-color 0.24s ease;
+}
+.demo-velocity-btn:hover {
+  border-color: var(--amber);
+}
+.demo-velocity-btn span {
+  font: 600 12px var(--font-body);
+  letter-spacing: -0.01em;
+}
+.demo-velocity-btn i {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border-radius: 8px;
+  color: var(--graphite);
+  background: var(--amber);
+  font-style: normal;
+  transform: rotate(calc(var(--lean) * -1));
+  transition: transform 0.18s ease;
+}
+.demo-velocity-zone > b {
+  color: var(--bone-faint);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+/* 53. Directional hover */
+.demo-direction-zone {
+  display: grid;
+  justify-items: center;
+  gap: 13px;
+}
+.demo-direction-btn {
+  --edge-x: 0%;
+  --edge-y: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 184px;
+  height: 56px;
+  overflow: hidden;
+  padding: 0 17px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--bone);
+  background: var(--card-2);
+  isolation: isolate;
+}
+.demo-direction-btn i {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at var(--edge-x) var(--edge-y), #ffc36b, var(--amber) 44%, #d56f00);
+  clip-path: circle(0 at var(--edge-x) var(--edge-y));
+  transition: clip-path 0.46s var(--glide);
+}
+.demo-direction-btn.active i {
+  clip-path: circle(165% at var(--edge-x) var(--edge-y));
+}
+.demo-direction-btn span {
+  font: 600 13px var(--font-body);
+}
+.demo-direction-btn b {
+  font-size: 16px;
+  transform: translate(-2px, 2px);
+  transition: transform 0.45s var(--spring), color 0.25s ease;
+}
+.demo-direction-btn.active {
+  color: var(--graphite);
+  border-color: var(--amber);
+}
+.demo-direction-btn.active b {
+  transform: translate(2px, -2px);
+}
+.demo-direction-zone > em {
+  color: var(--bone-faint);
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.16em;
+}
+
+/* 54. Gesture compass */
+.demo-compass {
+  --angle: -90;
+  --reach: 0;
+  position: relative;
+  width: 222px;
+  height: 142px;
+  touch-action: none;
+}
+.demo-compass-option {
+  position: absolute;
+  z-index: 2;
+  min-width: 43px;
+  padding: 6px 7px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--bone-faint);
+  background: color-mix(in srgb, var(--card-2) 90%, transparent);
+  font: 500 8px var(--font-mono);
+  letter-spacing: 0.08em;
+  transition:
+    transform 0.34s var(--spring),
+    color 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease,
+    opacity 0.22s ease;
+}
+.demo-compass-option.north { left: 50%; top: 0; transform: translateX(-50%); }
+.demo-compass-option.east { right: 0; top: 50%; transform: translateY(-50%); }
+.demo-compass-option.south { left: 50%; bottom: 12px; transform: translateX(-50%); }
+.demo-compass-option.west { left: 0; top: 50%; transform: translateY(-50%); }
+.demo-compass-option.north.active { transform: translateX(-50%) scale(1.1); }
+.demo-compass-option.east.active { transform: translateY(-50%) scale(1.1); }
+.demo-compass-option.south.active { transform: translateX(-50%) scale(1.1); }
+.demo-compass-option.west.active { transform: translateY(-50%) scale(1.1); }
+.demo-compass-option.active,
+.demo-compass-option.committed {
+  color: var(--graphite);
+  border-color: var(--amber);
+  background: var(--amber);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--amber) 38%, transparent);
+}
+.demo-compass-origin {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  width: 43px;
+  height: 43px;
+  border: 1px solid color-mix(in srgb, var(--amber) 48%, var(--line));
+  border-radius: 50%;
+  background: var(--card-2);
+  box-shadow:
+    0 0 0 7px color-mix(in srgb, var(--amber) 7%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition: transform 0.3s var(--spring), box-shadow 0.3s ease;
+}
+.demo-compass-origin i {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+.demo-compass.choosing .demo-compass-origin {
+  transform: translate(-50%, -50%) scale(0.88);
+  cursor: grabbing;
+  box-shadow: 0 0 0 11px color-mix(in srgb, var(--amber) 12%, transparent);
+}
+.demo-compass-vector {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--reach) * 1px);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--amber), color-mix(in srgb, var(--amber) 25%, transparent));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--amber) 45%, transparent);
+  transform: rotate(calc(var(--angle) * 1deg));
+  transform-origin: left center;
+  transition: width 80ms linear, transform 80ms linear, opacity 0.25s ease;
+  pointer-events: none;
+}
+.demo-compass:not(.choosing) .demo-compass-vector {
+  opacity: 0;
+}
+.demo-compass > b {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  color: var(--bone-faint);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+.demo-compass-option:focus-visible,
+.demo-compass-origin:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 2px;
+}

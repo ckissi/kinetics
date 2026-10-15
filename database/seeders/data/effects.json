@@ -2763,7 +2763,7 @@
             "demo_html": "<div class=\"demo-breaker\" aria-label=\"Circuit breaker\">\n              <div class=\"demo-breaker-leds\"><i></i><i></i><i></i></div>\n              <div class=\"demo-breaker-arm\"><b></b></div>\n              <div class=\"demo-breaker-state mono\"><b>CLOSED</b><em>OPEN</em><i>HALF</i></div>\n            </div>",
             "position": 49,
             "snippets": {
-                "css": ".breaker-arm {\n  transform-origin: 8px 50%;\n  animation: throw 6.8s cubic-bezier(.34,1.56,.64,1) infinite;\n}\n@keyframes throw {\n  0%, 18%  { rotate: 0deg; }    /* closed */\n  28%, 48% { rotate: 78deg; }   /* open */\n  58%, 74% { rotate: 38deg; }   /* half-open probe */\n  86%, 100%{ rotate: 0deg; }\n}",
+                "css": ".breaker-arm {\n  transform-origin: 4px 50%;\n  animation: throw 6.8s cubic-bezier(.34,1.56,.64,1) infinite;\n}\n@keyframes throw {\n  0%, 18%  { rotate: 0deg; }     /* closed: touches terminal */\n  28%, 48% { rotate: -48deg; }   /* open: lifts away */\n  58%, 74% { rotate: -24deg; }   /* half-open probe */\n  86%, 100%{ rotate: 0deg; }\n}",
                 "react": null
             },
             "keywords": [
@@ -4190,6 +4190,132 @@
                 "sensor",
                 "mapping"
             ]
+        },
+        {
+            "category": "interaction-and-input",
+            "slug": "velocity-button",
+            "name": "Velocity Button",
+            "description": "Pointer speed stretches the control along its travel vector",
+            "param": "velocity · damp 0.16",
+            "demo_html": "<div class=\"demo-velocity-zone\"><button class=\"demo-velocity-btn\"><span>Move through me</span><i aria-hidden=\"true\">↗</i></button><b class=\"mono\">VELOCITY 0.00</b></div>",
+            "position": 51,
+            "snippets": {
+                "css": ".velocity-btn {\n  --stretch: 1;\n  --squash: 1;\n  --lean: 0deg;\n  transform: rotate(var(--lean)) scale(var(--stretch), var(--squash));\n  transition: transform 90ms linear;\n}\n.velocity-btn.settling {\n  transition: transform .55s cubic-bezier(.16,1,.3,1);\n}",
+                "react": null
+            },
+            "keywords": ["velocity", "pointer speed", "cursor", "stretch", "direction", "skew", "responsive button", "kinetic control", "motion input", "speed sensitive", "dynamic affordance", "inertia"]
+        },
+        {
+            "category": "interaction-and-input",
+            "slug": "directional-hover",
+            "name": "Directional Hover",
+            "description": "The fill enters and exits from the pointer's nearest edge",
+            "param": "edge · clip 420ms",
+            "demo_html": "<div class=\"demo-direction-zone\"><button class=\"demo-direction-btn\"><i aria-hidden=\"true\"></i><span>Cross an edge</span><b aria-hidden=\"true\">↗</b></button><em class=\"mono\">ENTRY-AWARE</em></div>",
+            "position": 52,
+            "snippets": {
+                "css": ".direction-btn i {\n  position: absolute; inset: 0;\n  background: var(--amber);\n  clip-path: circle(0 at var(--edge-x) var(--edge-y));\n  transition: clip-path .42s cubic-bezier(.16,1,.3,1);\n}\n.direction-btn.active i {\n  clip-path: circle(160% at var(--edge-x) var(--edge-y));\n}",
+                "react": null
+            },
+            "keywords": ["direction aware", "hover", "edge detection", "entry direction", "wipe", "button fill", "clip path", "pointer enter", "pointer leave", "cta", "microinteraction", "spatial"]
+        },
+        {
+            "category": "interaction-and-input",
+            "slug": "gesture-compass",
+            "name": "Gesture Compass",
+            "description": "Drag from the centre toward an action, then release to commit",
+            "param": "gesture · 4-way snap",
+            "demo_html": "<div class=\"demo-compass\"><button class=\"demo-compass-option north\" data-action=\"Pin\">PIN</button><button class=\"demo-compass-option east\" data-action=\"Share\">SHARE</button><button class=\"demo-compass-option south\" data-action=\"Save\">SAVE</button><button class=\"demo-compass-option west\" data-action=\"Mute\">MUTE</button><span class=\"demo-compass-vector\" aria-hidden=\"true\"></span><button class=\"demo-compass-origin\" aria-label=\"Drag to choose an action\"><i></i></button><b class=\"mono\">DRAG TO CHOOSE</b></div>",
+            "position": 53,
+            "snippets": {
+                "css": ".compass-vector {\n  width: calc(var(--reach) * 1px);\n  transform: rotate(calc(var(--angle) * 1deg));\n  transform-origin: left center;\n}\n.compass-option.active {\n  color: var(--graphite); background: var(--amber);\n  transform: scale(1.08);\n}",
+                "react": null
+            },
+            "keywords": ["gesture", "radial menu", "directional action", "drag", "compass", "marking menu", "pie menu", "touch", "four way", "command", "release to select", "spatial input"]
+        },
+        {
+            "category": "feedback-and-state",
+            "slug": "retry-orbit",
+            "name": "Retry Orbit",
+            "description": "Failed attempts fall away before a final request lands cleanly",
+            "param": "backoff · 3 attempts",
+            "demo_html": "<div class=\"demo-retry-orbit\"><svg class=\"demo-retry-route\" viewBox=\"0 0 218 132\" aria-hidden=\"true\"><path d=\"M29 92 C29 38 65 20 109 20 C153 20 189 38 189 92\"></path></svg><div class=\"demo-retry-core\"><span>API</span><b></b></div><i class=\"attempt a1\">1</i><i class=\"attempt a2\">2</i><i class=\"attempt a3\">3</i><em class=\"mono\">RETRYING</em><strong class=\"mono\">CONNECTED</strong></div>",
+            "position": 51,
+            "snippets": {
+                "css": ".retry-route path {\n  fill: none;\n  stroke: rgba(255,255,255,.2);\n  stroke-dasharray: 3 4;\n}\n.attempt {\n  offset-path: path('M29 92 C29 38 65 20 109 20 C153 20 189 38 189 92');\n  animation: retry-attempt 6.6s cubic-bezier(.65,0,.35,1) infinite;\n}\n.attempt:nth-of-type(2) { animation-delay: .9s; }\n.attempt:nth-of-type(3) { animation-delay: 1.8s; }\n@keyframes retry-attempt {\n  0% { offset-distance: 0; opacity: 0; }\n  12%, 42% { opacity: 1; }\n  55%, 100% { offset-distance: 100%; opacity: 0; }\n}",
+                "react": null
+            },
+            "keywords": ["retry", "backoff", "network request", "api", "attempts", "reconnect", "failure recovery", "resilience", "connection", "async", "error state", "success after retry"]
+        },
+        {
+            "category": "feedback-and-state",
+            "slug": "speculative-race",
+            "name": "Speculative Race",
+            "description": "Two possible results race; the winner commits while the branch dissolves",
+            "param": "speculate · first valid",
+            "demo_html": "<div class=\"demo-spec-race\"><span class=\"demo-spec-source\">Q</span><svg class=\"demo-spec-routes\" viewBox=\"0 0 222 128\" aria-hidden=\"true\"><path class=\"top\" d=\"M47 64 C64 64 61 31 82 31 H151 C170 31 177 45 177 64\"></path><path class=\"bottom\" d=\"M47 64 C64 64 61 97 82 97 H151 C170 97 177 83 177 64\"></path></svg><b class=\"demo-spec-token top\">A</b><b class=\"demo-spec-token bottom\">B</b><span class=\"demo-spec-result\">COMMIT A</span><em class=\"mono\">SPECULATIVE</em></div>",
+            "position": 52,
+            "snippets": {
+                "css": ".spec-token.top {\n  offset-path: path('M47 64 C64 64 61 31 82 31 H151 C170 31 177 45 177 64');\n  animation: branch-win 5.8s cubic-bezier(.65,0,.35,1) infinite;\n}\n.spec-token.bottom {\n  offset-path: path('M47 64 C64 64 61 97 82 97 H151 C170 97 177 83 177 64');\n  animation: branch-lose 5.8s cubic-bezier(.65,0,.35,1) infinite;\n}\n@keyframes branch-win {\n  0%, 10% { offset-distance: 0%; opacity: 0; }\n  18% { offset-distance: 8%; opacity: 1; }\n  54%, 82% { offset-distance: 100%; opacity: 1; }\n  100% { offset-distance: 100%; opacity: 0; }\n}",
+                "react": null
+            },
+            "keywords": ["speculative", "race", "branches", "first result", "optimistic computation", "parallel", "winner", "cancel branch", "ai agents", "concurrency", "commit", "async result"]
+        },
+        {
+            "category": "feedback-and-state",
+            "slug": "partial-success-matrix",
+            "name": "Partial Success Matrix",
+            "description": "Independent jobs resolve in place while one failed cell retries",
+            "param": "batch · partial retry",
+            "demo_html": "<div class=\"demo-partial-matrix\"><div class=\"demo-matrix-grid\"><i></i><i></i><i></i><i></i><i></i><i></i></div><span class=\"mono\">5 COMPLETE</span><b class=\"mono\">1 RETRY</b></div>",
+            "position": 53,
+            "snippets": {
+                "css": ".matrix-grid i { animation: cell-resolve 6.2s cubic-bezier(.16,1,.3,1) infinite; }\n.matrix-grid i:nth-child(4) { animation-name: cell-retry; }\n@keyframes cell-resolve {\n  0%, 12% { background: var(--line); transform: scale(.7); }\n  32%, 82% { background: var(--ok); transform: scale(1); }\n  100% { background: var(--line); transform: scale(.7); }\n}\n@keyframes cell-retry {\n  30%, 52% { background: var(--danger); transform: rotate(12deg) scale(.86); }\n  68%, 82% { background: var(--ok); transform: none; }\n}",
+                "react": null
+            },
+            "keywords": ["partial success", "batch jobs", "matrix", "retry one", "async tasks", "bulk action", "progress", "job status", "failure recovery", "upload queue", "parallel work", "resolved cells"]
+        },
+        {
+            "category": "surface-and-motion",
+            "slug": "topographic-drift",
+            "name": "Topographic Drift",
+            "description": "Contour bands breathe like a landscape changing elevation",
+            "param": "contour · 10s field",
+            "demo_html": "<div class=\"demo-topographic\"><i></i><span class=\"mono\">ELEVATION +42</span></div>",
+            "position": 51,
+            "snippets": {
+                "css": ".topographic::before, .topographic i {\n  content: ''; position: absolute; inset: -35%;\n  background: repeating-radial-gradient(ellipse at 46% 52%, transparent 0 9px, currentColor 10px 11px);\n  animation: contour-drift 10s ease-in-out infinite alternate;\n}\n@keyframes contour-drift {\n  to { transform: translate(9%, -6%) rotate(8deg) scale(1.13); }\n}",
+                "react": null
+            },
+            "keywords": ["topographic", "contour", "terrain", "map lines", "elevation", "isoline", "field", "landscape", "ambient background", "organic lines", "depth", "cartography"]
+        },
+        {
+            "category": "surface-and-motion",
+            "slug": "pixel-sort-melt",
+            "name": "Pixel Sort Melt",
+            "description": "Ordered colour columns shear downward, then reassemble",
+            "param": "pixel sort · steps(14)",
+            "demo_html": "<div class=\"demo-pixel-sort\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>SIGNAL</span></div>",
+            "position": 52,
+            "snippets": {
+                "css": ".pixel-sort i {\n  background: linear-gradient(var(--amber), var(--wire), transparent);\n  animation: pixel-melt 5.4s steps(14) infinite;\n  animation-delay: calc(var(--i) * -90ms);\n}\n@keyframes pixel-melt {\n  0%, 12%, 88%, 100% { transform: translateY(-72%); }\n  48%, 62% { transform: translateY(34%) scaleY(1.8); }\n}",
+                "react": null
+            },
+            "keywords": ["pixel sort", "datamosh", "glitch", "columns", "digital melt", "signal", "compression artifact", "steps", "shear", "data art", "reassemble", "generative"]
+        },
+        {
+            "category": "surface-and-motion",
+            "slug": "voronoi-pulse",
+            "name": "Voronoi Pulse",
+            "description": "A cellular field lights outward from a moving nucleus",
+            "param": "cells · wave 6.8s",
+            "demo_html": "<div class=\"demo-voronoi\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span></span><b class=\"mono\">CELL FIELD</b></div>",
+            "position": 53,
+            "snippets": {
+                "css": ".voronoi i {\n  clip-path: polygon(25% 0, 78% 8%, 100% 42%, 82% 92%, 34% 100%, 0 65%, 7% 22%);\n  animation: cell-wave 6.8s cubic-bezier(.16,1,.3,1) infinite;\n  animation-delay: calc(var(--ring) * .18s);\n}\n@keyframes cell-wave {\n  0%, 16%, 78%, 100% { opacity: .16; transform: scale(.82); }\n  34%, 58% { opacity: .9; transform: scale(1); }\n}",
+                "react": null
+            },
+            "keywords": ["voronoi", "cellular", "cells", "tessellation", "wave", "nucleus", "generative pattern", "organic grid", "mesh", "pulse field", "biology", "ambient"]
         }
     ]
 }

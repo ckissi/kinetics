@@ -59,6 +59,9 @@ window.KINETICS_KEYWORDS = {
   'Focus Relay': ['focus ring', 'shared outline', 'morph', 'leap', 'form fields', 'input focus', 'relay', 'linear', 'apple focus', 'keyboard', 'active field', 'outline'],
   'Hold to Talk': ['voice', 'microphone', 'waveform', 'hold', 'record', 'audio', 'speech', 'whisper', 'voice note', 'press and hold', 'talk', 'dictation', 'capture'],
   'Lattice Snap': ['grid', 'snap', 'magnet', 'tile', 'drag', 'cells', 'lattice', 'align', 'figma', 'board', 'drop', 'spring snap'],
+  'Velocity Button': ['velocity', 'pointer speed', 'cursor', 'stretch', 'direction', 'skew', 'responsive button', 'kinetic control', 'motion input', 'speed sensitive', 'dynamic affordance', 'inertia'],
+  'Directional Hover': ['direction aware', 'hover', 'edge detection', 'entry direction', 'wipe', 'button fill', 'clip path', 'pointer enter', 'pointer leave', 'cta', 'microinteraction', 'spatial'],
+  'Gesture Compass': ['gesture', 'radial menu', 'directional action', 'drag', 'compass', 'marking menu', 'pie menu', 'touch', 'four way', 'command', 'release to select', 'spatial input'],
 
   /* ---- Feedback & State ---- */
   'Scramble Reveal': ['text effect', 'decode', 'matrix', 'hacker', 'glyphs', 'randomize', 'terminal', 'reveal', 'cipher', 'decrypt', 'headline', 'typing'],
@@ -111,6 +114,9 @@ window.KINETICS_KEYWORDS = {
   'Stale While Revalidate': ['swr', 'cache', 'stale', 'revalidate', 'fresh', 'react query', 'tanstack', 'next.js', 'local first', 'ghost value', 'fetch', 'http cache'],
   'Circuit Breaker': ['resilience', 'fault', 'trip', 'open closed', 'half open', 'probe', 'failure', 'hystrix', 'retry', 'outage', 'switch', 'protect'],
   'Trace Flame': ['flamegraph', 'distributed trace', 'spans', 'observability', 'opentelemetry', 'jaeger', 'waterfall', 'latency', 'request', 'profiling', 'apm', 'timing'],
+  'Retry Orbit': ['retry', 'backoff', 'network request', 'api', 'attempts', 'reconnect', 'failure recovery', 'resilience', 'connection', 'async', 'error state', 'success after retry'],
+  'Speculative Race': ['speculative', 'race', 'branches', 'first result', 'optimistic computation', 'parallel', 'winner', 'cancel branch', 'ai agents', 'concurrency', 'commit', 'async result'],
+  'Partial Success Matrix': ['partial success', 'batch jobs', 'matrix', 'retry one', 'async tasks', 'bulk action', 'progress', 'job status', 'failure recovery', 'upload queue', 'parallel work', 'resolved cells'],
 
   /* ---- Surface & Motion ---- */
   'Error Shake': ['validation error', 'wrong password', 'invalid input', 'form error', 'shake', 'wiggle', 'reject', 'deny', 'headshake', 'login failed', 'feedback', 'email'],
@@ -164,4 +170,7 @@ window.KINETICS_KEYWORDS = {
   'E-ink Refresh': ['eink', 'e-ink', 'electrophoretic', 'kindle', 'paper', 'flash', 'ghosting', 'remarkable', 'daylight', 'reader', 'inverse', 'settle'],
   'Anamorphic Flare': ['anamorphic', 'lens flare', 'cinematic', 'streak', 'jj abrams', 'horizontal flare', 'film', 'optics', 'highlight', 'widescreen', 'artifact', 'bloom'],
   'LiDAR Sweep': ['lidar', 'point cloud', 'depth map', 'scan', 'apple roomplan', 'mesh', 'spatial', '3d scan', 'plane', 'terrain', 'sensor', 'mapping'],
+  'Topographic Drift': ['topographic', 'contour', 'terrain', 'map lines', 'elevation', 'isoline', 'field', 'landscape', 'ambient background', 'organic lines', 'depth', 'cartography'],
+  'Pixel Sort Melt': ['pixel sort', 'datamosh', 'glitch', 'columns', 'digital melt', 'signal', 'compression artifact', 'steps', 'shear', 'data art', 'reassemble', 'generative'],
+  'Voronoi Pulse': ['voronoi', 'cellular', 'cells', 'tessellation', 'wave', 'nucleus', 'generative pattern', 'organic grid', 'mesh', 'pulse field', 'biology', 'ambient'],
 };

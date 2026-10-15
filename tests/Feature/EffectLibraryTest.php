@@ -21,10 +21,10 @@ class EffectLibraryTest extends TestCase
     public function test_the_seeder_loads_the_whole_library(): void
     {
         $this->assertSame(3, \App\Models\Category::count());
-        $this->assertSame(153, Effect::count());
+        $this->assertSame(162, Effect::count());
 
         // Every effect ships CSS; React is optional.
-        $this->assertSame(153, \App\Models\EffectSnippet::where('type', 'css')->count());
+        $this->assertSame(162, \App\Models\EffectSnippet::where('type', 'css')->count());
         $this->assertSame(99, \App\Models\EffectSnippet::where('type', 'react')->count());
 
         // Prompts are Pro content and arrive only via kinetics:sync-pro.
@@ -42,8 +42,8 @@ class EffectLibraryTest extends TestCase
 
         $html = $response->getContent();
 
-        $this->assertSame(153, substr_count($html, '<div class="card">'));
-        $this->assertSame(153, substr_count($html, '<div class="name">'));
+        $this->assertSame(162, substr_count($html, '<div class="card">'));
+        $this->assertSame(162, substr_count($html, '<div class="name">'));
         $this->assertSame(3, substr_count($html, 'class="gallery"'));
     }
 
@@ -89,7 +89,7 @@ class EffectLibraryTest extends TestCase
         $this->get('/pro')
             ->assertOk()
             ->assertSee('Kinetics Pro')
-            ->assertSee('153 prompts');
+            ->assertSee('162 prompts');
     }
 
     public function test_the_duplicated_pulse_badge_keeps_both_cards(): void

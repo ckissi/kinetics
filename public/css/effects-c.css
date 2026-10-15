@@ -2101,3 +2101,213 @@
   16%, 80% { opacity: 1; }
   92%, 100% { opacity: 0.35; }
 }
+
+/* 52. Topographic drift */
+.demo-topographic {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 214px;
+  height: 128px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: color-mix(in srgb, var(--amber) 42%, transparent);
+  background:
+    radial-gradient(circle at 48% 48%, color-mix(in srgb, var(--amber) 10%, transparent), transparent 48%),
+    #101012;
+  isolation: isolate;
+}
+.demo-topographic::before,
+.demo-topographic i {
+  content: "";
+  position: absolute;
+  inset: -38%;
+  z-index: -1;
+  border-radius: 48%;
+  background:
+    repeating-radial-gradient(
+      ellipse at 46% 52%,
+      transparent 0 9px,
+      currentColor 10px 11px,
+      transparent 12px 18px
+    );
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--amber) 16%, transparent));
+  animation: contour-drift 10s ease-in-out infinite alternate;
+}
+.demo-topographic i {
+  inset: -18%;
+  color: color-mix(in srgb, var(--wire) 24%, transparent);
+  background:
+    repeating-radial-gradient(
+      ellipse at 62% 37%,
+      transparent 0 13px,
+      currentColor 14px 15px,
+      transparent 16px 24px
+    );
+  animation: contour-counter 12s ease-in-out infinite alternate;
+}
+.demo-topographic span {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  color: var(--bone-dim);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-shadow: 0 1px 8px #000;
+}
+@keyframes contour-drift {
+  from { transform: translate(-5%, 4%) rotate(-4deg) scale(0.94); }
+  to { transform: translate(8%, -6%) rotate(8deg) scale(1.13); }
+}
+@keyframes contour-counter {
+  from { transform: translate(6%, -3%) rotate(5deg) scale(1.08); opacity: 0.45; }
+  to { transform: translate(-8%, 5%) rotate(-7deg) scale(0.9); opacity: 0.9; }
+}
+
+/* 53. Pixel sort melt */
+.demo-pixel-sort {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  width: 214px;
+  height: 128px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, #131316, #09090b),
+    var(--graphite);
+  isolation: isolate;
+}
+.demo-pixel-sort::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 4px, rgba(255, 255, 255, 0.09) 5px 6px);
+}
+.demo-pixel-sort i {
+  --i: 0;
+  width: 17px;
+  height: 116px;
+  margin-top: -70px;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0 4%,
+      #f4d2a4 5% 10%,
+      var(--amber) 12% 30%,
+      #b34922 32% 46%,
+      var(--wire) 48% 64%,
+      #353543 66% 74%,
+      transparent 78%
+    );
+  filter: saturate(0.82);
+  transform-origin: center top;
+  animation: pixel-melt 5.4s steps(14) infinite;
+  animation-delay: calc(var(--i) * -90ms);
+}
+.demo-pixel-sort i:nth-child(2) { --i: 1; width: 12px; }
+.demo-pixel-sort i:nth-child(3) { --i: 2; width: 20px; }
+.demo-pixel-sort i:nth-child(4) { --i: 3; width: 10px; }
+.demo-pixel-sort i:nth-child(5) { --i: 4; width: 18px; }
+.demo-pixel-sort i:nth-child(6) { --i: 5; width: 13px; }
+.demo-pixel-sort i:nth-child(7) { --i: 6; width: 19px; }
+.demo-pixel-sort i:nth-child(8) { --i: 7; width: 11px; }
+@keyframes pixel-melt {
+  0%, 10%, 90%, 100% { transform: translateY(-70%) scaleY(0.7); filter: saturate(0.5); }
+  34% { transform: translateY(-8%) scaleY(1.15); filter: saturate(1); }
+  52%, 66% { transform: translateY(42%) scaleY(1.85); filter: saturate(1.25); }
+  78% { transform: translateY(8%) scaleY(1); filter: saturate(0.8); }
+}
+.demo-pixel-sort span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  color: var(--bone);
+  font: 800 18px var(--font-display);
+  letter-spacing: 0.13em;
+  text-shadow: 0 3px 16px #000;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+/* 54. Voronoi pulse */
+.demo-voronoi {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 54px);
+  grid-template-rows: repeat(3, 38px);
+  place-content: center;
+  gap: 1px;
+  width: 214px;
+  height: 128px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 52% 46%, color-mix(in srgb, var(--wire) 13%, transparent), transparent 58%),
+    #0c0d10;
+}
+.demo-voronoi i {
+  --ring: 2;
+  display: block;
+  background:
+    radial-gradient(circle at 42% 38%, rgba(255, 255, 255, 0.14), transparent 24%),
+    color-mix(in srgb, var(--wire) 34%, #17191e);
+  clip-path: polygon(25% 0, 78% 8%, 100% 42%, 82% 92%, 34% 100%, 0 65%, 7% 22%);
+  opacity: 0.16;
+  transform: scale(0.82);
+  animation: cell-wave 6.8s var(--glide) infinite;
+  animation-delay: calc(var(--ring) * 0.18s);
+}
+.demo-voronoi i:nth-child(2),
+.demo-voronoi i:nth-child(4),
+.demo-voronoi i:nth-child(6),
+.demo-voronoi i:nth-child(8) { --ring: 1; }
+.demo-voronoi i:nth-child(5) {
+  --ring: 0;
+  background:
+    radial-gradient(circle at 42% 38%, rgba(255, 255, 255, 0.32), transparent 24%),
+    var(--amber);
+}
+.demo-voronoi i:nth-child(1) { transform: rotate(-8deg) scale(0.82); }
+.demo-voronoi i:nth-child(3) { transform: rotate(7deg) scale(0.82); }
+.demo-voronoi i:nth-child(7) { transform: rotate(6deg) scale(0.82); }
+.demo-voronoi i:nth-child(9) { transform: rotate(-6deg) scale(0.82); }
+.demo-voronoi > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--amber);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--amber);
+  transform: translate(-50%, -50%);
+  animation: nucleus-pulse 6.8s ease-out infinite;
+}
+.demo-voronoi > b {
+  position: absolute;
+  right: 9px;
+  bottom: 7px;
+  color: var(--bone-faint);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+@keyframes cell-wave {
+  0%, 12%, 80%, 100% { opacity: 0.16; scale: 0.82; filter: saturate(0.5); }
+  32%, 58% { opacity: 0.92; scale: 1; filter: saturate(1.2); }
+}
+@keyframes nucleus-pulse {
+  0%, 14% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  28% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  68% { opacity: 0; transform: translate(-50%, -50%) scale(8); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(8); }
+}
