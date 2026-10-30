@@ -1,5 +1,6 @@
 ---
 import SiteHead from '../components/SiteHead.astro';
+import Sidebar from '../components/Sidebar.astro';
 import '../styles/content.css';
 interface Props { title: string; description: string; breadcrumbs: { name: string; path: string }[]; article?: boolean; }
 const { title, description, breadcrumbs, article = false } = Astro.props;
@@ -9,6 +10,8 @@ const { title, description, breadcrumbs, article = false } = Astro.props;
   <head><SiteHead title={`${title} | Kinetics`} description={description} breadcrumbs={breadcrumbs} article={article} /><slot name="head" /></head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <Sidebar />
+    <div class="page-shell">
     <header class="article-header">
       <div class="wrap article-header-inner">
         <a class="brand" href="/" aria-label="Kinetics home"><span class="dot" aria-hidden="true"></span>Kinetics</a>
@@ -29,6 +32,7 @@ const { title, description, breadcrumbs, article = false } = Astro.props;
       <a href="/guides/css-spring-animation/">Spring guide</a>
       <a href="https://github.com/ckissi/kinetics" target="_blank" rel="noopener">Source on GitHub</a>
     </footer>
+    </div>
     <script>import '../scripts/examples.js';</script>
   </body>
 </html>

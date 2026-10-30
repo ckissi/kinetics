@@ -1,0 +1,210 @@
+---
+// Cross-promo: the other tools in the Colorion network, surfaced in a persistent
+// left sidebar. `?ref=` attributes the referral back to this site.
+const REF = 'kinetics.colorion.co';
+// `icon` is the inner markup of a 24x24 stroke icon — it is the only thing left
+// visible once the sidebar collapses to its icon rail.
+const colorionLinks = [
+  {
+    label: 'Text effects',
+    href: 'https://text-effects.colorion.co',
+    icon: '<path d="M4 7V5h16v2" /><path d="M12 5v14" /><path d="M9 19h6" />',
+  },
+  {
+    label: 'Colorion',
+    href: 'https://www.colorion.co',
+    icon: '<path d="M12 3s6 6.2 6 10a6 6 0 0 1-12 0c0-3.8 6-10 6-10Z" />',
+  },
+  {
+    label: '2 Color Combinations',
+    href: 'https://2colors.colorion.co',
+    icon: '<circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />',
+  },
+  {
+    label: 'Color Palettes',
+    href: 'https://colorpalettes.colorion.co',
+    icon: '<rect x="3" y="3" width="8" height="8" rx="1.5" /><rect x="13" y="3" width="8" height="8" rx="1.5" /><rect x="3" y="13" width="8" height="8" rx="1.5" /><rect x="13" y="13" width="8" height="8" rx="1.5" />',
+  },
+  {
+    label: 'Palette Generator',
+    href: 'https://palettegenerator.colorion.co',
+    icon: '<path d="M5 19 16 8" /><path d="m14 6 4 4 2-2-4-4-2 2Z" /><path d="M6 3v4M4 5h4M17 16v3M15.5 17.5h3" />',
+  },
+  {
+    label: 'Material Colors',
+    href: 'https://material.colorion.co',
+    icon: '<path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" />',
+  },
+  {
+    label: 'Mobile Palette',
+    href: 'https://mobilepalette.colorion.co',
+    icon: '<rect x="6" y="2.5" width="12" height="19" rx="2.5" /><path d="M10.5 18.5h3" />',
+  },
+  {
+    label: 'Gradients',
+    href: 'https://gradients.colorion.co',
+    icon: '<rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 15 15 3M8 21 21 8" />',
+  },
+  {
+    label: 'Gradient Buttons',
+    href: 'https://gradientbuttons.colorion.co',
+    icon: '<rect x="2.5" y="7" width="19" height="10" rx="5" /><path d="M7 17 17 7" />',
+  },
+  {
+    label: 'Animated Buttons',
+    href: 'https://animatedbuttons.colorion.co',
+    icon: '<rect x="2.5" y="6" width="14" height="9" rx="4.5" /><path d="m14 14 7 3-3 1-1 3-3-7Z" />',
+  },
+  {
+    label: 'Font Combinations',
+    href: 'https://fontcombinations.colorion.co',
+    icon: '<path d="M3 20 8 5l5 15M4.6 15.5h6.8" /><path d="M15 20V11h3.5a2.75 2.75 0 0 1 0 5.5H15" />',
+  },
+  {
+    label: 'CSS Toggles',
+    href: 'https://toggles.colorion.co',
+    icon: '<rect x="2.5" y="7" width="19" height="10" rx="5" /><circle cx="16.5" cy="12" r="2.75" />',
+  },
+  {
+    label: 'CSS Tooltips',
+    href: 'https://tooltips.colorion.co',
+    icon: '<path d="M4 4h16v11H13l-4 4v-4H4V4Z" />',
+  },
+  {
+    label: 'CSS Loaders',
+    href: 'https://cssloaders.colorion.co',
+    icon: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.9 2.9M15.5 15.5l2.9 2.9M18.4 5.6l-2.9 2.9M8.5 15.5l-2.9 2.9" />',
+  },
+];
+---
+
+<aside class="site-sidebar" aria-label="Colorion tools">
+  <a class="sidebar-brand" href="/" aria-label="Kinetics home">
+    <div class="sidebar-mark" aria-hidden="true">K</div>
+    <div>
+      <span class="mono">Kinetics</span>
+      <strong>Colorion Tools</strong>
+    </div>
+  </a>
+  <button
+    class="sidebar-collapse"
+    type="button"
+    aria-label="Collapse Colorion tools sidebar"
+    aria-controls="colorion-sidebar-nav"
+    aria-expanded="true"
+  >
+    ‹
+  </button>
+  <button
+    class="sidebar-toggle"
+    type="button"
+    aria-label="Open Colorion tools menu"
+    aria-controls="colorion-sidebar-nav"
+    aria-expanded="false"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav class="sidebar-nav" id="colorion-sidebar-nav">
+    {
+      colorionLinks.map((link) => (
+        <a
+          href={`${link.href}?ref=${REF}`}
+          target="_blank"
+          rel="noopener"
+          referrerpolicy="no-referrer-when-downgrade"
+          title={link.label}
+        >
+          <svg
+            class="sidebar-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            set:html={link.icon}
+          />
+          <span class="sidebar-label">{link.label}</span>
+        </a>
+      ))
+    }
+  </nav>
+</aside>
+
+<script>
+  // ---------- Mobile Colorion hamburger ----------
+  const sidebar = document.querySelector<HTMLElement>('.site-sidebar');
+  const sidebarToggle = document.querySelector<HTMLButtonElement>('.sidebar-toggle');
+  const sidebarCollapse = document.querySelector<HTMLButtonElement>('.sidebar-collapse');
+  const sidebarNav = document.getElementById('colorion-sidebar-nav');
+
+  if (sidebar && sidebarToggle && sidebarNav) {
+    const setSidebarOpen = (open: boolean) => {
+      sidebar.classList.toggle('is-open', open);
+      sidebarToggle.setAttribute('aria-expanded', String(open));
+      sidebarToggle.setAttribute(
+        'aria-label',
+        open ? 'Close Colorion tools menu' : 'Open Colorion tools menu'
+      );
+    };
+
+    sidebarToggle.addEventListener('click', () => {
+      setSidebarOpen(!sidebar.classList.contains('is-open'));
+    });
+
+    sidebarNav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => setSidebarOpen(false));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target as Node)) {
+        setSidebarOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+        setSidebarOpen(false);
+        sidebarToggle.focus();
+      }
+    });
+
+    // A menu opened on mobile must not stay open after resizing to desktop.
+    matchMedia('(max-width: 860px)').addEventListener('change', (e) => {
+      if (!e.matches) setSidebarOpen(false);
+    });
+  }
+
+  // ---------- Desktop sidebar collapse ----------
+  if (sidebar && sidebarCollapse) {
+    const STORAGE_KEY = 'colorion-sidebar-collapsed';
+
+    const setSidebarCollapsed = (collapsed: boolean) => {
+      document.documentElement.classList.toggle('sidebar-collapsed', collapsed);
+      sidebarCollapse.setAttribute('aria-expanded', String(!collapsed));
+      sidebarCollapse.setAttribute(
+        'aria-label',
+        collapsed ? 'Expand Colorion tools sidebar' : 'Collapse Colorion tools sidebar'
+      );
+      sidebarCollapse.textContent = collapsed ? '›' : '‹';
+      try {
+        localStorage.setItem(STORAGE_KEY, collapsed ? '1' : '0');
+      } catch {
+        // Ignore storage failures; the current interaction still works.
+      }
+    };
+
+    try {
+      setSidebarCollapsed(localStorage.getItem(STORAGE_KEY) === '1');
+    } catch {
+      setSidebarCollapsed(false);
+    }
+
+    sidebarCollapse.addEventListener('click', () => {
+      setSidebarCollapsed(!document.documentElement.classList.contains('sidebar-collapsed'));
+    });
+  }
+</script>

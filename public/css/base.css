@@ -206,75 +206,234 @@ input {
   color: var(--bone);
 }
 
-/* ---- Header dropdown (Colorion network) ---- */
-.nav-dropdown {
-  position: relative;
+/* ---- Persistent Colorion sidebar ---- */
+:root {
+  --sidebar-width: 248px;
+  --sidebar-collapsed-width: 72px;
 }
-.nav-dropdown-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--bone-dim);
-  font-size: 14px;
-  font-family: var(--font-body);
-  padding: 12px 6px;
-  min-height: 48px;
-  transition: color 0.2s ease;
-}
-.nav-dropdown-trigger:hover {
-  color: var(--bone);
-}
-.nav-dropdown-trigger .caret {
-  font-size: 15px;
-  transition: transform 0.3s var(--spring);
-}
-.nav-dropdown.open .nav-dropdown-trigger .caret {
-  transform: rotate(180deg);
-}
-.nav-dropdown.open .nav-dropdown-trigger {
-  color: var(--bone);
-}
-
-.nav-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 14px);
-  right: 0;
-  min-width: 220px;
-  padding: 8px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
+.site-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 70;
+  width: var(--sidebar-width);
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px) scale(0.98);
-  transform-origin: top right;
-  transition:
-    opacity 0.22s var(--glide),
-    transform 0.3s var(--spring),
-    visibility 0.22s;
-  z-index: 60;
+  gap: 20px;
+  padding: 18px 16px;
+  background: var(--graphite-2);
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+  transition: width 0.22s var(--glide);
 }
-.nav-dropdown.open .nav-dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
 }
-.nav-dropdown-menu a {
-  padding: 9px 12px;
-  border-radius: 7px;
-  font-size: 13px;
+.sidebar-brand span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--bone-faint);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sidebar-brand strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.sidebar-mark {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--amber), var(--amber-deep));
+  color: var(--graphite);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 900;
+}
+.sidebar-collapse {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  align-self: flex-end;
+  margin-top: -12px;
   color: var(--bone-dim);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: 600 20px/1 var(--font-mono);
   transition:
     background 0.15s ease,
+    border-color 0.15s ease,
     color 0.15s ease;
 }
-.nav-dropdown-menu a:hover {
-  background: var(--card-2);
+.sidebar-collapse:hover,
+.sidebar-collapse:focus-visible {
   color: var(--bone);
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+  border-color: color-mix(in srgb, var(--amber) 40%, transparent);
+  outline: none;
+}
+.sidebar-toggle {
+  display: none;
+}
+.sidebar-nav {
+  display: grid;
+  gap: 2px;
+}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px 10px;
+  color: var(--bone-dim);
+  font-size: 13px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+.sidebar-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  opacity: 0.75;
+}
+.sidebar-nav a:hover .sidebar-icon,
+.sidebar-nav a:focus-visible .sidebar-icon {
+  opacity: 1;
+  color: var(--amber);
+}
+.sidebar-nav a:hover,
+.sidebar-nav a:focus-visible {
+  color: var(--bone);
+  background: var(--card);
+  border-color: var(--line);
+  outline: none;
+}
+.page-shell {
+  min-width: 0;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.22s var(--glide);
+}
+
+@media (min-width: 861px) {
+  html.sidebar-collapsed .site-sidebar {
+    width: var(--sidebar-collapsed-width);
+    align-items: center;
+    overflow: hidden;
+  }
+  html.sidebar-collapsed .page-shell {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+  html.sidebar-collapsed .sidebar-brand {
+    justify-content: center;
+    padding-bottom: 16px;
+  }
+  html.sidebar-collapsed .sidebar-brand > div:not(.sidebar-mark),
+  html.sidebar-collapsed .sidebar-label {
+    display: none;
+  }
+  html.sidebar-collapsed .sidebar-nav {
+    width: 100%;
+    justify-items: center;
+  }
+  html.sidebar-collapsed .sidebar-nav a {
+    width: 40px;
+    justify-content: center;
+    padding-inline: 0;
+  }
+  html.sidebar-collapsed .sidebar-collapse {
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  /* The page's own header stays sticky; the Colorion bar scrolls away. */
+  .site-sidebar {
+    position: relative;
+    width: auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 10px 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    overflow: visible;
+  }
+  .sidebar-brand {
+    min-width: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .sidebar-collapse {
+    display: none;
+  }
+  .sidebar-toggle {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-content: center;
+    gap: 4px;
+    align-self: center;
+    color: var(--bone);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .sidebar-toggle span {
+    width: 16px;
+    height: 2px;
+    display: block;
+    background: currentColor;
+    border-radius: 999px;
+    transition:
+      transform 0.25s var(--spring),
+      opacity 0.2s ease;
+  }
+  .site-sidebar.is-open .sidebar-toggle span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .site-sidebar.is-open .sidebar-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+  .site-sidebar.is-open .sidebar-toggle span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+  .sidebar-nav {
+    display: none;
+    grid-column: 1 / -1;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .site-sidebar.is-open .sidebar-nav {
+    display: grid;
+  }
+  .site-sidebar.is-open {
+    position: fixed;
+    inset: 0;
+    align-content: start;
+    overflow-y: auto;
+  }
+  .page-shell {
+    margin-left: 0;
+  }
 }
 
 .btn-ghost {
@@ -475,7 +634,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .waitlist-inline-copy p { margin-top: 8px; color: var(--bone-dim); line-height: 1.6; }
 .waitlist-inline-copy strong { color: var(--bone); font-weight: 600; }
 .waitlist-inline .waitlist-form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.pro-banner { padding-block: 26px; border-block: 1px solid color-mix(in srgb, var(--amber) 40%, var(--line)); background: radial-gradient(ellipse at left, color-mix(in srgb, var(--amber) 13%, transparent), transparent 65%), var(--graphite-2); }
+.pro-banner { padding-block: 26px; }
+.pro-banner .waitlist-inline { padding: 24px 28px; border: 1px solid color-mix(in srgb, var(--amber) 40%, var(--line)); border-radius: var(--radius); background: radial-gradient(ellipse at left, color-mix(in srgb, var(--amber) 13%, transparent), transparent 65%), var(--graphite-2); }
+@media (max-width: 760px) { .pro-banner .waitlist-inline { padding: 20px; } }
 .code-modal-waitlist { flex: none; grid-template-columns: 1fr; gap: 12px; padding: 16px 18px; border-top: 1px solid color-mix(in srgb, var(--amber) 40%, var(--line)); background: radial-gradient(ellipse at top left, color-mix(in srgb, var(--amber) 12%, transparent), transparent 70%), var(--card); }
 .code-modal-waitlist .waitlist-inline-copy p { margin-top: 4px; font-size: 14px; }
 @media (max-width: 760px) { .waitlist-inline { grid-template-columns: 1fr; } .waitlist-form button { flex: 1 1 100%; } }

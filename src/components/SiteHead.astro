@@ -18,6 +18,13 @@ const schema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index,follow" />
     <title>{title}</title>
+
+    <!-- Restore the saved sidebar width before the first paint. -->
+    <script is:inline>
+      try {
+        document.documentElement.classList.toggle('sidebar-collapsed', localStorage.getItem('colorion-sidebar-collapsed') === '1');
+      } catch {}
+    </script>
     <link rel="canonical" href={canonical} />
     <meta
       name="description"

@@ -1160,26 +1160,6 @@
     el.addEventListener('mouseleave', () => el.classList.remove('in'));
   });
 
-  /* Header dropdown — Colorion network links */
-  $$('.nav-dropdown').forEach((drop) => {
-    const trigger = $('.nav-dropdown-trigger', drop);
-    const close = () => {
-      drop.classList.remove('open');
-      trigger.setAttribute('aria-expanded', 'false');
-    };
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = drop.classList.toggle('open');
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    document.addEventListener('click', (e) => {
-      if (!drop.contains(e.target)) close();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
-  });
-
   /* Mobile header menu */
   const header = $('.site-header');
   const menuToggle = header ? $('.nav-toggle', header) : null;
@@ -1192,11 +1172,6 @@
     header.classList.remove('menu-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Open menu');
-    mobileMenu.querySelectorAll('.nav-dropdown').forEach((drop) => {
-      drop.classList.remove('open');
-      const trigger = $('.nav-dropdown-trigger', drop);
-      if (trigger) trigger.setAttribute('aria-expanded', 'false');
-    });
     menuCloseTimer = setTimeout(() => {
       if (!header.classList.contains('menu-open')) {
         mobileMenu.hidden = true;

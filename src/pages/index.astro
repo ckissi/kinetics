@@ -2,6 +2,7 @@
 import body from "../content/body.html?raw";
 import SiteHead from "../components/SiteHead.astro";
 import HomeWaitlist from "../components/HomeWaitlist.astro";
+import Sidebar from "../components/Sidebar.astro";
 import { prepareLibrary } from "../lib/library.mjs";
 import { asset } from "../lib/assets.mjs";
 const library = prepareLibrary(body);
@@ -16,7 +17,9 @@ const [beforeWaitlist, afterWaitlist] = renderedBody.split("<!-- pro-waitlist --
 <html lang="en">
   <head><SiteHead title="Kinetics — CSS & React Spring Animation Examples" description={description} home /></head>
   <body>
-    <Fragment set:html={beforeWaitlist} /><HomeWaitlist /><Fragment set:html={afterWaitlist} />
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Sidebar />
+    <div class="page-shell"><Fragment set:html={beforeWaitlist} /><HomeWaitlist /><Fragment set:html={afterWaitlist} /></div>
     <script is:inline defer src={asset("/js/search-index.js")}></script>
     <script is:inline defer src={asset("/js/motion-visibility.js")}></script>
     <script is:inline defer src={asset("/js/main.js")}></script>
